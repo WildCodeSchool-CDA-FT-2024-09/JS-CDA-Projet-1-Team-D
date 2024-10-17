@@ -1,8 +1,8 @@
-import { ApolloServer } from '@apollo/server';
-import { startStandaloneServer } from '@apollo/server/standalone';
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
 
 import "reflect-metadata";
-import { AppDataSource } from './data-source';
+import { AppDataSource } from "./data-source";
 
 const typeDefs = `#graphql
   # Query list
@@ -13,7 +13,7 @@ const typeDefs = `#graphql
 
 const resolvers = {
   Query: {
-    hello: () => 'Hello, world!',
+    hello: () => "Hello, world!",
   },
 };
 
@@ -33,4 +33,4 @@ const resolvers = {
   });
 
   console.log(`🚀  Server ready at: ${url}`);
-})()
+})();

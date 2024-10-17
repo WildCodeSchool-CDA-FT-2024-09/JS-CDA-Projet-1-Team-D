@@ -11,6 +11,6 @@
     "esModuleInterop": true,
     "types": ["node"]
   },
-  "include": ["src/**/*"],                  // Inclut tous les fichiers TypeScript dans src/
-  "exclude": ["node_modules"]  
+  "include": ["src/**/*"], // Inclut tous les fichiers TypeScript dans src/
+  "exclude": ["node_modules"]
 }
