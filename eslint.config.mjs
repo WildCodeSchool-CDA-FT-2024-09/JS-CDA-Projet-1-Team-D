@@ -25,7 +25,7 @@ export default [
       prettier,
     },
 
-    ignores: ["node_modules/", "lint-staged.config.js"],
+    ignores: ["node_modules/", "pre-commit"],
 
     rules: {
       "prettier/prettier": "error",
