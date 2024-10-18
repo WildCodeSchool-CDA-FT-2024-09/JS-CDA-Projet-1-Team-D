@@ -20,3 +20,9 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .animation {
+    animation: none;
+  }
+}
