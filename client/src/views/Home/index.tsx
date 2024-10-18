@@ -1,8 +1,8 @@
 import Logo from "/Logo.svg";
-import "./App.css";
+import "./index.css";
 import Button from "@mui/joy/Button";
 
-function App() {
+export const Home = () => {
   return (
     <div className="container">
       <div className="logo-container">
@@ -22,6 +22,4 @@ function App() {
       </div>
     </div>
   );
-}
-
-export default App;
+};
