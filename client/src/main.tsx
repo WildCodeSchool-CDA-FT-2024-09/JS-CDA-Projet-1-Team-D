@@ -4,6 +4,7 @@ import { CssVarsProvider } from "@mui/joy/styles";
 import { ApolloProvider } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./views/Home/Home";
+import { Profile } from "./views/Profile/Profile";
 import { NoPage } from "./views/404/NoPage";
 import { Error } from "./views/Error/Error";
 // Theme personnalisé JoyUI
@@ -15,6 +16,11 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/profil",
+    element: <Profile />,
     errorElement: <Error />,
   },
   {
