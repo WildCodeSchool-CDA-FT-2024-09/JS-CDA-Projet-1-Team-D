@@ -1,31 +1,13 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-
   background-color: var(--joy-palette-primary-100);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 
   font-family: "Oxanium", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
-
-  background-image: url('./src/assets/Bubbles.svg');
-  background-repeat: round;
-  background-size: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -45,6 +27,7 @@ a:hover {
 }
 
 h1 {
+  margin: 0;
   font-family: "Londrina Solid", sans-serif;
   font-weight: 400;
   font-style: normal;

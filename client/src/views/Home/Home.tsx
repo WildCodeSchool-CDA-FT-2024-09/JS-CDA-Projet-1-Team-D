@@ -1,16 +1,15 @@
 import Logo from "/Logo.svg";
 import "./Home.css";
 import Button from "@mui/joy/Button";
-import CatsPhotos from "../../assets/Cats-Home-mobile.png";
+import { NavLink } from "react-router-dom";
 
 export const Home = () => {
   return (
-    <div className="container">
+    <div className="home-container">
       <div className="logo-container">
         <img src={Logo} className="logo" alt="Perfect Match logo" />
       </div>
-      <img src={CatsPhotos} alt="Photos of cats" />
-      <div className="content">
+      <div className="home-content">
         <h1>Trouve ton matou purr-fait</h1>
         <p>
           Rejoins nous pour trouver une relation qui va te faire ronronner ! 🐱
@@ -18,15 +17,19 @@ export const Home = () => {
         <Button
           size="lg"
           color="primary"
-          onClick={() => alert("JoyUI Fonctionne!")}
           variant="solid"
           className="connexion-button"
+          onClick={() => {
+            alert("redirect vers la page de connexion");
+          }}
         >
           Connexion
         </Button>
         <p>
           Je n'ai pas de compte <a>M'inscrire</a>
         </p>
+        // Test de changement de page
+        <NavLink to="/swipe">Clique pour revenir sur la page Swipe</NavLink>
       </div>
     </div>
   );
