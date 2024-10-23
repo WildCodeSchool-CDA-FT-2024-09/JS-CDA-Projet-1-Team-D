@@ -3,6 +3,8 @@
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+
+  color: var(--joy-palette-text-primary);
 }
 
 .container {
@@ -18,6 +20,11 @@
 
 .logo {
   animation: ease pulse 2s infinite;
+}
+
+.connexion-button {
+  background-color: var(--primary-color);
+  color: var(--joy-palette-text-primary) !important;
 }
 
 @keyframes pulse {

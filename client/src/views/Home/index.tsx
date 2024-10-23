@@ -12,12 +12,13 @@ export const Home = () => {
         <h1>Hello, ici le client de Purrfect Match!</h1>
         <p>Il y a encore tout à construire, bon courage 🐱</p>
         <Button
-          color="primary"
           size="lg"
+          color="primary"
           onClick={() => alert("JoyUI Fonctionne!")}
           variant="solid"
+          className="connexion-button"
         >
-          Bouton pour tester JoyUI
+          Connexion
         </Button>
       </div>
     </div>
