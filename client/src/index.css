@@ -18,10 +18,35 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+
+  font-family: "Oxanium", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+
+  background-image: url('./src/assets/Bubbles.svg');
+  background-repeat: round;
+  background-size: auto;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animation {
     animation: none;
   }
+}
+
+a {
+  cursor: pointer;
+  font-weight: bold;
+  color: var(--joy-palette-primary-500);
+}
+
+a:hover {
+  color: var(--joy-palette-primary-600);
+}
+
+h1 {
+  font-family: "Londrina Solid", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 4em;
 }
