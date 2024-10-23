@@ -1,5 +1,5 @@
 import Logo from "/Logo.svg";
-import "./index.css";
+import "./Home.css";
 import Button from "@mui/joy/Button";
 
 export const Home = () => {
