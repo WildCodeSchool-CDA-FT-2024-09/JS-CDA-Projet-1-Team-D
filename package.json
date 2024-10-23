@@ -1,0 +1,39 @@
+{
+  "name": "testbackend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "eslint --quiet --fix",
+      "prettier --write --ignore-unknown"
+    ],
+    "*.{json,html}": [
+      "prettier --write --ignore-unknown"
+    ]
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint",
+    "prepare": "husky"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "eslint": "^9.12.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.37.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.12",
+    "globals": "^15.11.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "prettier": "3.3.3",
+    "typescript-eslint": "^8.9.0"
+  },
+  "dependencies": {
+    "eslint-plugin-prettier": "^5.2.1"
+  }
+}

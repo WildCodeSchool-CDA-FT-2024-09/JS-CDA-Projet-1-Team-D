@@ -1,0 +1,42 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+
+  color: var(--joy-palette-text-primary);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.logo-container {
+  width: 300px;
+  height: 300px;
+}
+
+.logo {
+  animation: ease pulse 2s infinite;
+}
+
+.connexion-button {
+  background-color: var(--primary-color);
+  color: var(--joy-palette-text-primary) !important;
+}
+
+@keyframes pulse {
+  0% {
+    width: 90%;
+  }
+
+  50% {
+    width: 100%;
+  }
+
+  100% {
+    width: 90%;
+  }
+}
