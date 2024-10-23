@@ -1,0 +1,30 @@
+.profile-container {
+  width: 100dvw;
+}
+
+.top-profile-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.profile-title-page {
+  display: flex;
+}
+
+.save-icone {
+  height: 24px;
+}
+
+.profile-input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap : 12px;
+}
+
+.profile-input-container input,
+.profile-input-container select {
+  width: 70dvw;
+}
