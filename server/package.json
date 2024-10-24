@@ -5,7 +5,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "npm run compile && node ./dist/index.js",
+    "dev": "ts-node ./src/index.ts",
+    "seed": "ts-node ./db/seeder.ts"
   },
   "keywords": [],
   "author": "",

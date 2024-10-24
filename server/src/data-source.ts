@@ -1,6 +1,9 @@
 import { DataSource } from "typeorm";
-import { User } from "./entity/User";
+import { Cat } from "./cats/cat.entities";
+import { Like } from "./likes/like.entities";
+import { Interest } from "./interests/interest.entities";
 import * as dotenv from "dotenv";
+import { MeetingPlace } from "./meetingPlaces/meetingPlace.entities";
 
 dotenv.config();
 const { BACKEND_FILE } = process.env;
@@ -10,5 +13,5 @@ export const AppDataSource = new DataSource({
   database: `${BACKEND_FILE}`,
   synchronize: true,
   logging: true,
-  entities: [User],
+  entities: [Cat, Like, Interest, MeetingPlace],
 });
