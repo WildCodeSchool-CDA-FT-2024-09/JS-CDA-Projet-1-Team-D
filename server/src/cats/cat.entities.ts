@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  ManyToMany,
+  OneToMany,
+  PrimaryColumn,
+} from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import {
   IsEmail,
@@ -10,6 +17,7 @@ import {
   IsUrl,
 } from "class-validator";
 import { Like } from "../likes/like.entities";
+import { Interest } from "../interests/interest.entities";
 
 @ObjectType()
 @Entity()
@@ -101,4 +109,8 @@ export class Cat extends BaseEntity {
 
   @OneToMany(() => Like, (like) => like.cat_id2)
   likedBy: Like[];
+
+  @Field(() => [Interest])
+  @ManyToMany(() => Interest, (interest) => interest.cats)
+  interests?: Interest[];
 }
