@@ -41,11 +41,13 @@ export const Profile = () => {
         </section>
         <form className="profile-input-container">
           <Input
+            className="profile-color-text-input"
             placeholder="Nom"
             color="primary"
             startDecorator={<PetsIcon color="primary" />}
           />
           <Textarea
+            className="profile-color-text-input"
             color="primary"
             startDecorator={<DescriptionIcon color="primary" />}
             placeholder="Description"
@@ -55,12 +57,14 @@ export const Profile = () => {
             }}
           />
           <Input
+            className="profile-color-text-input"
             type="date"
             placeholder="Date de naissance"
             color="primary"
             startDecorator={<CakeIcon color="primary" />}
           />
           <Select
+            className="profile-color-text-input"
             startDecorator={<TransgenderIcon color="primary" />}
             color="primary"
             placeholder="Sexe"
@@ -80,16 +84,20 @@ export const Profile = () => {
             <Option value="other">Autre</Option>
           </Select>
           <Input
+            className="profile-color-text-input"
             placeholder="Couleur du poil"
             color="primary"
             startDecorator={<ColorLensIcon color="primary" />}
           />
           <Input
+            className="profile-color-text-input"
             placeholder="Location"
             color="primary"
             startDecorator={<LocationCityIcon color="primary" />}
           />
           <Select
+            className="profile-color-text-input"
+            placeholder="Sélectionnez des intérêts"
             startDecorator={<InterestsIcon color="primary" />}
             color="primary"
             multiple

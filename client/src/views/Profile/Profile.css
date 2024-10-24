@@ -28,3 +28,7 @@
 .profile-input-container select {
   width: 70dvw;
 }
+
+.profile-color-text-input {
+  color: var(--joy-palette-text-secondary) !important;
+}

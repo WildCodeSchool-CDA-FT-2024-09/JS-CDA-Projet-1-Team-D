@@ -18,6 +18,7 @@ export const theme = extendTheme({
         },
         text: {
           primary: "#414141",
+          secondary: "#0B0500",
         },
       },
     },
