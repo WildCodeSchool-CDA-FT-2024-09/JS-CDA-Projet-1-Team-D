@@ -9,7 +9,8 @@
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "types": ["node"]
+    "types": ["node"],
+    "resolveJsonModule": true
   },
   "include": ["src/**/*"], // Inclut tous les fichiers TypeScript dans src/
   "exclude": ["node_modules"]
