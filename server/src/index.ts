@@ -4,12 +4,12 @@ import { startStandaloneServer } from "@apollo/server/standalone";
 import "reflect-metadata";
 import { AppDataSource } from "./data-source";
 import { buildSchema } from "type-graphql";
-import SampleResolver from "./resolvers/sample.resolvers";
+import CatResolver from "./cats/cat.resolvers";
 
 (async () => {
   await AppDataSource.initialize();
   const schema = await buildSchema({
-    resolvers: [SampleResolver],
+    resolvers: [CatResolver],
   });
 
   const server = new ApolloServer({ schema });

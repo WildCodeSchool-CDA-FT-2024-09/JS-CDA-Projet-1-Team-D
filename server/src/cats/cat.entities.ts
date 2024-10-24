@@ -65,7 +65,7 @@ export class Cat extends BaseEntity {
   @IsOptional()
   @IsString()
   @IsIn(["mâle", "femelle", "autre"], {
-    message: "Le sexe doit être 'mâle', 'femelle', or 'autre'",
+    message: "Le sexe doit être 'mâle', 'femelle', ou 'autre'",
   })
   sexe: string;
 
