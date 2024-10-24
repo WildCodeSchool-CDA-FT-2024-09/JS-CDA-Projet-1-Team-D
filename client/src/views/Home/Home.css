@@ -1,9 +1,3 @@
-#root {
-  text-align: center;
-  color: var(--joy-palette-text-primary);
-  width: 100%;
-}
-
 .logo-container {
   width: 200px;
   height: 200px;
@@ -11,6 +5,10 @@
 
 .home-container {
   height: 100vh;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 
   background-image: url('./src/assets/Cats-Home-mobile.png'), url('./src/assets/Bubbles.svg');
   background-repeat: no-repeat;

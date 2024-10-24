@@ -7,7 +7,7 @@ export const Home = () => {
   return (
     <div className="home-container">
       <div className="logo-container">
-        <img src={Logo} className="logo" alt="Perfect Match logo" />
+        <img src={Logo} className="logo" alt="Purrfect Match logo" />
       </div>
       <div className="home-content">
         <h1>Trouve ton matou purr-fait</h1>
@@ -28,7 +28,6 @@ export const Home = () => {
         <p>
           Je n'ai pas de compte <a>M'inscrire</a>
         </p>
-        // Test de changement de page
         <NavLink to="/swipe">Clique pour revenir sur la page Swipe</NavLink>
       </div>
     </div>

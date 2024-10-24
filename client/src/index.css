@@ -1,5 +1,6 @@
 :root {
   background-color: var(--joy-palette-primary-100);
+  color: var(--joy-palette-text-primary);
 }
 
 body {
