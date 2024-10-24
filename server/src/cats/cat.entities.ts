@@ -82,10 +82,10 @@ export class Cat extends BaseEntity {
   profile_picture: string;
 
   @Field()
-  @Column({ type: "datetime", nullable: true })
+  @Column({ nullable: true })
   @IsOptional()
-  @IsDate()
-  available: Date;
+  @IsString()
+  available: string;
 
   @Field()
   @Column({ nullable: true })
