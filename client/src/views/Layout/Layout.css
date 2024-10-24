@@ -1,0 +1,44 @@
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+
+    @media (min-width: 800px) {
+        background-image: url('./src/assets/Bubbles.svg');
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+    }
+}
+
+.header {
+    position: sticky;
+    top: 0;
+    height: 80px;
+    background-color: white;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    height: 80px;
+    background-color: white;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: auto;
+}
+
+.layout-content {
+    max-width: 1280px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

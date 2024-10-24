@@ -15,6 +15,8 @@ export const theme = extendTheme({
           300: "#F7A990",
           // Orange primaire
           500: "#F6A377",
+          600: "#FF8544",
+          700: "#BC6232",
         },
         text: {
           primary: "#414141",

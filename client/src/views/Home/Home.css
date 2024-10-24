@@ -1,30 +1,36 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-
-  color: var(--joy-palette-text-primary);
-}
-
-.container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .logo-container {
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
+}
+
+.home-container {
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  background-image: url('./src/assets/Cats-Home-mobile.png'), url('./src/assets/Bubbles.svg');
+  background-repeat: no-repeat;
+  background-size: auto, cover;
+  background-position: 50% 40%, center;
 }
 
 .logo {
   animation: ease pulse 2s infinite;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .connexion-button {
-  background-color: var(--primary-color);
   color: var(--joy-palette-text-primary) !important;
+}
+
+.connexion-button:hover {
+  background-color: var(--joy-palette-primary-600) !important;
+}
+
+.home-content {
+  margin-top: 45vh;
 }
 
 @keyframes pulse {
