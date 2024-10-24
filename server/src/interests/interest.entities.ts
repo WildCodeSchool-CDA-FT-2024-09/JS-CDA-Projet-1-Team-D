@@ -7,7 +7,6 @@ import {
   PrimaryColumn,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
-import { IsString } from "class-validator";
 
 import { Cat } from "../cats/cat.entities";
 
@@ -20,7 +19,6 @@ export class Interest extends BaseEntity {
 
   @Field()
   @Column()
-  @IsString()
   name: string;
 
   @Field(() => [Cat])

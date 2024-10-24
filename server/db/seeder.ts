@@ -23,65 +23,67 @@ import meetingPlaces from "../data/meeting_place.json";
     await queryRunner.query("DELETE FROM sqlite_sequence");
 
     const savedInterests = await Promise.all(
-      interests.map(async (jsonEl) => {
+      interests.map(async (interestEl) => {
         const interest = new Interest();
 
-        interest.id = jsonEl.id;
-        interest.name = jsonEl.name;
+        interest.id = interestEl.id;
+        interest.name = interestEl.name;
 
         return await interest.save();
       })
     );
 
     await Promise.all(
-      cats.map(async (jsonEl) => {
+      cats.map(async (catEl) => {
         const cat = new Cat();
-        cat.id = jsonEl.id;
-        cat.name = jsonEl.name;
-        cat.available = jsonEl.available;
-        cat.birthday = new Date(jsonEl.birthday);
-        cat.breed = jsonEl.breed;
-        cat.city = jsonEl.localisation;
-        cat.description = jsonEl.description;
-        cat.email = jsonEl.email;
-        cat.hair_color = jsonEl.hair_color;
-        cat.interests = savedInterests.filter((svInt) => {
+        cat.id = catEl.id;
+        cat.name = catEl.name;
+        cat.available = catEl.available;
+        cat.birthday = new Date(catEl.birthday);
+        cat.breed = catEl.breed;
+        cat.city = catEl.localisation;
+        cat.description = catEl.description;
+        cat.email = catEl.email;
+        cat.hair_color = catEl.hair_color;
+        cat.interests = savedInterests.filter((savInt) => {
           const associatedInterests = catInterests.filter(
-            (el) => el.id === svInt.id
+            (assocIntEl) => assocIntEl.id === savInt.id
           );
-          const interestName = interests.filter((el) =>
-            associatedInterests.some((assoInt) => assoInt.id === el.id)
+          const interestName = interests.filter((interEl) =>
+            associatedInterests.some((assoInt) => assoInt.id === interEl.id)
           );
-          return interestName.some((el) => el.name === svInt.name);
+          return interestName.some(
+            (interNameEl) => interNameEl.name === savInt.name
+          );
         });
-        cat.password = jsonEl.password;
-        cat.profile_picture = jsonEl.profile_picture;
-        cat.role = jsonEl.role;
-        cat.sexe = jsonEl.gender;
+        cat.password = catEl.password;
+        cat.profile_picture = catEl.profile_picture;
+        cat.role = catEl.role;
+        cat.sexe = catEl.gender;
 
         return await cat.save();
       })
     );
 
     await Promise.all(
-      likes.map(async (jsonEl) => {
+      likes.map(async (likeEl) => {
         const like = new Like();
 
-        like.id = jsonEl.id;
-        like.cat_id1 = jsonEl.cat_id1;
-        like.cat_id2 = jsonEl.cat_id2;
-        like.isMatch = jsonEl.match;
+        like.id = likeEl.id;
+        like.cat_id1 = likeEl.cat_id1;
+        like.cat_id2 = likeEl.cat_id2;
+        like.isMatch = likeEl.match;
 
         return await like.save();
       })
     );
 
     await Promise.all(
-      meetingPlaces.map(async (jsonEl) => {
+      meetingPlaces.map(async (meetPlace) => {
         const meetingPlace = new MeetingPlace();
 
-        meetingPlace.id = jsonEl.id;
-        meetingPlace.name = jsonEl.name;
+        meetingPlace.id = meetPlace.id;
+        meetingPlace.name = meetPlace.name;
 
         return await meetingPlace.save();
       })
