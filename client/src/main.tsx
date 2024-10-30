@@ -12,7 +12,7 @@ import { Error } from "./views/Error/Error";
 
 import { theme } from "./theme";
 import { client } from "./services/client";
-import "./index.css";
+import "./style/index.css";
 import { Layout } from "./components/Layout/Layout";
 
 const router = createBrowserRouter([

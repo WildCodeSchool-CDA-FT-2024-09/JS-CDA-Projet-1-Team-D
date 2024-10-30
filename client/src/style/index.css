@@ -1,0 +1,61 @@
+@import "./variables.css";
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--content-font);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  margin: 0;
+  place-items: center;
+}
+
+main {
+  min-height: calc(100vh - 7.1rem);
+}
+
+h1 {
+  font-family: var(--title-font);
+  text-align: center;
+  font-weight: 400;
+  margin: 0.5rem;
+  padding: 1rem 0;
+}
+
+h2 {
+  font-family: var(--title-font);
+  text-align: center;
+  font-weight: 400;
+  margin: 0.5rem;
+  padding: 1rem 0;
+}
+
+p {
+  font-family: var(--content-font);
+  font-weight: 400;
+  padding: var(--padding-text);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 0.5rem;
+  overflow-x: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation {
+    animation: none;
+  }
+}
