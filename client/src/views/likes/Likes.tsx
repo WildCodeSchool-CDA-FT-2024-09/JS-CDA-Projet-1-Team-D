@@ -19,9 +19,12 @@ export const Likes = () => {
   if (error) return <p>Erreur</p>;
   if (data && data.likedCats)
     return (
-      <section className="likes-container">
+      <main className="likes-container">
         <section className="likes-title-page">
-          <h3>Mes coups de patte : {data.likedCats.length}</h3>
+          <h3>
+            Mes coups de patte :
+            <span className="liked-cats-count"> {data.likedCats.length}</span>
+          </h3>
           <Select
             className="select-likes"
             variant="soft"
@@ -44,6 +47,6 @@ export const Likes = () => {
             />
           ))}
         </section>
-      </section>
+      </main>
     );
 };

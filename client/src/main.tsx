@@ -10,11 +10,17 @@ import { Error } from "./views/Error/Error";
 import { theme } from "./theme";
 import { client } from "./services/client";
 import "./index.css";
+import { Likes } from "./views/likes/Likes";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
+    errorElement: <Error />,
+  },
+  {
+    path: "/likes",
+    element: <Likes />,
     errorElement: <Error />,
   },
   {
