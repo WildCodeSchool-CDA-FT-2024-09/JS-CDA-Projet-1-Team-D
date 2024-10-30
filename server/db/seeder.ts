@@ -33,7 +33,7 @@ import meetingPlaces from "../data/meeting_place.json";
       })
     );
 
-    await Promise.all(
+    const savedCats = await Promise.all(
       cats.map(async (catEl) => {
         const cat = new Cat();
         cat.id = catEl.id;
@@ -69,9 +69,12 @@ import meetingPlaces from "../data/meeting_place.json";
       likes.map(async (likeEl) => {
         const like = new Like();
 
+        const cat1 = savedCats.find((c) => c.id === likeEl.cat_id1) as Cat;
+        const cat2 = savedCats.find((c) => c.id === likeEl.cat_id2) as Cat;
+
         like.id = likeEl.id;
-        like.cat_id1 = likeEl.cat_id1;
-        like.cat_id2 = likeEl.cat_id2;
+        like.cat_id1 = cat1.id;
+        like.cat_id2 = cat2.id;
         like.isMatch = likeEl.match;
 
         return await like.save();
