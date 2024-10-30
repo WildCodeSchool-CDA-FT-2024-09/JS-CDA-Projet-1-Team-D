@@ -19,7 +19,7 @@ export const Likes = () => {
   if (error) return <p>Erreur</p>;
   if (data && data.likedCats)
     return (
-      <main className="likes-container">
+      <section className="likes-container">
         <section className="likes-title-page">
           <h3>
             Mes coups de patte :
@@ -47,6 +47,6 @@ export const Likes = () => {
             />
           ))}
         </section>
-      </main>
+      </section>
     );
 };
