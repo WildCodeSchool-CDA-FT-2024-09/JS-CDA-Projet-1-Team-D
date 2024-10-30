@@ -1,3 +1,3 @@
 export const Likes = () => {
-  return <div>Page de Likes</div>;
+  return <h1>Page de Likes</h1>;
 };

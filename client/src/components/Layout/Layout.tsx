@@ -5,8 +5,6 @@ import "./Layout.css";
 import { Outlet } from "react-router-dom";
 
 export const Layout = () => {
-  const isMobile = true;
-
   const connectedUser: ConnectedUser = {
     username: "Minouche",
     avatarUrl:
@@ -14,14 +12,16 @@ export const Layout = () => {
   };
 
   return (
-    <div className="layout-container">
-      <div className="layout-header">
+    <section className="layout-container">
+      <header className="layout-header">
         <Header {...connectedUser} />
-      </div>
-      <div className="layout-content">
+      </header>
+      <main className="layout-content">
         <Outlet />
-      </div>
-      <div className="layout-footer">{isMobile && <NavigationBar />}</div>
-    </div>
+      </main>
+      <footer className="layout-footer">
+        <NavigationBar />
+      </footer>
+    </section>
   );
 };

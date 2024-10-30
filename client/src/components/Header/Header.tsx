@@ -6,7 +6,7 @@ import { ConnectedUser } from "../../types/User";
 
 export const Header = ({ username, avatarUrl }: ConnectedUser) => {
   return (
-    <section className="header-container">
+    <nav className="header-container">
       <Link to="/settings" className="link-component">
         <div className="header-avatar">
           <Avatar
@@ -22,6 +22,6 @@ export const Header = ({ username, avatarUrl }: ConnectedUser) => {
       <Link to="/">
         <img src={Logo} className="header-logo" alt="Purrfect Match logo" />
       </Link>
-    </section>
+    </nav>
   );
 };

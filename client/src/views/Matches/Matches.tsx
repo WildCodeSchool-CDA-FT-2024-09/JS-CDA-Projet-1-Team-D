@@ -1,3 +1,3 @@
 export const Matches = () => {
-  return <div>Page de Matches</div>;
+  return <h1>Page de Matches</h1>;
 };

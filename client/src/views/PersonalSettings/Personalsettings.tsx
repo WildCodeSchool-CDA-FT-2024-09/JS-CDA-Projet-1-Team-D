@@ -1,3 +1,3 @@
 export const PersonalSettings = () => {
-  return <div>Page de personal settings</div>;
+  return <h1>Page de personal settings</h1>;
 };

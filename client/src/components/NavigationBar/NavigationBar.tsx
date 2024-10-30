@@ -15,21 +15,18 @@ const iconStyle = {
 export default function ManualNavbar() {
   const location = useLocation();
 
-  const getSelectedTab = () => {
-    const currentPage = location.pathname;
-
-    if (currentPage === "/matches") return 1;
-    if (currentPage === "/likes") return 2;
-    if (currentPage === "/settings") return 3;
-
-    return 0;
+  const activeTab = {
+    "/": 0,
+    "/matches": 1,
+    "/likes": 2,
+    "/settings": 3,
   };
 
   return (
     <Tabs
       aria-label="tabs"
       defaultValue={0}
-      value={getSelectedTab()}
+      value={activeTab[location.pathname as keyof typeof activeTab]}
       sx={{ bgcolor: "transparent" }}
     >
       <TabList
