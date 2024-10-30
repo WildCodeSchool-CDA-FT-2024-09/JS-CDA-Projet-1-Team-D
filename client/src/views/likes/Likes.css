@@ -1,0 +1,25 @@
+.likes-container {
+  width: 100dvw;
+}
+
+.likes-title-page {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 10px;
+}
+
+.select-likes {
+  height: 50%;
+  width: 30%;
+  color: var(--joy-palette-text-secondary) !important; 
+}
+
+.likes-cards {
+ display: grid;
+ grid-template-columns: repeat(auto-fit,
+ minmax(150px, 1fr));
+ gap: 12px;
+ padding-left: 10px;
+}
