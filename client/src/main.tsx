@@ -10,12 +10,17 @@ import { Error } from "./views/Error/Error";
 import { theme } from "./theme";
 import { client } from "./services/client";
 import "./index.css";
+import Profil from "./views/Profil/Profil";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
     errorElement: <Error />,
+  },
+  {
+    path: "/profil/:id",
+    element: <Profil />,
   },
   {
     path: "*",
