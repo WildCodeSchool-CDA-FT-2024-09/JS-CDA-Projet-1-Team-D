@@ -13,18 +13,18 @@ export const ProfileLikeCard = ({
   const age = today.getFullYear() - birthdate.getFullYear();
 
   return (
-    <section className="profile-card-container">
+    <article className="profile-card-container">
       <img
         className="profile-picture-avatar"
         src={profile_picture}
-        alt="photo de profil"
+        alt={`photo de profil de ${name}`}
       />
-      <section className="profile-card-text">
+      <div className="profile-card-text">
         <p className="profile-surname">{surname}</p>
-        <h2 className="profile-texts">
+        <h3 className="profile-texts">
           {name}, {age}
-        </h2>
-      </section>
-    </section>
+        </h3>
+      </div>
+    </article>
   );
 };

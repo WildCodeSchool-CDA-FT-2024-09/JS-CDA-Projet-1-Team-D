@@ -1,7 +1,5 @@
 import { ProfileLikeCard } from "../../components/ProfileCard/ProfileLikeCard";
 import { useLikedCatsQuery } from "../../generated/graphql-types";
-import Select from "@mui/joy/Select";
-import Option from "@mui/joy/Option";
 import "./Likes.css";
 
 export const Likes = () => {
@@ -20,19 +18,10 @@ export const Likes = () => {
     return (
       <section className="likes-container">
         <section className="likes-title-page">
-          <h3>
+          <h2>
             Mes coups de patte :
             <span className="liked-cats-count"> {data.likedCats.length}</span>
-          </h3>
-          <Select
-            className="select-likes"
-            variant="soft"
-            color="primary"
-            defaultValue="likes"
-          >
-            <Option value="likes">Likes</Option>
-            <Option value="matches">Matchs</Option>
-          </Select>
+          </h2>
         </section>
         <section className="likes-cards">
           {data.likedCats.map((cat) => (

@@ -16,12 +16,6 @@
   }
 }
 
-.select-likes {
-  height: 50%;
-  width: 30%;
-  color: var(--joy-palette-text-secondary) !important;
-}
-
 @media screen and (min-width: 768px) {
   .select-likes {
     width: 160px;
