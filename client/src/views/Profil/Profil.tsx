@@ -1,14 +1,26 @@
-import "../../index.css";
+import "../../style/index.css";
 import "./Profil.css";
 
 import { useGetCatByIdQuery } from "../../generated/graphql-types";
-import { Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, To, useParams } from "react-router-dom";
 
 export default function Profil() {
   const { id } = useParams<{ id: string }>();
   const { loading, error, data } = useGetCatByIdQuery({
     variables: { getCatByIdId: parseFloat(id!) },
   });
+
+  const convertTo24HourFormat = (time: string) => {
+    const [timePart, modifier] = time.split(" ");
+    const [hours, minutes] = timePart.split(":").map(Number);
+    let adjustedHours = hours;
+    if (modifier === "PM" && adjustedHours !== 12) {
+      adjustedHours += 12; // Convertir PM en format 24h
+    } else if (modifier === "AM" && adjustedHours === 12) {
+      adjustedHours = 0; // Convertir 12 AM en 0 heures
+    }
+    return `${adjustedHours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+  };
 
   if (loading) return <h1>Loading ...</h1>;
   if (error) return <p>Error: {error.message}</p>;
@@ -22,6 +34,9 @@ export default function Profil() {
       available,
       interests,
     } = data.getCatById;
+
+    const availableIn24h = convertTo24HourFormat(available);
+
     const birthDate = new Date(birthday);
     let age = new Date().getFullYear() - birthDate.getFullYear();
     const monthDifference = new Date().getMonth() - birthDate.getMonth();
@@ -34,7 +49,14 @@ export default function Profil() {
 
     return (
       <>
-        <section className="profil-section">
+        <article className="profil-section">
+          <Link to={-1 as To} className="return-link">
+            <img
+              src="/return-arrow.svg"
+              alt="Retour"
+              className="return-arrow"
+            />
+          </Link>
           <img
             className="profil-picture"
             src={profile_picture}
@@ -47,9 +69,9 @@ export default function Profil() {
             <h3 className="profil-surname">{surname}</h3>
             <footer className="profil-description">
               <h3>Description: </h3>
-              <p>{description}</p>
+              <p className="description">{description}</p>
               <h3>Disponibilité: </h3>
-              <p>{available}</p>
+              <p>{availableIn24h}</p>
               <h3>Centres d'intérêts :</h3>
               <ul className="interest-list">
                 {interests?.map((interest) => (
@@ -58,7 +80,7 @@ export default function Profil() {
               </ul>
             </footer>
           </section>
-        </section>
+        </article>
       </>
     );
   }

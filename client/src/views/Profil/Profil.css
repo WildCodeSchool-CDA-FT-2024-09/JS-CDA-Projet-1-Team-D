@@ -7,6 +7,21 @@
   justify-content: center;
   overflow: hidden;
 }
+.return-link {
+  border: 2px solid #F38347;
+  border-radius: 20px;
+  position: absolute;
+  top: 5rem;
+  left: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.return-arrow {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
 
 .profil-picture {
   position: absolute;
@@ -20,7 +35,7 @@
 
 .profil-content {
   position: absolute;
-  bottom: 1rem;
+  bottom: 9rem;
   width: 90%;
   max-width: 400px;
   text-align: left;
@@ -48,19 +63,18 @@
   width: 100%;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: left;
-
-  p {
-    margin-top: 0.2rem;
-    overflow: hidden;
-    display: -webkit-box;
-    display: box;
-    -webkit-box-orient: vertical;
-    box-orient: vertical;
-    -webkit-line-clamp: 2;
-    line-clamp: 2;
-    text-overflow: ellipsis;
-    white-space: normal;
-  }
+}
+.description {
+  margin-top: 0.2rem;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  text-overflow: ellipsis;
+  white-space: normal;
+  line-height: 1.2rem;
+  max-height: calc(1.5rem * 2);
 }
 
 .profil-description h3 {
