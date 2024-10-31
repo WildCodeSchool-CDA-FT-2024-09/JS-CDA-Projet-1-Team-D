@@ -19,11 +19,11 @@ export class Like extends BaseEntity {
   @Column({ default: false })
   isMatch: boolean;
 
-  @Field(() => Cat)
+  @Field({ nullable: true })
   @ManyToOne(() => Cat, (cat) => cat.likedCats)
   cat_id1: number;
 
-  @Field(() => Cat)
+  @Field({ nullable: true })
   @ManyToOne(() => Cat, (cat) => cat.likedBy)
   cat_id2: number;
 }
