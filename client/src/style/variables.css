@@ -1,0 +1,21 @@
+:root {
+    /* Couleurs */
+    --color-primary: #F6A377;
+    --color-primary-light: #F7A990;
+    --color-secondary: #FBCFD9;
+    --color-background: #FEFDF9;
+    --color-white: #FEFDF9;
+    --color-black: #141414;
+    --color-grey: #414141;
+    --color-text: var(--color-grey);
+
+    /* Espacements */
+    --padding-small: 8px;
+    --padding-medium: 16px;
+    --padding-large: 24px;
+    --padding-text: var(--padding-small);
+
+    /* Polices */
+    --content-font: "Oxanium", sans-serif;
+    --title-font: "Londrina Solid", sans-serif;
+}
