@@ -28,8 +28,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean };
   Int: { input: number; output: number };
   Float: { input: number; output: number };
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  DateTimeISO: { input: any; output: any };
+  DateTimeISO: { input: Date; output: Date };
 };
 
 export type Cat = {
@@ -43,13 +42,14 @@ export type Cat = {
   hair_color: Scalars["String"]["output"];
   id: Scalars["Float"]["output"];
   interests?: Maybe<Array<Interest>>;
-  likedBy?: Maybe<Array<Cat>>;
-  likedCats?: Maybe<Array<Cat>>;
+  likedBy: Array<Like>;
+  likedCats: Array<Like>;
   name: Scalars["String"]["output"];
   password: Scalars["String"]["output"];
   profile_picture: Scalars["String"]["output"];
   role: Scalars["String"]["output"];
   sexe: Scalars["String"]["output"];
+  surname: Scalars["String"]["output"];
 };
 
 export type Interest = {
@@ -57,6 +57,14 @@ export type Interest = {
   cats: Array<Cat>;
   id: Scalars["Float"]["output"];
   name: Scalars["String"]["output"];
+};
+
+export type Like = {
+  __typename?: "Like";
+  cat_id1?: Maybe<Array<Cat>>;
+  cat_id2?: Maybe<Array<Cat>>;
+  id: Scalars["Float"]["output"];
+  isMatch: Scalars["Boolean"]["output"];
 };
 
 export type LogginInfosInput = {
@@ -75,7 +83,12 @@ export type MutationLoginArgs = {
 
 export type Query = {
   __typename?: "Query";
-  getCatResolvers: Array<Cat>;
+  fullcats?: Maybe<Array<Cat>>;
+  likedCats?: Maybe<Array<Cat>>;
+};
+
+export type QueryLikedCatsArgs = {
+  catId: Scalars["Int"]["input"];
 };
 
 export type LoginMutationVariables = Exact<{
@@ -85,6 +98,22 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = {
   __typename?: "Mutation";
   login: { __typename?: "Cat"; id: number };
+};
+
+export type LikedCatsQueryVariables = Exact<{
+  catId: Scalars["Int"]["input"];
+}>;
+
+export type LikedCatsQuery = {
+  __typename?: "Query";
+  likedCats?: Array<{
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    birthday: Date;
+    profile_picture: string;
+    surname: string;
+  }> | null;
 };
 
 export const LoginDocument = gql`
@@ -134,101 +163,6 @@ export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutation,
   LoginMutationVariables
 >;
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
-export type Maybe<T> = T | null;
-export type InputMaybe<T> = Maybe<T>;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]?: Maybe<T[SubKey]>;
-};
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
-  [SubKey in K]: Maybe<T[SubKey]>;
-};
-export type MakeEmpty<
-  T extends { [key: string]: unknown },
-  K extends keyof T,
-> = { [_ in K]?: never };
-export type Incremental<T> =
-  | T
-  | {
-      [P in keyof T]?: P extends " $fragmentName" | "__typename" ? T[P] : never;
-    };
-const defaultOptions = {} as const;
-/** All built-in and custom scalars, mapped to their actual values */
-export type Scalars = {
-  ID: { input: string; output: string };
-  String: { input: string; output: string };
-  Boolean: { input: boolean; output: boolean };
-  Int: { input: number; output: number };
-  Float: { input: number; output: number };
-  DateTimeISO: { input: Date; output: Date };
-};
-
-export type Cat = {
-  __typename?: "Cat";
-  available: Scalars["String"]["output"];
-  birthday: Scalars["DateTimeISO"]["output"];
-  breed: Scalars["String"]["output"];
-  city: Scalars["String"]["output"];
-  description: Scalars["String"]["output"];
-  email: Scalars["String"]["output"];
-  hair_color: Scalars["String"]["output"];
-  id: Scalars["Float"]["output"];
-  interests: Array<Interest>;
-  likedBy: Array<Like>;
-  likedCats: Array<Like>;
-  name: Scalars["String"]["output"];
-  password: Scalars["String"]["output"];
-  profile_picture: Scalars["String"]["output"];
-  role: Scalars["String"]["output"];
-  sexe: Scalars["String"]["output"];
-  surname: Scalars["String"]["output"];
-};
-
-export type Interest = {
-  __typename?: "Interest";
-  cats: Array<Cat>;
-  id: Scalars["Float"]["output"];
-  name: Scalars["String"]["output"];
-};
-
-export type Like = {
-  __typename?: "Like";
-  cat_id1: Cat;
-  cat_id2: Cat;
-  id: Scalars["Float"]["output"];
-  isMatch: Scalars["Boolean"]["output"];
-};
-
-export type Query = {
-  __typename?: "Query";
-  fullcats?: Maybe<Array<Cat>>;
-  likedCats?: Maybe<Array<Cat>>;
-};
-
-export type QueryLikedCatsArgs = {
-  catId: Scalars["Int"]["input"];
-};
-
-export type LikedCatsQueryVariables = Exact<{
-  catId: Scalars["Int"]["input"];
-}>;
-
-export type LikedCatsQuery = {
-  __typename?: "Query";
-  likedCats?: Array<{
-    __typename?: "Cat";
-    id: number;
-    name: string;
-    birthday: Date;
-    profile_picture: string;
-    surname: string;
-  }> | null;
-};
-
 export const LikedCatsDocument = gql`
   query LikedCats($catId: Int!) {
     likedCats(catId: $catId) {
