@@ -27,10 +27,6 @@ export class Cat extends BaseEntity {
 
   @Field()
   @Column()
-  surname: string;
-
-  @Field()
-  @Column()
   name: string;
 
   @Field()
