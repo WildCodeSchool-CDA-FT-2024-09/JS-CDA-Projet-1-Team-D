@@ -29,7 +29,7 @@ function ConnexionPage() {
 
   return (
     <div className="bg-co-ctn">
-      <main className="main-co-ctn">
+      <div className="main-co-ctn">
         <div className="co-ctn-large">
           <section className="co-ctn-txt">
             <h1>Trouves ton matou purr-fait</h1>
@@ -64,7 +64,7 @@ function ConnexionPage() {
             </Button>
           </form>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
