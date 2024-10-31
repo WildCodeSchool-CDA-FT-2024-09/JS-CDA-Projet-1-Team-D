@@ -1,0 +1,49 @@
+@import "./variables.css";
+
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--content-font);
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+h1 {
+  font-family: var(--title-font);
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-family: var(--title-font);
+  text-align: center;
+}
+
+p {
+  font-family: var(--content-font);
+  font-weight: 400;
+  padding: var(--padding-text);
+}
+
+::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-secondary);
+  border-radius: 0.5rem;
+  overflow-x: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animation {
+    animation: none;
+  }
+}

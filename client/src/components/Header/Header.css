@@ -1,0 +1,25 @@
+.header-container {
+    width: 100%;
+    height: 100%;
+    padding: 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-avatar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+}
+
+.header-logo {
+    width: 80px;
+    cursor: pointer;
+}
+
+.link-component {
+    text-decoration: none;
+    color: initial;
+}

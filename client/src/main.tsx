@@ -5,17 +5,39 @@ import { ApolloProvider } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { NoPage } from "./views/404/NoPage";
+import { Matches } from "./views/Matches/Matches";
+import { Likes } from "./views/Likes/Likes";
+import { PersonalSettings } from "./views/PersonalSettings/Personalsettings";
 import { Error } from "./views/Error/Error";
-// Theme personnalisé JoyUI
+
 import { theme } from "./theme";
 import { client } from "./services/client";
-import "./index.css";
+import "./style/index.css";
+import { Layout } from "./components/Layout/Layout";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Layout />,
     errorElement: <Error />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
+      },
+      {
+        path: "/matches",
+        element: <Matches />,
+      },
+      {
+        path: "/likes",
+        element: <Likes />,
+      },
+      {
+        path: "/settings",
+        element: <PersonalSettings />,
+      },
+    ],
   },
   {
     path: "*",
