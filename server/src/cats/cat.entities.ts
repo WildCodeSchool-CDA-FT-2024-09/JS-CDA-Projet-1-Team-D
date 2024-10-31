@@ -27,6 +27,10 @@ export class Cat extends BaseEntity {
 
   @Field()
   @Column()
+  surname: string;
+
+  @Field()
+  @Column()
   name: string;
 
   @Field()
@@ -69,9 +73,11 @@ export class Cat extends BaseEntity {
   @Column({ default: "user" })
   role: string;
 
+  @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id1)
   likedCats: Like[];
 
+  @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id2)
   likedBy: Like[];
 

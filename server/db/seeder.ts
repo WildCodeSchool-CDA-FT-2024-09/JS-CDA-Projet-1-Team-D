@@ -33,7 +33,7 @@ import meetingPlaces from "../data/meeting_place.json";
       })
     );
 
-    const saveCats = await Promise.all(
+    const savedCats = await Promise.all(
       cats.map(async (catEl) => {
         const cat = new Cat();
         cat.id = catEl.id;
@@ -61,6 +61,7 @@ import meetingPlaces from "../data/meeting_place.json";
         cat.profile_picture = catEl.profile_picture;
         cat.role = catEl.role;
         cat.sexe = catEl.gender;
+        cat.surname = catEl.surname;
 
         return await cat.save();
       })
@@ -69,8 +70,9 @@ import meetingPlaces from "../data/meeting_place.json";
     await Promise.all(
       likes.map(async (likeEl) => {
         const like = new Like();
-        const cat1 = saveCats.find((cat) => cat.id === likeEl.cat_id1) as Cat;
-        const cat2 = saveCats.find((cat) => cat.id === likeEl.cat_id2) as Cat;
+
+        const cat1 = savedCats.find((c) => c.id === likeEl.cat_id1) as Cat;
+        const cat2 = savedCats.find((c) => c.id === likeEl.cat_id2) as Cat;
 
         like.id = likeEl.id;
         like.cat_id1 = cat1;

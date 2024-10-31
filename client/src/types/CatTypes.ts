@@ -1,3 +1,11 @@
+export type LikedCat = {
+  __typename?: "Cat";
+  id: number;
+  name: string;
+  birthday: Date;
+  surname: string;
+  profile_picture: string;
+};
 export type Cat = {
   id: number;
   email: string;

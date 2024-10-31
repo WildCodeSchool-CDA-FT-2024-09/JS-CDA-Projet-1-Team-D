@@ -42,6 +42,8 @@ export type Cat = {
   hair_color: Scalars["String"]["output"];
   id: Scalars["Float"]["output"];
   interests?: Maybe<Array<Interest>>;
+  likedBy: Array<Like>;
+  likedCats: Array<Like>;
   name: Scalars["String"]["output"];
   password: Scalars["String"]["output"];
   profile_picture: Scalars["String"]["output"];
@@ -57,6 +59,51 @@ export type Interest = {
   name: Scalars["String"]["output"];
 };
 
+export type Like = {
+  __typename?: "Like";
+  cat_id1: Cat;
+  cat_id2: Cat;
+  id: Scalars["Float"]["output"];
+  isMatch: Scalars["Boolean"]["output"];
+};
+
+export type Query = {
+  __typename?: "Query";
+  fullcats?: Maybe<Array<Cat>>;
+  likedCats?: Maybe<Array<Cat>>;
+};
+
+export type QueryLikedCatsArgs = {
+  catId: Scalars["Int"]["input"];
+};
+
+export type LikedCatsQueryVariables = Exact<{
+  catId: Scalars["Int"]["input"];
+}>;
+
+export type LikedCatsQuery = {
+  __typename?: "Query";
+  likedCats?: Array<{
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    birthday: Date;
+    profile_picture: string;
+    surname: string;
+  }> | null;
+};
+
+export const LikedCatsDocument = gql`
+  query LikedCats($catId: Int!) {
+    likedCats(catId: $catId) {
+      id
+      name
+      birthday
+      profile_picture
+      surname
+    }
+  }
+`;
 export type Query = {
   __typename?: "Query";
   getCatById?: Maybe<Cat>;
@@ -117,71 +164,68 @@ export const GetCatByIdDocument = gql`
 `;
 
 /**
- * __useGetCatByIdQuery__
+ * __useLikedCatsQuery__
  *
- * To run a query within a React component, call `useGetCatByIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCatByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `useLikedCatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useLikedCatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useGetCatByIdQuery({
+ * const { data, loading, error } = useLikedCatsQuery({
  *   variables: {
- *      getCatByIdId: // value for 'getCatByIdId'
+ *      catId: // value for 'catId'
  *   },
  * });
  */
-export function useGetCatByIdQuery(
+export function useLikedCatsQuery(
   baseOptions: Apollo.QueryHookOptions<
-    GetCatByIdQuery,
-    GetCatByIdQueryVariables
+    LikedCatsQuery,
+    LikedCatsQueryVariables
   > &
-    (
-      | { variables: GetCatByIdQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
+    ({ variables: LikedCatsQueryVariables; skip?: boolean } | { skip: boolean })
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<GetCatByIdQuery, GetCatByIdQueryVariables>(
-    GetCatByIdDocument,
+  return Apollo.useQuery<LikedCatsQuery, LikedCatsQueryVariables>(
+    LikedCatsDocument,
     options
   );
 }
-export function useGetCatByIdLazyQuery(
+export function useLikedCatsLazyQuery(
   baseOptions?: Apollo.LazyQueryHookOptions<
-    GetCatByIdQuery,
-    GetCatByIdQueryVariables
+    LikedCatsQuery,
+    LikedCatsQueryVariables
   >
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<GetCatByIdQuery, GetCatByIdQueryVariables>(
-    GetCatByIdDocument,
+  return Apollo.useLazyQuery<LikedCatsQuery, LikedCatsQueryVariables>(
+    LikedCatsDocument,
     options
   );
 }
-export function useGetCatByIdSuspenseQuery(
+export function useLikedCatsSuspenseQuery(
   baseOptions?:
     | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<GetCatByIdQuery, GetCatByIdQueryVariables>
+    | Apollo.SuspenseQueryHookOptions<LikedCatsQuery, LikedCatsQueryVariables>
 ) {
   const options =
     baseOptions === Apollo.skipToken
       ? baseOptions
       : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<GetCatByIdQuery, GetCatByIdQueryVariables>(
-    GetCatByIdDocument,
+  return Apollo.useSuspenseQuery<LikedCatsQuery, LikedCatsQueryVariables>(
+    LikedCatsDocument,
     options
   );
 }
-export type GetCatByIdQueryHookResult = ReturnType<typeof useGetCatByIdQuery>;
-export type GetCatByIdLazyQueryHookResult = ReturnType<
-  typeof useGetCatByIdLazyQuery
+export type LikedCatsQueryHookResult = ReturnType<typeof useLikedCatsQuery>;
+export type LikedCatsLazyQueryHookResult = ReturnType<
+  typeof useLikedCatsLazyQuery
 >;
-export type GetCatByIdSuspenseQueryHookResult = ReturnType<
-  typeof useGetCatByIdSuspenseQuery
+export type LikedCatsSuspenseQueryHookResult = ReturnType<
+  typeof useLikedCatsSuspenseQuery
 >;
-export type GetCatByIdQueryResult = Apollo.QueryResult<
-  GetCatByIdQuery,
-  GetCatByIdQueryVariables
+export type LikedCatsQueryResult = Apollo.QueryResult<
+  LikedCatsQuery,
+  LikedCatsQueryVariables
 >;
