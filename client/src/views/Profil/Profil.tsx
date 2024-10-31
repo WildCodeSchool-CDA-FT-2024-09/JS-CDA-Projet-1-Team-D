@@ -37,15 +37,9 @@ export default function Profil() {
 
     const availableIn24h = convertTo24HourFormat(available);
 
-    const birthDate = new Date(birthday);
-    let age = new Date().getFullYear() - birthDate.getFullYear();
-    const monthDifference = new Date().getMonth() - birthDate.getMonth();
-    if (
-      monthDifference < 0 ||
-      (monthDifference === 0 && new Date().getDate() < birthDate.getDate())
-    ) {
-      age--;
-    }
+    const today = new Date();
+    const birthdate = new Date(birthday);
+    const age = today.getFullYear() - birthdate.getFullYear();
 
     return (
       <>

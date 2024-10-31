@@ -1,9 +1,9 @@
 .profil-section {
   position: relative;
   width: 100vw;
-  height: 100vh;
+  height: 76vh;
   display: flex;
-  align-items: center;
+  align-items:center;
   justify-content: center;
   overflow: hidden;
 }
@@ -11,7 +11,7 @@
   border: 2px solid #F38347;
   border-radius: 20px;
   position: absolute;
-  top: 5rem;
+  top: 2rem;
   left: 20px;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
 
 .profil-content {
   position: absolute;
-  bottom: 9rem;
+  bottom: 0;
   width: 90%;
   max-width: 400px;
   text-align: left;
@@ -65,7 +65,6 @@
   text-align: left;
 }
 .description {
-  margin-top: 0.2rem;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -78,14 +77,12 @@
 }
 
 .profil-description h3 {
-  margin-top: 0.7rem;
   text-align: left;
   color: var(--joy-palette-primary-500);
 }
 
 .interest-list {
   list-style: none;
-  padding: 0;
   display: flex;
   gap: 0.7rem;
   flex-wrap: wrap;
