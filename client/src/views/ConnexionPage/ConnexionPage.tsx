@@ -28,47 +28,43 @@ function ConnexionPage() {
   if (loading) return <p>Loading...</p>;
 
   return (
-    <div className="container-xxl">
-      <div className="container-xl">
-        <div className="connexion-container">
-          <div className="connexion-text">
+    <div className="bg-co-ctn">
+      <main className="main-co-ctn">
+        <div className="co-ctn-large">
+          <section className="co-ctn-txt">
             <h1>Trouves ton matou purr-fait</h1>
-            <p className="connexion-paragraph">
+            <p className="co-ctn-p">
               Rejoins nous pour trouver une relation qui va te faire ronronner !
             </p>
-          </div>
+          </section>
           <form onSubmit={handleSubmit}>
-            <div className="input-box">
-              <Input
-                className="form-input"
-                color="primary"
-                placeholder="Email"
-                variant="outlined"
-                name="email"
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-              <Input
-                className="form-input"
-                color="primary"
-                placeholder="Mot de passe"
-                variant="outlined"
-                name="password"
-                type="text"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-              <p className="error">{error?.message}</p>
-            </div>
-            <div className="btn-box">
-              <Button className="connexion-btn" type="submit">
-                Me connecter &rarr;
-              </Button>
-            </div>
+            <Input
+              className="co-ctn-form-input"
+              color="primary"
+              placeholder="Email"
+              variant="outlined"
+              name="email"
+              type="text"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <Input
+              className="co-ctn-form-input"
+              color="primary"
+              placeholder="Mot de passe"
+              variant="outlined"
+              name="password"
+              type="text"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <p className="co-ctn-error">{error?.message}</p>
+            <Button className="co-ctn-btn" type="submit">
+              Me connecter &rarr;
+            </Button>
           </form>
         </div>
-      </div>
+      </main>
     </div>
   );
 }

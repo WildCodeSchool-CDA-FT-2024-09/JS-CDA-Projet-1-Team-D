@@ -1,7 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Londrina+Solid&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap');
-
-.container-xxl {
+.bg-co-ctn {
   width: 100dvw;
   height: 100dvh;
   display: flex;
@@ -10,28 +7,29 @@
   background-size: auto, cover;
   background-position: 50% 40%, center;
   font-family: "Oxanium", sans-serif;
-  justify-content: center;
+  justify-content: center; 
 }
 
-.container-xl {
-  width: 90vw;
-  height: 92vh;
+.main-co-ctn {
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: start;
   align-items: center;
   padding-left: 5em;
 }
 
-.connexion-container {
-  width: 18vw;
+.co-ctn-large {
+  width: 30vw;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: column;
   text-align: left;
 }
 
-.connexion-paragraph {
-  width: 17em;
+.co-ctn-p {
+  width: 16em;
+  text-align: left;
 }
 
 h1 {
@@ -41,59 +39,61 @@ h1 {
   font-style: normal;
   line-height: 1em;
   font-size: 4em;
+  text-align: left;
 }
 
-.input-box {
-  margin-bottom: 2em;
-}
-
-.form-input {
+.co-ctn-form-input {
   color: var(--joy-palette-text-secondary) !important;
   width: 15em;
   margin-bottom: 0.5em;
 }
 
+.co-ctn-txt {
+  width: 275px;
+}
 
-.connexion-btn {
+.co-ctn-btn {
   font-family: "Oxanium", sans-serif;
   background-color: var(--primary-color);
   color: var(--joy-palette-text-primary) !important;
 }
 
-.connexion-btn:hover {
+.co-ctn-btn:hover {
   background-color: var(--primary-color-50);
 }
 
-.error {
+.co-ctn-error {
   color: red;
   min-height: 1em;
 }
 
 @media (max-width: 768px) {
-  .container-xxl {
+  .bg-co-ctn {
     background-position: 50% 20%;
   }
 
-  .container::after {
-    backdrop-filter: blur(10px); 
-    -webkit-backdrop-filter: blur(10px);
-    z-index: 1;
-  }
-
-  .container-xl {
+  .main-co-ctn {
+    backdrop-filter: blur(5px); 
     justify-content: center;
     align-items: flex-end;
     padding-left: 0;
     z-index: 2;
   }
 
-  .connexion-container {
-    width: 34vw;
+  .co-ctn-large {
+    width: 100vw;
+    text-align: center;
+    align-items: center;
     padding-bottom: 7rem;
   }
   
-  .connexion-btn {
+  .co-ctn-btn {
     width: 17em;
+  }
+
+  .co-ctn-p {
+    width: 85%;
+    display: inline-block;
   }
 
   h1 {
