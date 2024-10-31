@@ -6,7 +6,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Home } from "./views/Home/Home";
 import { NoPage } from "./views/404/NoPage";
 import { Matches } from "./views/Matches/Matches";
-import { Likes } from "./views/likes/Likes";
+import { Likes } from "./views/Likes/Likes";
 import { PersonalSettings } from "./views/PersonalSettings/Personalsettings";
 import { Error } from "./views/Error/Error";
 

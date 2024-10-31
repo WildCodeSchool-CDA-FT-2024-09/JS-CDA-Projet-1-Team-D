@@ -7,7 +7,7 @@
 }
 
 .layout-header {
-    z-index: 1;
+    z-index: 2;
     position: sticky;
     top: 0;
     height: 80px;
@@ -18,6 +18,7 @@
 }
 
 .layout-footer {
+    z-index: 2;
     position: sticky;
     bottom: 0;
     height: 80px;
@@ -26,7 +27,6 @@
     justify-content: center;
     align-items: center;
     margin-top: auto;
-    margin-bottom: 20px;
 }
 
 .layout-content {
