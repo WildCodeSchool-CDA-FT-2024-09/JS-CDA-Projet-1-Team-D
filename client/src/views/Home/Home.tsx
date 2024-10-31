@@ -1,8 +1,11 @@
 import Logo from "/Logo.svg";
 import "./Home.css";
 import Button from "@mui/joy/Button";
+import { useNavigate } from "react-router-dom";
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="container">
       <div className="logo-container">
@@ -14,7 +17,7 @@ export const Home = () => {
         <Button
           size="lg"
           color="primary"
-          onClick={() => alert("JoyUI Fonctionne!")}
+          onClick={() => navigate("/login")}
           variant="solid"
           className="connexion-button"
         >
