@@ -11,3 +11,14 @@ export const GET_LIKED_CATS = gql`
     }
   }
 `;
+
+export const GET_MATCHES_CATS = gql`
+  query MatchedCats($catId: Int!) {
+    matchedCats(catId: $catId) {
+      id
+      name
+      surname
+      birthday
+    }
+  }
+`;
