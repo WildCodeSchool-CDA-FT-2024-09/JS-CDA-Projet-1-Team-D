@@ -14,7 +14,6 @@ export const Likes = () => {
     },
   });
 
-  // console.log("je suis les data", data.likedCats)
   if (loading) return <h1>Loading ...</h1>;
   if (error) return <p>Erreur</p>;
   if (data && data.likedCats)
