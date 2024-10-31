@@ -21,9 +21,9 @@ export class Like extends BaseEntity {
 
   @Field({ nullable: true })
   @ManyToOne(() => Cat, (cat) => cat.likedCats)
-  cat_id1: number;
+  cat_id1: Cat;
 
   @Field({ nullable: true })
   @ManyToOne(() => Cat, (cat) => cat.likedBy)
-  cat_id2: number;
+  cat_id2: Cat;
 }

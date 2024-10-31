@@ -27,6 +27,10 @@ export class Cat extends BaseEntity {
 
   @Field()
   @Column()
+  surname: string;
+
+  @Field()
+  @Column()
   name: string;
 
   @Field()
@@ -65,13 +69,13 @@ export class Cat extends BaseEntity {
   @Column({ default: "user" })
   role: string;
 
-  @Field(() => [Cat], { nullable: true })
+  @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id1)
-  likedCats?: Cat[];
+  likedCats?: Like[];
 
-  @Field(() => [Cat], { nullable: true })
+  @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id2)
-  likedBy?: Cat[];
+  likedBy?: Like[];
 
   @Field(() => [Interest], { nullable: true })
   @ManyToMany(() => Interest, (interest) => interest.cats)

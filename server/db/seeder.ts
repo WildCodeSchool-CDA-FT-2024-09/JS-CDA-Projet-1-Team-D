@@ -60,6 +60,7 @@ import meetingPlaces from "../data/meeting_place.json";
         cat.profile_picture = catEl.profile_picture;
         cat.role = catEl.role;
         cat.sexe = catEl.gender;
+        cat.surname = catEl.surname;
 
         return await cat.save();
       })
@@ -73,8 +74,8 @@ import meetingPlaces from "../data/meeting_place.json";
         const cat2 = savedCats.find((c) => c.id === likeEl.cat_id2) as Cat;
 
         like.id = likeEl.id;
-        like.cat_id1 = cat1.id;
-        like.cat_id2 = cat2.id;
+        like.cat_id1 = cat1;
+        like.cat_id2 = cat2;
         like.isMatch = likeEl.match;
 
         return await like.save();
