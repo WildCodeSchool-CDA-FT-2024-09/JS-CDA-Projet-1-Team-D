@@ -23,20 +23,22 @@ function ConnexionPage() {
     if (!email || !password) return;
 
     login(email, password);
+    setEmail("");
+    setPassword("");
   }
 
   if (loading) return <p>Loading...</p>;
 
   return (
     <div className="bg-co-ctn">
-      <div className="main-co-ctn">
-        <div className="co-ctn-large">
-          <section className="co-ctn-txt">
+      <header className="header-co-ctn">
+        <div className="main-co-ctn">
+          <main className="co-ctn-txt">
             <h1>Trouves ton matou purr-fait</h1>
             <p className="co-ctn-p">
               Rejoins nous pour trouver une relation qui va te faire ronronner !
             </p>
-          </section>
+          </main>
           <form onSubmit={handleSubmit}>
             <Input
               className="co-ctn-form-input"
@@ -64,7 +66,7 @@ function ConnexionPage() {
             </Button>
           </form>
         </div>
-      </div>
+      </header>
     </div>
   );
 }
