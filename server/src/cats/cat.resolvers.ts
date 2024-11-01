@@ -35,13 +35,13 @@ export default class CatResolver {
     });
 
     if (!cat) {
-      throw new Error("L'utilisateur n'est pas enregistré.");
+      throw new Error("Chat passe pas...");
     }
 
     const passwordValidation = await argon2.verify(cat.password, password);
 
     if (!passwordValidation) {
-      throw new Error("Le mot de passe est incorrect.");
+      throw new Error("Chat passe pas...");
     }
 
     return cat;
