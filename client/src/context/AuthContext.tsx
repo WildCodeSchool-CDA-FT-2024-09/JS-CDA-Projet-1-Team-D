@@ -1,6 +1,6 @@
-import { ApolloError, useMutation } from "@apollo/client";
+import { ApolloError } from "@apollo/client";
 import { createContext, ReactNode, useContext, useState } from "react";
-import { LOGIN } from "../schemas/login";
+import { useLoginMutation } from "../generated/graphql-types";
 
 interface User {
   id: number;
@@ -24,7 +24,7 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loginMutation, { loading, error }] = useMutation(LOGIN);
+  const [loginMutation, { loading, error }] = useLoginMutation();
 
   const login = async (email: string, password: string) => {
     try {
