@@ -36,7 +36,7 @@ function ConnexionPage() {
           <main className="co-ctn-txt">
             <h1>Trouves ton matou purr-fait</h1>
             <p className="co-ctn-p">
-              Rejoins nous pour trouver une relation qui va te faire ronronner !
+              Connectes-toi et retrouves les minous près de chez toi !
             </p>
           </main>
           <form onSubmit={handleSubmit}>
