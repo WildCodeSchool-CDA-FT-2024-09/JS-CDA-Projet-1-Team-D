@@ -31,14 +31,14 @@ function ConnexionPage() {
 
   return (
     <div className="bg-co-ctn">
-      <header className="header-co-ctn">
+      <main className="header-co-ctn">
         <div className="main-co-ctn">
-          <main className="co-ctn-txt">
+          <header className="co-ctn-txt">
             <h1>Trouves ton matou purr-fait</h1>
             <p className="co-ctn-p">
               Connectes-toi et retrouves les minous près de chez toi !
             </p>
-          </main>
+          </header>
           <form onSubmit={handleSubmit}>
             <Input
               className="co-ctn-form-input"
@@ -66,7 +66,7 @@ function ConnexionPage() {
             </Button>
           </form>
         </div>
-      </header>
+      </main>
     </div>
   );
 }
