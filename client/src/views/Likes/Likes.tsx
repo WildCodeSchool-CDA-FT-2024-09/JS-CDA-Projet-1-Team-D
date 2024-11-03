@@ -34,6 +34,7 @@ export const Likes = () => {
               surname={cat.surname}
             />
           ))}
+          <audio id="audio" src="../../../public/meow-1.mp3"></audio>
         </section>
       </section>
     );

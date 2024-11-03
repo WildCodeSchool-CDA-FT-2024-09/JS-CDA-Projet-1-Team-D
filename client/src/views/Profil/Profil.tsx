@@ -3,12 +3,18 @@ import "./Profil.css";
 
 import { useGetCatByIdQuery } from "../../generated/graphql-types";
 import { Link, Navigate, To, useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Profil() {
   const { id } = useParams<{ id: string }>();
   const { loading, error, data } = useGetCatByIdQuery({
     variables: { getCatByIdId: parseFloat(id!) },
   });
+
+  useEffect(() => {
+    const audio = new Audio("/meow-1.mp3");
+    audio.play();
+  }, []);
 
   const convertTo24HourFormat = (time: string) => {
     const [timePart, modifier] = time.split(" ");
