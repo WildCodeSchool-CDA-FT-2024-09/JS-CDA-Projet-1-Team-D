@@ -1,7 +1,7 @@
 import "./ProfileLikeCard.css";
 import { LikedCat } from "../../types/CatTypes";
 import { Link } from "react-router-dom";
-import { calculateAge } from "../../services/calculateAge";
+import { calculateAge } from "../../utils/calculateAge";
 
 export const ProfileLikeCard = ({
   name,
@@ -10,8 +10,6 @@ export const ProfileLikeCard = ({
   surname,
   id,
 }: LikedCat) => {
-  const age = calculateAge(birthday);
-
   return (
     <Link to={`/profile/${id}`} className="profile-card-link">
       <article className="profile-card-container">
@@ -23,7 +21,7 @@ export const ProfileLikeCard = ({
         <div className="profile-card-text">
           <p className="profile-surname">{surname}</p>
           <h3 className="profile-texts">
-            {name}, {age}
+            {name}, {calculateAge(birthday)}
           </h3>
         </div>
       </article>

@@ -46,14 +46,14 @@
 }
 
 .profile-title,
-.profile-surname {
+.profileSurname {
   color: var(--joy-palette-primary-50);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
   margin: 0;
   text-align: center;
 }
 
-.profile-surname {
+.profileSurname {
   opacity: 0.9;
 }
 

@@ -1,9 +1,9 @@
-import "./Profile.css";
-
 import { useGetCatByIdQuery } from "../../generated/graphql-types";
 import { Link, Navigate, To, useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { calculateAge } from "../../services/calculateAge";
+import { calculateAge } from "../../utils/calculateAge";
+import "./Profile.css";
+import { convertTo24HourFormat } from "../../utils/convertTo24H";
 
 export default function Profile() {
   const { id } = useParams<{ id: string }>();
@@ -15,18 +15,6 @@ export default function Profile() {
     const audio = new Audio("/meow-1.mp3");
     audio.play();
   }, []);
-
-  const convertTo24HourFormat = (time: string) => {
-    const [timePart, modifier] = time.split(" ");
-    const [hours, minutes] = timePart.split(":").map(Number);
-    let adjustedHours = hours;
-    if (modifier === "PM" && adjustedHours !== 12) {
-      adjustedHours += 12; // Convertir PM en format 24h
-    } else if (modifier === "AM" && adjustedHours === 12) {
-      adjustedHours = 0; // Convertir 12 AM en 0 heures
-    }
-    return `${adjustedHours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
-  };
 
   if (loading) return <h1>Loading ...</h1>;
   if (error) return <p>Error: {error.message}</p>;
@@ -40,9 +28,6 @@ export default function Profile() {
       available,
       interests,
     } = data.getCatById;
-    const age = calculateAge(birthday);
-
-    const availableIn24h = convertTo24HourFormat(available);
 
     return (
       <>
@@ -61,15 +46,15 @@ export default function Profile() {
           />
           <section className="profile-content">
             <h2 className="profile-title">
-              {name}, {age}
+              {name}, {calculateAge(birthday)}
             </h2>
-            <h3 className="profile-surname">{surname}</h3>
+            <h3 className="profileSurname">{surname}</h3>
             <section className="profile-description">
-              <h3>Description: </h3>
+              <h4>Description: </h4>
               <p className="description">{description}</p>
-              <h3>Disponibilité: </h3>
-              <p>{availableIn24h}</p>
-              <h3>Centres d'intérêts :</h3>
+              <h4>Disponibilité: </h4>
+              <p>{convertTo24HourFormat(available)} H</p>
+              <h4>Centres d'intérêts :</h4>
               <ul className="interest-list">
                 {interests?.map((interest) => (
                   <li key={interest.id}>{interest.name}</li>
