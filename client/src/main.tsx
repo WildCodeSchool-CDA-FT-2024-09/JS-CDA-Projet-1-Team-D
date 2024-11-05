@@ -16,6 +16,7 @@ import "./style/index.css";
 import { Layout } from "./components/Layout/Layout";
 import ConnexionPage from "./views/ConnexionPage/ConnexionPage";
 import { AuthProvider } from "./context/AuthContext";
+import Profile from "./views/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path: "/likes",
         element: <Likes />,
+      },
+      {
+        path: "/profile/:id",
+        element: <Profile />,
       },
       {
         path: "/settings",
