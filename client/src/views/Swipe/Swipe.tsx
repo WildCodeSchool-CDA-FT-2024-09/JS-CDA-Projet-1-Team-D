@@ -14,6 +14,7 @@ import { useSpring, useSprings, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { CSSProperties, useEffect, useState } from "react";
 import {
+  useSendDislikeMutation,
   useSendLikeMutation,
   useSwipeListQuery,
 } from "../../generated/graphql-types";
@@ -29,8 +30,8 @@ export const Swipe = () => {
     },
   });
 
-  const [sendLikeMutation, { sendLikeLoading, sendLikeError }] =
-    useSendLikeMutation();
+  const [sendLikeMutation] = useSendLikeMutation();
+  const [sendDislikeMutation] = useSendDislikeMutation();
 
   const dataCats = data?.swipeList?.slice(0, stackLength);
 
@@ -94,6 +95,7 @@ export const Swipe = () => {
       return;
     }
     setIsDislike(true);
+    dislikeCat(currentCardIndex);
     springApi.start((i) => {
       if (i === currentCardIndex) {
         setCurrentCardIndex(currentCardIndex + 1);
@@ -120,6 +122,22 @@ export const Swipe = () => {
     }
   };
 
+  const dislikeCat = async (catIndex: number) => {
+    if (!dataCats || !dataCats[catIndex]) return;
+    const catToDislikeId = dataCats[catIndex].id;
+
+    try {
+      await sendDislikeMutation({
+        variables: {
+          catId1: connectedCatId,
+          catId2: catToDislikeId,
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
   const bind = useDrag(({ args: [index], down, movement: [mx, my] }) => {
     springApi.start((i) => {
       if (index !== i) return;
@@ -127,11 +145,6 @@ export const Swipe = () => {
         if (!isLike) setIsLike(true);
 
         if (!down) {
-          // ajouter le chat dans la liste de like
-          // verifier si l'autre chat like en retour
-          // si le like est mutuel mettre isMatch à true
-          // renvoyer au frontend isMatch, si isMatch = null rien faire
-          //si isMatch=true animation is match + popup vers message
           likeCat(index);
           setCurrentCardIndex(index + 1);
         }
@@ -141,7 +154,7 @@ export const Swipe = () => {
         if (!isDislike) setIsDislike(true);
 
         if (!down) {
-          // mettre le isMatch de null à false
+          dislikeCat(index);
           setCurrentCardIndex(index + 1);
         }
         return { x: down ? mx : -1000, y: down ? my : 0 };
@@ -186,9 +199,6 @@ export const Swipe = () => {
     return (
       <section className="swipe-container">
         <h2 className="swipe-title">Trouve le matou de tes rêves</h2>
-        {sendLikeLoading && <h1>SENDLIKE Loading ...</h1>}
-        {sendLikeError && <p>SENDLIKE Erreur</p>}
-
         <animated.div
           style={{
             visibility: likeVsblt as unknown as CSSProperties["visibility"],

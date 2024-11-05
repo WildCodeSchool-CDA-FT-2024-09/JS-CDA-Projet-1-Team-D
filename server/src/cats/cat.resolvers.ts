@@ -131,4 +131,30 @@ export default class CatResolver {
     await like.save();
     return like;
   }
+
+  // Disliker un chat
+  @Mutation(() => Like)
+  async sendDislike(
+    @Arg("catId1", () => Int) catId1: number,
+    @Arg("catId2", () => Int) catId2: number
+  ): Promise<Like | null> {
+    const connectedCat = await Cat.findOne({ where: { id: catId1 } });
+    const dislikedCat = await Cat.findOne({ where: { id: catId2 } });
+
+    // On vérifie que les deux chats existent
+    if (!connectedCat || !dislikedCat) {
+      console.error("Mutation like: L'un des chats n'existe pas");
+      return null;
+    }
+
+    // Créez une nouvelle instance de Like
+    const like = Like.create({
+      cat_id1: connectedCat,
+      cat_id2: dislikedCat,
+      isMatch: false,
+    });
+
+    await like.save();
+    return like;
+  }
 }

@@ -30,15 +30,18 @@ export const SENDLIKE = gql`
   }
 `;
 
-// UPDATE SA SWIPE LIST avec les chats aimés ou pas aimés
-// export const UPDATE_A_CAT = gql`
-//   query LikedCats($catId: Int!) {
-//     likedCats(catId: $catId) {
-//       id
-//       name
-//       birthday
-//       profile_picture
-//       surname
-//     }
-//   }
-// `;
+export const SENDDISLIKE = gql`
+  mutation SendDislike($catId1: Int!, $catId2: Int!) {
+    sendDislike(catId1: $catId1, catId2: $catId2) {
+      id
+      cat_id1 {
+        id
+        name
+      }
+      cat_id2 {
+        id
+        name
+      }
+    }
+  }
+`;
