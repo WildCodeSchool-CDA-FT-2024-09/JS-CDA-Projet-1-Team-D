@@ -96,7 +96,7 @@ export const PersonalSettings = () => {
         open={openDrawer}
         onClose={handleCloseDrawer}
         anchor="right"
-        color="warning"
+        color="primary"
         size="lg"
         variant="soft"
       >
