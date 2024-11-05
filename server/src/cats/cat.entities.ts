@@ -11,7 +11,7 @@ import { Like } from "../likes/like.entities";
 import { Interest } from "../interests/interest.entities";
 
 @ObjectType()
-@Entity()
+@Entity("cat")
 export class Cat extends BaseEntity {
   @Field()
   @PrimaryColumn()
@@ -71,13 +71,13 @@ export class Cat extends BaseEntity {
 
   @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id1)
-  likedCats: Like[];
+  likedCats?: Like[];
 
   @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id2)
-  likedBy: Like[];
+  likedBy?: Like[];
 
-  @Field(() => [Interest])
+  @Field(() => [Interest], { nullable: true })
   @ManyToMany(() => Interest, (interest) => interest.cats)
   interests?: Interest[];
 }
