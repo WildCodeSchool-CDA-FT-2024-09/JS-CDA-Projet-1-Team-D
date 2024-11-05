@@ -1,11 +1,11 @@
-import "../../style/index.css";
-import "./Profil.css";
+import "./Profile.css";
 
 import { useGetCatByIdQuery } from "../../generated/graphql-types";
 import { Link, Navigate, To, useParams } from "react-router-dom";
 import { useEffect } from "react";
+import { calculateAge } from "../../services/calculateAge";
 
-export default function Profil() {
+export default function Profile() {
   const { id } = useParams<{ id: string }>();
   const { loading, error, data } = useGetCatByIdQuery({
     variables: { getCatByIdId: parseFloat(id!) },
@@ -40,16 +40,13 @@ export default function Profil() {
       available,
       interests,
     } = data.getCatById;
+    const age = calculateAge(birthday);
 
     const availableIn24h = convertTo24HourFormat(available);
 
-    const today = new Date();
-    const birthdate = new Date(birthday);
-    const age = today.getFullYear() - birthdate.getFullYear();
-
     return (
       <>
-        <article className="profil-section">
+        <article className="profile-section">
           <Link to={-1 as To} className="return-link">
             <img
               src="/return-arrow.svg"
@@ -58,16 +55,16 @@ export default function Profil() {
             />
           </Link>
           <img
-            className="profil-picture"
+            className="profile-picture"
             src={profile_picture}
             alt={`Photo de ${name}`}
           />
-          <section className="profil-content">
-            <h2 className="profil-title">
+          <section className="profile-content">
+            <h2 className="profile-title">
               {name}, {age}
             </h2>
-            <h3 className="profil-surname">{surname}</h3>
-            <footer className="profil-description">
+            <h3 className="profile-surname">{surname}</h3>
+            <section className="profile-description">
               <h3>Description: </h3>
               <p className="description">{description}</p>
               <h3>Disponibilité: </h3>
@@ -78,7 +75,7 @@ export default function Profil() {
                   <li key={interest.id}>{interest.name}</li>
                 ))}
               </ul>
-            </footer>
+            </section>
           </section>
         </article>
       </>

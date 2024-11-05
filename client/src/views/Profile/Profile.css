@@ -1,14 +1,15 @@
-.profil-section {
+.profile-section {
   position: relative;
   width: 100vw;
   height: 76vh;
   display: flex;
-  align-items:center;
+  align-items: center;
   justify-content: center;
   overflow: hidden;
 }
+
 .return-link {
-  border: 2px solid #F38347;
+  border: 2px solid #f38347;
   border-radius: 20px;
   position: absolute;
   top: 2rem;
@@ -23,7 +24,7 @@
   cursor: pointer;
 }
 
-.profil-picture {
+.profile-picture {
   position: absolute;
   top: 0;
   left: 0;
@@ -33,7 +34,7 @@
   z-index: -1;
 }
 
-.profil-content {
+.profile-content {
   position: absolute;
   bottom: 0;
   width: 90%;
@@ -44,19 +45,19 @@
   align-items: center;
 }
 
-.profil-title,
-.profil-surname {
+.profile-title,
+.profile-surname {
   color: var(--joy-palette-primary-50);
   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
   margin: 0;
   text-align: center;
 }
 
-.profil-surname {
+.profile-surname {
   opacity: 0.9;
 }
 
-.profil-description {
+.profile-description {
   background-color: var(--joy-palette-primary-100);
   border-radius: 20px;
   padding: 0.9rem;
@@ -64,6 +65,7 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   text-align: left;
 }
+
 .description {
   overflow: hidden;
   display: -webkit-box;
@@ -76,7 +78,7 @@
   max-height: calc(1.5rem * 2);
 }
 
-.profil-description h3 {
+.profile-description h3 {
   text-align: left;
   color: var(--joy-palette-primary-500);
 }

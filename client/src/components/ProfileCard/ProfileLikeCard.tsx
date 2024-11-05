@@ -1,6 +1,7 @@
 import "./ProfileLikeCard.css";
 import { LikedCat } from "../../types/CatTypes";
 import { Link } from "react-router-dom";
+import { calculateAge } from "../../services/calculateAge";
 
 export const ProfileLikeCard = ({
   name,
@@ -9,10 +10,7 @@ export const ProfileLikeCard = ({
   surname,
   id,
 }: LikedCat) => {
-  // * Age calculation
-  const today = new Date();
-  const birthdate = new Date(birthday);
-  const age = today.getFullYear() - birthdate.getFullYear();
+  const age = calculateAge(birthday);
 
   return (
     <Link to={`/profile/${id}`} className="profile-card-link">

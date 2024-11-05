@@ -16,7 +16,7 @@ import "./style/index.css";
 import { Layout } from "./components/Layout/Layout";
 import ConnexionPage from "./views/ConnexionPage/ConnexionPage";
 import { AuthProvider } from "./context/AuthContext";
-import Profil from "./views/Profil/Profil";
+import Profile from "./views/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -38,22 +38,22 @@ const router = createBrowserRouter([
       },
       {
         path: "/profile/:id",
-        element: <Profil />,
+        element: <Profile />,
       },
       {
         path: "/settings",
         element: <PersonalSettings />,
-      },
-      {
-        path: "*",
-        element: <NoPage />,
-        errorElement: <Error />,
       },
     ],
   },
   {
     path: "/login",
     element: <ConnexionPage />,
+    errorElement: <Error />,
+  },
+  {
+    path: "*",
+    element: <NoPage />,
     errorElement: <Error />,
   },
 ]);
