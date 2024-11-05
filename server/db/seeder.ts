@@ -45,6 +45,7 @@ import meetingPlaces from "../data/meeting_place.json";
         cat.description = catEl.description;
         cat.email = catEl.email;
         cat.hair_color = catEl.hair_color;
+        cat.surname = catEl.surname;
         cat.interests = savedInterests.filter((savInt) => {
           const associatedInterests = catInterests.filter(
             (assocIntEl) => assocIntEl.cat_id === savInt.id

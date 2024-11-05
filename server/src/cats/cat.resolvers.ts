@@ -46,4 +46,9 @@ export default class CatResolver {
 
     return cat;
   }
+
+  @Query(() => Cat, { nullable: true })
+  async getCatById(@Arg("id", () => Number) id: number) {
+    return await Cat.findOne({ where: { id }, relations: { interests: true } });
+  }
 }

@@ -27,10 +27,6 @@ export class Cat extends BaseEntity {
 
   @Field()
   @Column()
-  surname: string;
-
-  @Field()
-  @Column()
   name: string;
 
   @Field()
@@ -64,6 +60,10 @@ export class Cat extends BaseEntity {
   @Field()
   @Column({ nullable: true })
   breed: string;
+
+  @Field()
+  @Column({ nullable: true })
+  surname: string;
 
   @Field()
   @Column({ default: "user" })
