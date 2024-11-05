@@ -17,8 +17,9 @@ export const GET_MATCHES_CATS = gql`
     matchedCats(catId: $catId) {
       id
       name
-      surname
       birthday
+      profile_picture
+      surname
     }
   }
 `;

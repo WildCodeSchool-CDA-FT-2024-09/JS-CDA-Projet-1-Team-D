@@ -10,7 +10,7 @@ import "./Likes.css";
 
 export const Likes = () => {
   // TODO  ---- En attente de la feature de connexion -----
-  const catId = 49;
+  const catId = 5;
 
   const [likeView, setLikeView] = useState("likes");
 
@@ -34,7 +34,12 @@ export const Likes = () => {
     },
   });
 
-  console.info("Je suis les matches: ", dataMatches);
+  const catsListing =
+    likeView === "likes" && dataLikes && dataLikes.likedCats
+      ? dataLikes.likedCats
+      : likeView === "matches" && dataMatches && dataMatches.matchedCats
+        ? dataMatches.matchedCats
+        : [];
 
   if (loadingLikes || loadingMatches) return <h1>Loading ...</h1>;
   if (errorLikes || errorMatches) return <p>Erreur</p>;
@@ -44,10 +49,7 @@ export const Likes = () => {
         <section className="likes-title-page">
           <h2>
             Mes coups de patte :
-            <span className="liked-cats-count">
-              {" "}
-              {dataLikes.likedCats.length}
-            </span>
+            <span className="liked-cats-count"> {catsListing.length}</span>
           </h2>
           <Select
             className="select-likes"
@@ -61,7 +63,7 @@ export const Likes = () => {
           </Select>
         </section>
         <section className="likes-cards">
-          {dataLikes.likedCats.map((cat) => (
+          {catsListing.map((cat) => (
             <ProfileLikeCard
               key={cat.id}
               name={cat.name}
