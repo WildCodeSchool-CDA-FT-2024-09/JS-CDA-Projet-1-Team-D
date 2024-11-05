@@ -66,5 +66,5 @@ export default function Profile() {
       </>
     );
   }
-  return <Navigate to="/404" />;
+  return <Navigate to="*" />;
 }
