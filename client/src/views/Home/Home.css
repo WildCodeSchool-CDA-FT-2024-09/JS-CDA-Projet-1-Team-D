@@ -21,13 +21,23 @@
   text-align: center;
 }
 
-.connexion-button {
-  color: var(--joy-palette-text-primary) !important;
+.redirect-co-page {
+  width: 8em;
+  border-radius: 0.35em;
+  font-family: "Roboto", sans-serif;
+  color:  var(--joy-palette-text-primary);
+  font-size: 1em;
+  font-weight: 500;
+  background-color: var(--joy-palette-primary-500) !important;
+  padding: 0.7em;
+  margin-bottom: 1em;
+  text-decoration: none;
 }
 
-.connexion-button:hover {
+.redirect-co-page:hover {
   background-color: var(--joy-palette-primary-600) !important;
 }
+
 
 @keyframes pulse {
   0% {

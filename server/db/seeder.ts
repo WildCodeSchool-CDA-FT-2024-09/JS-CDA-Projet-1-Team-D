@@ -98,5 +98,7 @@ import meetingPlaces from "../data/meeting_place.json";
   } catch (error) {
     console.warn(error);
     await queryRunner.rollbackTransaction();
+  } finally {
+    await queryRunner.release();
   }
 })();

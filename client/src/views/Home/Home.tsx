@@ -1,6 +1,6 @@
 import Logo from "/Logo.svg";
 import "./Home.css";
-import Button from "@mui/joy/Button";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   return (
@@ -10,15 +10,9 @@ export const Home = () => {
       </section>
       <h1>Hello, ici le client de Purrfect Match!</h1>
       <p>Il y a encore tout à construire, bon courage 🐱</p>
-      <Button
-        size="lg"
-        color="primary"
-        onClick={() => alert("JoyUI Fonctionne!")}
-        variant="solid"
-        className="connexion-button"
-      >
+      <Link className="redirect-co-page" to="/login">
         Connexion
-      </Button>
+      </Link>
     </section>
   );
 };

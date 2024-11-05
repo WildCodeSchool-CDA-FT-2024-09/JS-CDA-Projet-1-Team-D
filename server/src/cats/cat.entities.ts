@@ -71,11 +71,11 @@ export class Cat extends BaseEntity {
 
   @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id1)
-  likedCats: Like[];
+  likedCats?: Like[];
 
   @Field(() => [Like])
   @OneToMany(() => Like, (like) => like.cat_id2)
-  likedBy: Like[];
+  likedBy?: Like[];
 
   @Field(() => [Interest], { nullable: true })
   @ManyToMany(() => Interest, (interest) => interest.cats)

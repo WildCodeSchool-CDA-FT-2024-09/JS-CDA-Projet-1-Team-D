@@ -12,6 +12,5 @@ export const AppDataSource = new DataSource({
   type: "sqlite",
   database: `${BACKEND_FILE}`,
   synchronize: true,
-  logging: true,
   entities: [Cat, Like, Interest, MeetingPlace],
 });
