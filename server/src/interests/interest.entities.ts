@@ -11,7 +11,7 @@ import { Field, ObjectType } from "type-graphql";
 import { Cat } from "../cats/cat.entities";
 
 @ObjectType()
-@Entity()
+@Entity("interest")
 export class Interest extends BaseEntity {
   @Field()
   @PrimaryColumn()

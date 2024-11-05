@@ -15,6 +15,10 @@ export const theme = extendTheme({
           300: "#F7A990",
           // Orange primaire
           500: "#F6A377",
+          // Hover
+          600: "#E65A0F",
+          // Active
+          700: "#BC6232",
         },
         text: {
           primary: "#414141",

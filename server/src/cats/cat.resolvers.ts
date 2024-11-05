@@ -1,6 +1,8 @@
 import { Cat } from "../cats/cat.entities";
 import { Like } from "../likes/like.entities";
-import { Query, Resolver, Arg, Int } from "type-graphql";
+import { Query, Resolver, Arg, Int, Mutation } from "type-graphql";
+import { LogginInfosInput } from "./cat.types";
+import argon2 from "argon2";
 
 @Resolver(Cat)
 export default class CatResolver {
@@ -37,5 +39,26 @@ export default class CatResolver {
     }
 
     return matches.map((like) => like.cat_id2);
+  }
+
+  @Mutation(() => Cat)
+  async login(@Arg("data") logginInfos: LogginInfosInput) {
+    const { email, password } = logginInfos;
+
+    const cat = await Cat.findOne({
+      where: { email },
+    });
+
+    if (!cat) {
+      throw new Error("Chat passe pas...");
+    }
+
+    const passwordValidation = await argon2.verify(cat.password, password);
+
+    if (!passwordValidation) {
+      throw new Error("Chat passe pas...");
+    }
+
+    return cat;
   }
 }

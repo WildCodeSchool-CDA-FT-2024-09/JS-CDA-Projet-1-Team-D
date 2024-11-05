@@ -14,6 +14,8 @@ import { theme } from "./theme";
 import { client } from "./services/client";
 import "./style/index.css";
 import { Layout } from "./components/Layout/Layout";
+import ConnexionPage from "./views/ConnexionPage/ConnexionPage";
+import { AuthProvider } from "./context/AuthContext";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,11 @@ const router = createBrowserRouter([
     ],
   },
   {
+    path: "/login",
+    element: <ConnexionPage />,
+    errorElement: <Error />,
+  },
+  {
     path: "*",
     element: <NoPage />,
     errorElement: <Error />,
@@ -51,7 +58,9 @@ export default function App() {
     <StrictMode>
       <CssVarsProvider theme={theme}>
         <ApolloProvider client={client}>
-          <RouterProvider router={router} />
+          <AuthProvider>
+            <RouterProvider router={router} />
+          </AuthProvider>
         </ApolloProvider>
       </CssVarsProvider>
     </StrictMode>

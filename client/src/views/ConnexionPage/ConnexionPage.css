@@ -1,0 +1,109 @@
+.bg-co-ctn {
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  background-image: url('../../../public/Cats-Home-mobile.png'), url('../../../public/Bubbles.svg');
+  background-repeat: no-repeat;
+  background-size: auto, cover;
+  background-position: 50% 40%, center;
+  font-family: "Oxanium", sans-serif;
+  justify-content: center; 
+}
+
+.header-co-ctn {
+  width: 100dvw;
+  height: 100dvh;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding-left: 5em;
+}
+
+.main-co-ctn {
+  width: 30vw;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  text-align: left;
+}
+
+.co-ctn-p {
+  width: 16.5em;
+  text-align: left;
+  padding: 1em 0;
+}
+
+h1 {
+  margin: 0;
+  font-family: "Londrina Solid", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1em;
+  font-size: 4em;
+  text-align: left;
+}
+
+.co-ctn-form-input {
+  color: var(--joy-palette-text-secondary) !important;
+  width: 15em;
+  margin-bottom: 0.5em;
+}
+
+.co-ctn-txt {
+  width: 275px;
+  align-items: center;
+}
+
+.co-ctn-btn {
+  font-family: "Oxanium", sans-serif;
+  background-color: var(--primary-color);
+  color: var(--joy-palette-text-primary) !important;
+}
+
+.co-ctn-btn:hover {
+  background-color: var(--primary-color-50);
+}
+
+.co-ctn-error {
+  color: red;
+  min-height: 2em;
+  text-align: left;
+  align-content: center;
+  padding: 0;
+  margin-bottom: 0.5em;
+}
+
+@media (max-width: 768px) {
+  .bg-co-ctn {
+    background-position: 50% 20%;
+  }
+
+  .header-co-ctn {
+    backdrop-filter: blur(5px); 
+    justify-content: center;
+    align-items: flex-end;
+    padding-left: 0;
+    z-index: 2;
+  }
+
+  .main-co-ctn {
+    width: 100vw;
+    text-align: center;
+    align-items: center;
+    padding-bottom: 7rem;
+  }
+  
+  .co-ctn-btn {
+    width: 17em;
+  }
+
+  .co-ctn-p {
+    width: 85%;
+    display: inline-block;
+    text-align: center;
+  }
+
+  h1 {
+    display: none;
+  }
+}
