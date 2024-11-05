@@ -47,7 +47,7 @@ import meetingPlaces from "../data/meeting_place.json";
         cat.hair_color = catEl.hair_color;
         cat.interests = savedInterests.filter((savInt) => {
           const associatedInterests = catInterests.filter(
-            (assocIntEl) => assocIntEl.id === savInt.id
+            (assocIntEl) => assocIntEl.cat_id === savInt.id
           );
           const interestName = interests.filter((interEl) =>
             associatedInterests.some((assoInt) => assoInt.id === interEl.id)
@@ -97,5 +97,7 @@ import meetingPlaces from "../data/meeting_place.json";
   } catch (error) {
     console.warn(error);
     await queryRunner.rollbackTransaction();
+  } finally {
+    await queryRunner.release();
   }
 })();
