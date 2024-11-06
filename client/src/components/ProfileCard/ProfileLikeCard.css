@@ -5,6 +5,7 @@
   border: solid #F6A377 6px;
   overflow: hidden;
   position: relative;
+  /* bottom: 30px; */
 }
 
 @media screen and (min-width: 768px) {
@@ -54,4 +55,24 @@
   .profile-surname {
     padding: 0 5px 2px 5px;
   }
+}
+
+.profile-card-global {
+  width: 48dvw;
+  position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  .profile-card-global {
+    width: 170px;
+    height: 240px;
+  }
+}
+
+.profile-like-card-button {
+  background: none;
+  border: none;
+  position: absolute;
+  z-index: 2;
+  right: 0;
 }
