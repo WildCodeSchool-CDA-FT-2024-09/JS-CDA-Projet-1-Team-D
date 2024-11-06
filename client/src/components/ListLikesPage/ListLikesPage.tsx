@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useLikedCatsQuery } from "../../generated/graphql-types";
 import { ProfileLikeCard } from "../ProfileCard/ProfileLikeCard";
 
+import "./ListLikesPages.css";
+
 interface ListLikesPagesProps {
   catId: number;
   likeView: string;
