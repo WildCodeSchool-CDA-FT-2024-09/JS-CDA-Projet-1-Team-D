@@ -6,16 +6,21 @@ import "./Likes.css";
 
 export const Likes = () => {
   // TODO  ---- En attente de la feature de connexion -----
-  const catId = 5;
+  const catId = 19;
 
   const [likeView, setLikeView] = useState("likes");
+  const [catsCount, setCatsCount] = useState(0);
+
+  const handleCatsCountChange = (count: number) => {
+    setCatsCount(count);
+  };
 
   return (
     <section className="likes-container">
       <section className="likes-title-page">
         <h2>
           Mes coups de patte :
-          {/* <span className="liked-cats-count"> {catsListing.length}</span> */}
+          <span className="liked-cats-count"> {catsCount}</span>
         </h2>
         <Select
           className="select-likes"
@@ -28,7 +33,11 @@ export const Likes = () => {
           <Option value="matches">Matchs</Option>
         </Select>
       </section>
-      <ListLikesPages catId={catId} likeView={likeView} />
+      <ListLikesPages
+        catId={catId}
+        likeView={likeView}
+        changeCount={handleCatsCountChange}
+      />
     </section>
   );
 };

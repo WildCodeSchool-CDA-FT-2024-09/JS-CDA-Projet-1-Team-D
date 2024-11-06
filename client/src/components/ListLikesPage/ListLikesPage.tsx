@@ -5,8 +5,13 @@ import { ProfileLikeCard } from "../ProfileCard/ProfileLikeCard";
 interface ListLikesPagesProps {
   catId: number;
   likeView: string;
+  changeCount: (count: number) => void;
 }
-export const ListLikesPages = ({ catId, likeView }: ListLikesPagesProps) => {
+export const ListLikesPages = ({
+  catId,
+  likeView,
+  changeCount,
+}: ListLikesPagesProps) => {
   const { data, loading, error } = useLikedCatsQuery({
     variables: {
       catId: catId,
@@ -25,12 +30,9 @@ export const ListLikesPages = ({ catId, likeView }: ListLikesPagesProps) => {
     }
   }, [likeView, data]);
 
-  // const catsListing =
-  //   likeView === "likes" && data?.likedCats
-  //     ? data.likedCats
-  //     : likeView === "matches" && data?.matchedCats
-  //       ? data.matchedCats
-  //       : [];
+  useEffect(() => {
+    changeCount(catsListing.length);
+  }, [catsListing, changeCount]);
 
   if (loading) return <h1>Loading ...</h1>;
   if (error) return <p>Erreur</p>;
