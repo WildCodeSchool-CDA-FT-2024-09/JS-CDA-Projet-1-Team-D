@@ -3,7 +3,6 @@ import { Like } from "../likes/like.entities";
 import { Query, Resolver, Arg, Int, Mutation } from "type-graphql";
 import { LogginInfosInput } from "./cat.types";
 import argon2 from "argon2";
-import { Like } from "../likes/like.entities";
 
 @Resolver(Cat)
 export default class CatResolver {
