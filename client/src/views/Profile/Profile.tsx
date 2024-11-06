@@ -53,7 +53,7 @@ export default function Profile() {
               <h4>Description: </h4>
               <p className="description">{description}</p>
               <h4>Disponibilité: </h4>
-              <p>{convertTo24HourFormat(available)} H</p>
+              <p>{convertTo24HourFormat(available)}</p>
               <h4>Centres d'intérêts :</h4>
               <ul className="interest-list">
                 {interests?.map((interest) => (

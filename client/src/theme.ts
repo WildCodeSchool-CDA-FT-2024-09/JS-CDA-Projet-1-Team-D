@@ -27,4 +27,22 @@ export const theme = extendTheme({
       },
     },
   },
+  components: {
+    JoyTypography: {
+      defaultProps: {
+        levelMapping: {
+          h1: "h2",
+          h2: "h2",
+          h3: "h3",
+          h4: "h3",
+          "title-lg": "p",
+          "title-md": "p",
+          "title-sm": "p",
+          "body-md": "p",
+          "body-sm": "p",
+          "body-xs": "span",
+        },
+      },
+    },
+  },
 });

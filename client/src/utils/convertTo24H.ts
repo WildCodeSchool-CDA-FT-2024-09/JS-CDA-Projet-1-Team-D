@@ -7,5 +7,5 @@ export const convertTo24HourFormat = (time: string) => {
   } else if (modifier === "AM" && adjustedHours === 12) {
     adjustedHours = 0; // Convertir 12 AM en 0 heures
   }
-  return `${adjustedHours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}`;
+  return `${adjustedHours.toString().padStart(2, "0")}H${minutes.toString().padStart(2, "0")}`;
 };
