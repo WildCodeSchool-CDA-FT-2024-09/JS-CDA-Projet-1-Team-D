@@ -3,11 +3,11 @@ import { Resolver, Mutation, Arg, Int } from "type-graphql";
 
 @Resolver(Like)
 export default class LikeResolver {
-  @Mutation(() => Like)
+  @Mutation(() => Boolean)
   async removeLike(
     @Arg("catId1", () => Int) catId1: number,
     @Arg("catId2", () => Int) catId2: number
-  ): Promise<Like> {
+  ): Promise<boolean> {
     const like_cat1 = await Like.findOne({
       where: { cat_id1: { id: catId1 }, cat_id2: { id: catId2 } },
     });
@@ -30,6 +30,6 @@ export default class LikeResolver {
       await like_cat2.save();
     }
 
-    return like_cat1;
+    return true;
   }
 }

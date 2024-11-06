@@ -75,10 +75,16 @@ export type LogginInfosInput = {
 export type Mutation = {
   __typename?: "Mutation";
   login: Cat;
+  removeLike: Scalars["Boolean"]["output"];
 };
 
 export type MutationLoginArgs = {
   data: LogginInfosInput;
+};
+
+export type MutationRemoveLikeArgs = {
+  catId1: Scalars["Int"]["input"];
+  catId2: Scalars["Int"]["input"];
 };
 
 export type Query = {
@@ -108,6 +114,16 @@ export type LoginMutationVariables = Exact<{
 export type LoginMutation = {
   __typename?: "Mutation";
   login: { __typename?: "Cat"; id: number };
+};
+
+export type RemoveLikeMutationVariables = Exact<{
+  catId2: Scalars["Int"]["input"];
+  catId1: Scalars["Int"]["input"];
+}>;
+
+export type RemoveLikeMutation = {
+  __typename?: "Mutation";
+  removeLike: boolean;
 };
 
 export type LikedCatsQueryVariables = Exact<{
@@ -205,6 +221,55 @@ export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutation,
   LoginMutationVariables
+>;
+export const RemoveLikeDocument = gql`
+  mutation RemoveLike($catId2: Int!, $catId1: Int!) {
+    removeLike(catId2: $catId2, catId1: $catId1)
+  }
+`;
+export type RemoveLikeMutationFn = Apollo.MutationFunction<
+  RemoveLikeMutation,
+  RemoveLikeMutationVariables
+>;
+
+/**
+ * __useRemoveLikeMutation__
+ *
+ * To run a mutation, you first call `useRemoveLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeLikeMutation, { data, loading, error }] = useRemoveLikeMutation({
+ *   variables: {
+ *      catId2: // value for 'catId2'
+ *      catId1: // value for 'catId1'
+ *   },
+ * });
+ */
+export function useRemoveLikeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveLikeMutation,
+    RemoveLikeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RemoveLikeMutation, RemoveLikeMutationVariables>(
+    RemoveLikeDocument,
+    options
+  );
+}
+export type RemoveLikeMutationHookResult = ReturnType<
+  typeof useRemoveLikeMutation
+>;
+export type RemoveLikeMutationResult =
+  Apollo.MutationResult<RemoveLikeMutation>;
+export type RemoveLikeMutationOptions = Apollo.BaseMutationOptions<
+  RemoveLikeMutation,
+  RemoveLikeMutationVariables
 >;
 export const LikedCatsDocument = gql`
   query LikedCats($catId: Int!) {
