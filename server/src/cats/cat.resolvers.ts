@@ -93,6 +93,7 @@ export default class CatResolver {
         "like.cat_id2 = cat.id AND like.cat_id1 = :catId",
         { catId }
       )
+      .leftJoinAndSelect("cat.interests", "interest")
       .where("cat.id != :catId", { catId }) // Exclure le chat actuel de la liste
       .andWhere("cat.id NOT IN (:...likedCatIds)", { likedCatIds }) // Exclure les chats déjà likés
       .andWhere("like.isMatch IS NULL") // Inclure seulement ceux dont isMatch est null (veut dire qu'ils sont deja soit like soit dislike)

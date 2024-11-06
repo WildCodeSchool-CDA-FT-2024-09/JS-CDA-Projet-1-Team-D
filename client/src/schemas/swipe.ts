@@ -9,6 +9,10 @@ export const GET_SWIPE_LIST = gql`
       birthday
       profile_picture
       surname
+      interests {
+        id
+        name
+      }
     }
   }
 `;

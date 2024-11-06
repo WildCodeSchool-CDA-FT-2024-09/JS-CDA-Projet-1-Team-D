@@ -4,14 +4,17 @@ import CardCover from "@mui/joy/CardCover";
 import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import "./SwipeCard.css";
+import { Interest } from "../../generated/graphql-types";
 
 type Cat = {
   name: string;
   surname: string;
   age: number;
-  interests: string[];
+  interests: Interest[];
   profile_picture: string;
 };
+
+const interestEmojis = ["💖", "🎉", "🌷"];
 
 export const SwipeCard = ({
   name,
@@ -49,7 +52,7 @@ export const SwipeCard = ({
             return (
               <li key={index}>
                 <Chip
-                  startDecorator={`🍤 ${interest}`}
+                  startDecorator={`${interestEmojis[index]} ${interest.name}`}
                   sx={{
                     backgroundColor: "#FBF7E5",
                     border: "1px solid #E65A0F",

@@ -5,7 +5,7 @@
 }
 
 .swipe-content {
-    margin-top: 30px;
+    margin-top: 7dvh;
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -24,6 +24,13 @@
     justify-content: space-evenly;
     top: 78%;
     left: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .swipe-action-buttons {
+        justify-content: space-around;
+        padding: 25px 0;
+    }
 }
 
 .swipe-interests-list {

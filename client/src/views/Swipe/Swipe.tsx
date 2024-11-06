@@ -1,28 +1,36 @@
+import React from "react";
 import Favorite from "@mui/icons-material/Favorite";
 import Close from "@mui/icons-material/Close";
 import IconButton from "@mui/joy/IconButton";
+import Sheet from "@mui/joy/Sheet";
+import Modal from "@mui/joy/Modal";
 import "./Swipe.css";
 import { SwipeCard } from "../../components/SwipeCard/SwipeCard";
-
-const mockedInterests = [
-  "Caresses",
-  "Dormir",
-  "Marcher sur le clavier de mon maître",
-];
+import { calculateAge } from "../../utils/calculateAge";
 
 import { useSpring, useSprings, animated } from "@react-spring/web";
 import { useDrag } from "@use-gesture/react";
 import { CSSProperties, useEffect, useState } from "react";
 import {
   Cat,
-  // useLikedCatsQuery,
   useSendDislikeMutation,
   useSendLikeMutation,
   useSwipeListQuery,
 } from "../../generated/graphql-types";
+import { useNavigate } from "react-router-dom";
+import Button from "@mui/joy/Button";
 
 const stackLength = 5;
 const connectedCatId = 25;
+
+const catGifs = [
+  "https://media.tenor.com/HUYxMVXRE9EAAAAj/love.gif",
+  "https://media1.tenor.com/m/dteyPLcdJJkAAAAd/cats-love.gif",
+  "https://media1.tenor.com/m/HbrZW4Jw9wwAAAAd/bijou-ryu.gif",
+  "https://media.tenor.com/mbcNPm5DPloAAAAi/cute-cat.gif",
+  "https://media1.tenor.com/m/WfjEGbjVRtIAAAAC/mochi-mochi-peach-cat-cute.gif",
+  "https://media.tenor.com/UW9cxCBEfcQAAAAi/cute-cat.gif",
+];
 
 export const Swipe = () => {
   // Cursor pour savoir où on en est dans la liste entière des chats
@@ -34,13 +42,23 @@ export const Swipe = () => {
   // Index de la carte (entre 0 et stacklength) sur laquelle on est
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
+  const [currentCat, setCurrentCat] = useState<Cat>(currentCatsList[0]);
+
   // State pour les like et dislike, pour le style uniquement
   const [isLike, setIsLike] = useState(false);
   const [isDislike, setIsDislike] = useState(false);
 
+  // State pour savoir si un match a eu lieu
+  const [isMatch, setIsMatch] = useState(false);
+  const [open, setOpen] = React.useState<boolean>(false);
+
   // Mutations et queries
   const [sendLikeMutation] = useSendLikeMutation();
   const [sendDislikeMutation] = useSendDislikeMutation();
+
+  const navigate = useNavigate();
+
+  const [randomCatGif, setrandomCatGif] = useState(catGifs[0]);
 
   const { data, loading, error, refetch } = useSwipeListQuery({
     variables: {
@@ -48,6 +66,20 @@ export const Swipe = () => {
     },
     fetchPolicy: "cache-and-network",
   });
+
+  useEffect(() => {
+    if (isMatch) {
+      const randomGifIndex = Math.floor(Math.random() * 6);
+      setrandomCatGif(catGifs[randomGifIndex]);
+      setCurrentCat(currentCatsList[currentCardIndex]);
+      setCurrentCardIndex(currentCardIndex + 1);
+
+      // trigger une popup avec le lien vers les messages
+      setOpen(true);
+
+      setIsMatch(false);
+    }
+  }, [isMatch]);
 
   useEffect(() => {
     refetch();
@@ -114,6 +146,9 @@ export const Swipe = () => {
     dislikeIconApi.start(() => {
       return { dislikeVsblt: isDislike ? "visible" : "hidden" };
     });
+    if (currentCardIndex >= stackLength) {
+      nextPagination();
+    }
   }, [isLike, isDislike]);
 
   // fonction qui appelle la mutation sendLike
@@ -122,12 +157,18 @@ export const Swipe = () => {
     const catToLikeId = currentCatsList[catIndex].id;
 
     try {
-      await sendLikeMutation({
+      const { data } = await sendLikeMutation({
         variables: {
           catId1: connectedCatId,
           catId2: catToLikeId,
         },
       });
+
+      if (data && data.sendLike.isMatch && data.sendLike.isMatch === true) {
+        setIsMatch(true);
+      } else {
+        setCurrentCardIndex(currentCardIndex + 1);
+      }
     } catch (err) {
       console.error(err);
     }
@@ -145,6 +186,7 @@ export const Swipe = () => {
           catId2: catToDislikeId,
         },
       });
+      setCurrentCardIndex(currentCardIndex + 1);
     } catch (err) {
       console.error(err);
     }
@@ -152,15 +194,11 @@ export const Swipe = () => {
 
   // Fonction qui se declenche au clique du bouton like
   const handleLikeClick = () => {
-    if (currentCardIndex >= stackLength) {
-      nextPagination();
-      return;
-    }
     setIsLike(true);
     likeCat(currentCardIndex);
     springApi.start((i) => {
       if (i === currentCardIndex) {
-        setCurrentCardIndex(currentCardIndex + 1);
+        // setCurrentCardIndex(currentCardIndex + 1);
         return { x: 1000, y: 0 };
       }
       return {};
@@ -170,15 +208,11 @@ export const Swipe = () => {
 
   // Fonction qui se declenche au clique du bouton dislike
   const handleDislikeClick = () => {
-    if (currentCardIndex >= stackLength) {
-      nextPagination();
-      return;
-    }
     setIsDislike(true);
     dislikeCat(currentCardIndex);
     springApi.start((i) => {
       if (i === currentCardIndex) {
-        setCurrentCardIndex(currentCardIndex + 1);
+        // setCurrentCardIndex(currentCardIndex + 1);
         return { x: -1000, y: 0 };
       }
       return {};
@@ -195,7 +229,7 @@ export const Swipe = () => {
     // aka toutes les animations (ici une par carte)
     springApi.start((i) => {
       // Si on est pas sur la carte courante on ne fait rien
-      if (index !== i) return;
+      if (index !== i && i !== currentCardIndex) return;
 
       // Si la carte (à l'évenement drag, glisser) se situe
       // à 150px du centre de la page ou superieur
@@ -204,12 +238,7 @@ export const Swipe = () => {
         if (!isLike) setIsLike(true);
 
         // Si on a relaché le clic (ça veut dire on a liké)
-        if (!down) {
-          // On like le cat
-          likeCat(index);
-          // On passe à l'index du cat suivant
-          setCurrentCardIndex(index + 1);
-        }
+        if (!down) likeCat(index);
         // On envoie la carte courante voler à droite bien loin
         // Comme ça on la voit plus
         return { x: down ? mx : 1000, y: down ? my : 0 };
@@ -221,10 +250,8 @@ export const Swipe = () => {
         // Meme logique mais inverse que pour le like au dessus
         if (!isDislike) setIsDislike(true);
 
-        if (!down) {
-          dislikeCat(index);
-          setCurrentCardIndex(index + 1);
-        }
+        if (!down) dislikeCat(index);
+
         return { x: down ? mx : -1000, y: down ? my : 0 };
       }
 
@@ -273,11 +300,8 @@ export const Swipe = () => {
     });
   });
 
-  const getCatAge = (birthDate: Date) => {
-    const toto = new Date(birthDate);
-    const ageDifMs = Date.now() - toto.getTime();
-    const ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  const handleMatchClick = () => {
+    navigate(`/matches`);
   };
 
   if (loading) return <h1>Loading ...</h1>;
@@ -285,7 +309,99 @@ export const Swipe = () => {
   if (data && data.swipeList)
     return (
       <section className="swipe-container">
-        <h2 className="swipe-title">Trouve le matou de tes rêves</h2>
+        {open && (
+          <Modal
+            aria-labelledby="modal-title"
+            aria-describedby="modal-desc"
+            open={open}
+            onClose={() => setOpen(false)}
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              flexDirection: "column",
+            }}
+          >
+            <Sheet
+              variant="outlined"
+              sx={{
+                maxWidth: 500,
+                p: 3,
+                boxShadow: "lg",
+                display: "flex",
+                flexDirection: "column",
+                borderRadius: "30px",
+                backgroundColor: "var(--color-white)",
+              }}
+            >
+              <header
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "15px",
+                }}
+              >
+                <h1 style={{ color: "var(--color-primary)" }}>
+                  C'est un match!
+                </h1>
+                <IconButton
+                  size="sm"
+                  variant="solid"
+                  onClick={() => setOpen(false)}
+                  sx={{
+                    width: "40px",
+                    height: "40px",
+                    borderRadius: "100%",
+                    backgroundColor: "var(--color-red)",
+                    color: "var(--color-white)",
+                  }}
+                >
+                  <Close sx={{ fontSize: 65, fontWeight: "bold" }} />
+                </IconButton>
+              </header>
+              <section
+                style={{
+                  marginTop: "10%",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <h3
+                  style={{
+                    textAlign: "left",
+                    marginBottom: "10px",
+                    color: "var(--color-grey)",
+                  }}
+                >
+                  Bravo!{" "}
+                  <span style={{ color: "var(--color-primary)" }}>
+                    {currentCat.name}
+                  </span>{" "}
+                  t'aime en retour!
+                  <br />
+                  Fonce voir tes matchs pour voir votre rendez-vous
+                </h3>
+                <img style={{ width: "330px" }} src={randomCatGif} />
+                {/* <Link
+                  style={{ color: "var(--color-primary-light)" }}
+                  to="/matches"
+                >
+                  Page de match
+                </Link> */}
+                <Button
+                  onClick={handleMatchClick}
+                  style={{ marginTop: "20px", width: "60%" }}
+                >
+                  Y aller!
+                </Button>
+              </section>
+            </Sheet>
+          </Modal>
+        )}
+
+        <h2 className="swipe-title">Swipe le matou de tes rêves 😻</h2>
         <animated.div
           style={{
             visibility: likeVsblt as unknown as CSSProperties["visibility"],
@@ -355,8 +471,8 @@ export const Swipe = () => {
               {currentCatsList && currentCatsList[i] && (
                 <SwipeCard
                   {...currentCatsList[i]}
-                  age={getCatAge(currentCatsList[i].birthday)}
-                  interests={mockedInterests}
+                  age={calculateAge(currentCatsList[i].birthday)}
+                  interests={currentCatsList[i].interests ?? []}
                 />
               )}
             </animated.div>
@@ -373,7 +489,7 @@ export const Swipe = () => {
                 backgroundColor: "var(--color-red)",
               }}
             >
-              <Close sx={{ fontSize: 40, fontWeight: "bold" }} />
+              <Close sx={{ fontSize: 65, fontWeight: "bold" }} />
             </IconButton>
             <IconButton
               size="lg"
@@ -386,7 +502,7 @@ export const Swipe = () => {
                 backgroundColor: "var(--color-secondary)",
               }}
             >
-              <Favorite sx={{ fontSize: 35 }} />
+              <Favorite sx={{ fontSize: 50 }} />
             </IconButton>
           </section>
         </section>
