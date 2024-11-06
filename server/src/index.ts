@@ -5,11 +5,12 @@ import "reflect-metadata";
 import { AppDataSource } from "./data-source";
 import { buildSchema } from "type-graphql";
 import CatResolver from "./cats/cat.resolvers";
+import LikeResolver from "./likes/like.resolvers";
 
 (async () => {
   await AppDataSource.initialize();
   const schema = await buildSchema({
-    resolvers: [CatResolver],
+    resolvers: [CatResolver, LikeResolver],
   });
 
   const server = new ApolloServer({ schema });
