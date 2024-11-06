@@ -1,14 +1,17 @@
-import { useState } from "react";
+import save from "/Save.svg";
+import { useState, ChangeEvent } from "react";
 import {
   Box,
   Typography,
-  TextField,
   Select,
-  MenuItem,
+  Option,
   IconButton,
   Textarea,
+  FormControl,
+  FormLabel,
+  Input,
 } from "@mui/joy";
-import { SelectChangeEvent } from "@mui/material";
+
 const EditProfileForm = () => {
   const [profile, setProfile] = useState({
     surname: "",
@@ -16,7 +19,7 @@ const EditProfileForm = () => {
     birthDay: "",
     sexe: "",
     hair_color: "",
-    address: "",
+    city: "",
     available: "",
     breed: "",
     interests: [] as string[],
@@ -26,11 +29,8 @@ const EditProfileForm = () => {
     setProfile((prev) => ({ ...prev, [field]: value }));
   };
 
-  const handleChange = (event: SelectChangeEvent<string[]>) => {
-    setProfile({
-      ...profile,
-      interests: event.target.value as string[],
-    });
+  const handleInterestsChange = (value: string[]) => {
+    setProfile((prev) => ({ ...prev, interests: value }));
   };
 
   const handleSave = () => {
@@ -38,102 +38,113 @@ const EditProfileForm = () => {
   };
 
   return (
-    <Box sx={{ padding: 3 }}>
+    <Box sx={{ paddingLeft: 4, position: "fixed" }}>
       <Box display="flex" alignItems="center" mb={2}>
         <Typography component="h2" sx={{ flexGrow: 1, color: "black" }}>
           Éditer mon profil
         </Typography>
-        <IconButton onClick={handleSave} color="primary">
-          <SaveIcon />
+        <IconButton onClick={handleSave} color="primary" variant="soft">
+          Enregister
+          <img
+            src={save}
+            alt="enregistrer"
+            style={{ width: "24px", marginLeft: "8px" }}
+          />
         </IconButton>
       </Box>
 
-      <TextField
-        label="Surnom"
-        value={profile.surname}
-        onChange={(e) => handleInputChange("surname", e.target.value)}
-        fullWidth
-        sx={{ mb: 2 }}
-      />
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Surnom</FormLabel>
+        <Input
+          value={profile.surname}
+          onChange={(e) => handleInputChange("surname", e.target.value)}
+          fullWidth
+        />
+      </FormControl>
 
-      <Textarea
-        component="textarea"
-        label="Description"
-        value={profile.description}
-        onChange={(e) => handleInputChange("description", e.target.value)}
-        minRows={3}
-        sx={{ mb: 2 }}
-      />
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Description</FormLabel>
+        <Textarea
+          value={profile.description}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
+            handleInputChange("description", e.target.value)
+          }
+          minRows={3}
+        />
+      </FormControl>
 
-      <TextField
-        label="Date de naissance"
-        type="date"
-        value={profile.birthDay}
-        onChange={(e) => handleInputChange("birthDay", e.target.value)}
-        fullWidth
-        sx={{ mb: 2 }}
-        InputLabelProps={{ shrink: true }}
-      />
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Date de naissance</FormLabel>
+        <Input
+          type="date"
+          value={profile.birthDay}
+          onChange={(e) => handleInputChange("birthDay", e.target.value)}
+          fullWidth
+        />
+      </FormControl>
 
-      <Typography>Sexe</Typography>
-      <Select
-        value={profile.sexe}
-        onChange={(e) => handleInputChange("sexe", e.target.value)}
-        sx={{ mb: 2 }}
-      >
-        <MenuItem value="male">Mâle</MenuItem>
-        <MenuItem value="female">Femelle</MenuItem>
-        <MenuItem value="other">Autre</MenuItem>
-      </Select>
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Sexe</FormLabel>
+        <Select
+          value={profile.sexe}
+          onChange={(e, value) => handleInputChange("sexe", value || "")}
+        >
+          <Option value="male">Mâle</Option>
+          <Option value="female">Femelle</Option>
+          <Option value="other">Autre</Option>
+        </Select>
+      </FormControl>
 
-      <TextField
-        label="Couleur du poil"
-        value={profile.hair_color}
-        onChange={(e) => handleInputChange("hair_color", e.target.value)}
-        fullWidth
-        sx={{ mb: 2 }}
-      />
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Couleur du poil</FormLabel>
+        <Input
+          value={profile.hair_color}
+          onChange={(e) => handleInputChange("hair_color", e.target.value)}
+          fullWidth
+        />
+      </FormControl>
 
-      <TextField
-        label="Adresse"
-        value={profile.address}
-        onChange={(e) => handleInputChange("address", e.target.value)}
-        placeholder="Où ch'habite"
-        fullWidth
-        sx={{ mb: 2 }}
-        InputProps={{
-          startAdornment: <img src="/geolocation.svg" alt="géolocalisation" />,
-        }}
-      />
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Ville</FormLabel>
+        <Input
+          value={profile.city}
+          onChange={(e) => handleInputChange("city", e.target.value)}
+          placeholder="Où ch'habite"
+          fullWidth
+        />
+      </FormControl>
 
-      <TextField
-        label="Heure de disponibilité"
-        type="time"
-        value={profile.available}
-        onChange={(e) => handleInputChange("available", e.target.value)}
-        fullWidth
-        sx={{ mb: 2 }}
-      />
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Heure de disponibilité</FormLabel>
+        <Input
+          type="time"
+          value={profile.available}
+          onChange={(e) => handleInputChange("available", e.target.value)}
+          fullWidth
+        />
+      </FormControl>
 
-      <TextField
-        label="Espèce"
-        value={profile.breed}
-        onChange={(e) => handleInputChange("breed", e.target.value)}
-        fullWidth
-        sx={{ mb: 2 }}
-      />
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Espèce</FormLabel>
+        <Input
+          value={profile.breed}
+          onChange={(e) => handleInputChange("breed", e.target.value)}
+          fullWidth
+        />
+      </FormControl>
 
-      <Typography>Intérêts</Typography>
-      <Select
-        multiple
-        value={profile.interests}
-        onChange={handleChange}
-        sx={{ mb: 2 }}
-      >
-        <MenuItem value="Sieste">Sieste</MenuItem>
-        <MenuItem value="Manger">Manger</MenuItem>
-        <MenuItem value="Griffer le canapé">Griffer le canapé</MenuItem>
-      </Select>
+      <FormControl>
+        <FormLabel>Intérêts</FormLabel>
+        <Select
+          multiple
+          value={profile.interests}
+          onChange={(e, value) => handleInterestsChange(value)}
+        >
+          <Option value="Sieste">Sieste</Option>
+          <Option value="Manger">Manger</Option>
+          <Option value="Griffer le canapé">Griffer le canapé</Option>
+        </Select>
+      </FormControl>
     </Box>
   );
 };
