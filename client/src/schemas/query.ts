@@ -12,6 +12,18 @@ export const GET_LIKED_CATS = gql`
   }
 `;
 
+export const GET_MATCHES_CATS = gql`
+  query MatchedCats($catId: Int!) {
+    matchedCats(catId: $catId) {
+      id
+      name
+      birthday
+      profile_picture
+      surname
+    }
+  }
+`;
+
 export const GET_CAT_BY_ID = gql`
   query GetCatById($getCatByIdId: Float!) {
     getCatById(id: $getCatByIdId) {
