@@ -4,20 +4,22 @@ import { Link } from "react-router-dom";
 import { calculateAge } from "../../utils/calculateAge";
 import { useRemoveLikeMutation } from "../../generated/graphql-types";
 import { ModalDeleteLike } from "../ModalDeleteLike/ModalDeleteLike";
-// import Button from '@mui/joy/Button';
-// import Divider from '@mui/joy/Divider';
-// import DialogTitle from '@mui/joy/DialogTitle';
-// import DialogContent from '@mui/joy/DialogContent';
-// import DialogActions from '@mui/joy/DialogActions';
-// import Modal from '@mui/joy/Modal';
-// import ModalDialog from '@mui/joy/ModalDialog';
-// import WarningRoundedIcon from '@mui/icons-material/WarningRounded';
 import "./ProfileLikeCard.css";
 
-export const ProfileLikeCard = (
-  { name, birthday, profile_picture, surname, id }: LikedCat,
-  catId: number
-) => {
+interface ProfileLikeCardProps extends LikedCat {
+  catId: number; // TODO : Provisoire en attendant la feature d'inscription-connexion
+  refetch: () => void;
+}
+
+export const ProfileLikeCard = ({
+  name,
+  birthday,
+  profile_picture,
+  surname,
+  id,
+  catId,
+  refetch,
+}: ProfileLikeCardProps) => {
   const [openModalDeleteLike, setOpenModalDeleteLike] =
     useState<boolean>(false);
   const [removeLikeMutation] = useRemoveLikeMutation();
@@ -30,12 +32,12 @@ export const ProfileLikeCard = (
           catId2: id,
         },
       });
+
+      await refetch();
     } catch (error) {
       console.error("Erreur lors de la suppression du like", error);
     }
   };
-
-  console.info(handleRemoveLike);
 
   return (
     <div className="profile-card-global">
@@ -50,8 +52,7 @@ export const ProfileLikeCard = (
         open={openModalDeleteLike}
         onClose={() => setOpenModalDeleteLike(false)}
         onConfirm={async () => {
-          // await handleRemoveLike();
-          alert("le like a été supprimé");
+          await handleRemoveLike();
           setOpenModalDeleteLike(false);
         }}
       />

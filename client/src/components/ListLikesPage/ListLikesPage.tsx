@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { LikedCat } from "../../types/CatTypes";
 import { useLikedCatsQuery } from "../../generated/graphql-types";
 import { ProfileLikeCard } from "../ProfileCard/ProfileLikeCard";
 
@@ -14,13 +15,13 @@ export const ListLikesPages = ({
   likeView,
   changeCount,
 }: ListLikesPagesProps) => {
-  const { data, loading, error } = useLikedCatsQuery({
+  const { data, loading, error, refetch } = useLikedCatsQuery({
     variables: {
       catId: catId,
     },
   });
 
-  const [catsListing, setCatsListing] = useState<Cat[]>([]);
+  const [catsListing, setCatsListing] = useState<LikedCat[]>([]);
 
   useEffect(() => {
     if (likeView === "likes" && data?.likedCats) {
@@ -49,6 +50,8 @@ export const ListLikesPages = ({
             id={cat.id}
             profile_picture={cat.profile_picture}
             surname={cat.surname}
+            catId={catId}
+            refetch={refetch}
           />
         ))}
       </section>

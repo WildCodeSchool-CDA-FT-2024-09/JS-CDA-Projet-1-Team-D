@@ -6,7 +6,7 @@ import "./Likes.css";
 
 export const Likes = () => {
   // TODO  ---- En attente de la feature de connexion -----
-  const catId = 19;
+  const catId = 5;
 
   const [likeView, setLikeView] = useState("likes");
   const [catsCount, setCatsCount] = useState(0);
