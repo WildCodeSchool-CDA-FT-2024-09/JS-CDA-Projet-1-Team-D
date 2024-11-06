@@ -88,10 +88,10 @@ const PrivacyPolicyContent = () => (
     </Typography>
     <Typography>
       Les informations que nous collectons peuvent être utilisées pour :
-      Améliorer notre service et personnaliser votre expérience Vous permettre
-      de communiquer avec d'autres utilisateurs Vous envoyer des notifications
-      importantes concernant votre compte Analyser l'utilisation du site pour en
-      améliorer les fonctionnalités
+      Améliorer notre service et personnaliser votre expérience, vous permettre
+      de communiquer avec d'autres utilisateurs, vous envoyer des notifications
+      importantes concernant votre compte. Analyser l'utilisation du site pour
+      en améliorer les fonctionnalités
     </Typography>
     <Typography component="h3" sx={{ marginLeft: "8px", color: "black" }}>
       Protection des Informations :
