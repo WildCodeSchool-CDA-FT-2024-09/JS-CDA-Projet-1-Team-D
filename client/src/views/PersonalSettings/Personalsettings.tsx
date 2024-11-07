@@ -1,13 +1,11 @@
 import EditIcon from "/edit.svg";
-import SettingsIcon from "/settings.svg";
 import PrivacyIcon from "/privacy.svg";
 import rightArrow from "/rightArrow.svg";
 import leftArrow from "/leftArrow.svg";
 import { Box, Typography, Drawer, IconButton } from "@mui/joy";
 import { useState } from "react";
-import EditProfileForm from "../../components/EditProfilForm";
-import PrivacyPolicyContent from "../../components/PrivacyPolicyContent";
-import Logout from "../../components/Logout";
+import EditProfileForm from "../../components/EditProfilForm/EditProfilForm";
+import PrivacyPolicyContent from "../../components/PrivacyPolicyContent/PrivacyPolicyContent";
 
 interface MenuItemProps {
   icon: string;
@@ -55,13 +53,6 @@ export const PersonalSettings = () => {
         }
       />
       <MenuItem
-        icon={SettingsIcon}
-        text="Paramètre du compte"
-        onClick={() =>
-          handleOpenDrawer({ icon: SettingsIcon, text: "Paramètre du compte" })
-        }
-      />
-      <MenuItem
         icon={PrivacyIcon}
         text="Confidentialité"
         onClick={() =>
@@ -95,11 +86,7 @@ export const PersonalSettings = () => {
         </Box>
         <Box padding="16px">
           {selectedItem?.text === "Confidentialité" && <PrivacyPolicyContent />}
-          {selectedItem?.text === "Se déconnecter" && <Logout />}
           {selectedItem?.text === "Editer mon profil" && <EditProfileForm />}
-          {selectedItem?.text === "Paramètre du compte" && (
-            <Typography>Contenu spécifique pour Paramètre du compte</Typography>
-          )}
         </Box>
       </Drawer>
     </>
