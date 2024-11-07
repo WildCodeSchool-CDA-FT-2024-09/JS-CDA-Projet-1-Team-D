@@ -13,6 +13,12 @@ export const Home = () => {
       <Link className="redirect-co-page" to="/login">
         Connexion
       </Link>
+      <div className="no-acc-ctn">
+        <p>Je n'ai pas de</p>
+        <Link className="no-acc-ctn-link" to="/signup">
+          compte
+        </Link>
+      </div>
     </section>
   );
 };

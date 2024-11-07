@@ -32,6 +32,19 @@
   background-color: var(--joy-palette-primary-600) !important;
 }
 
+.no-acc-ctn {
+  display: flex;
+}
+
+.no-acc-ctn p {
+  padding-right: 0.2em;
+  padding-left: 0;
+}
+
+.no-acc-ctn-link {
+  align-content: center;
+  text-decoration: none;
+}
 
 @keyframes pulse {
   0% {
