@@ -11,12 +11,17 @@ import {
   FormLabel,
   Input,
 } from "@mui/joy";
+import { UPDATE_CAT_PROFILE } from "../../schemas/mutation";
+import { useMutation } from "@apollo/client";
+import { useAuth } from "../../context/AuthContext";
 
 const EditProfileForm = () => {
+  const { user } = useAuth();
   const [profile, setProfile] = useState({
+    id: user?.id || "",
     surname: "",
     description: "",
-    birthDay: "",
+    birthday: "",
     sexe: "",
     hair_color: "",
     city: "",
@@ -33,8 +38,25 @@ const EditProfileForm = () => {
     setProfile((prev) => ({ ...prev, interests: value }));
   };
 
-  const handleSave = () => {
-    console.info("Données sauvegardées :", profile);
+  const [updateCatProfile] = useMutation(UPDATE_CAT_PROFILE);
+
+  const handleSave = async () => {
+    try {
+      const { data } = await updateCatProfile({
+        variables: {
+          updateCatProfileId: parseInt(profile.id), // Assurez-vous que l'id est un nombre
+          data: {
+            ...profile,
+            interests: profile.interests.map((interest) => ({
+              name: interest,
+            })),
+          },
+        },
+      });
+      console.info("Profil mis à jour :", data);
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour :", error);
+    }
   };
 
   return (
@@ -44,7 +66,7 @@ const EditProfileForm = () => {
           Éditer mon profil
         </Typography>
         <IconButton onClick={handleSave} color="primary" variant="soft">
-          Enregister
+          Enregistrer
           <img
             src={save}
             alt="enregistrer"
@@ -77,8 +99,8 @@ const EditProfileForm = () => {
         <FormLabel>Date de naissance</FormLabel>
         <Input
           type="date"
-          value={profile.birthDay}
-          onChange={(e) => handleInputChange("birthDay", e.target.value)}
+          value={profile.birthday}
+          onChange={(e) => handleInputChange("birthday", e.target.value)}
           fullWidth
         />
       </FormControl>

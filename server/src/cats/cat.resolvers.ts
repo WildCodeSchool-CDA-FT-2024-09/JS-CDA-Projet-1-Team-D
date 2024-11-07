@@ -1,7 +1,7 @@
 import { Cat } from "../cats/cat.entities";
 import { Like } from "../likes/like.entities";
 import { Query, Resolver, Arg, Int, Mutation } from "type-graphql";
-import { LogginInfosInput } from "./cat.types";
+import { LogginInfosInput, UpdateProfileInput } from "./cat.types";
 import argon2 from "argon2";
 
 @Resolver(Cat)
@@ -65,5 +65,18 @@ export default class CatResolver {
   @Query(() => Cat, { nullable: true })
   async getCatById(@Arg("id", () => Number) id: number) {
     return await Cat.findOne({ where: { id }, relations: { interests: true } });
+  }
+
+  @Mutation(() => Cat)
+  async updateCatProfile(
+    @Arg("id", () => Int) id: number,
+    @Arg("data") data: UpdateProfileInput
+  ): Promise<Cat> {
+    const cat = await Cat.findOneBy({ id });
+    if (!cat) throw new Error("Profil non trouvé");
+
+    Object.assign(cat, data);
+    await cat.save();
+    return cat;
   }
 }
