@@ -43,3 +43,13 @@ export const GET_CAT_BY_ID = gql`
     }
   }
 `;
+
+export const GET_MESSAGES_CATS = gql`
+  query MessagesCats($catId: Int!) {
+    matchedCats(catId: $catId) {
+      id
+      name
+      profile_picture
+    }
+  }
+`;
