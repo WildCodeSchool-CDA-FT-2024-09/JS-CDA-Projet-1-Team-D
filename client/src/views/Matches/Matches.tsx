@@ -1,6 +1,5 @@
 import { useMessagesCatsQuery } from "../../generated/graphql-types";
 import { ListMatchesMessages } from "../../components/ListMatchesMessages/ListMatchesMessages";
-import "./Matches.css";
 
 export const Matches = () => {
   // TODO  ---- En attente de la feature de connexion -----
