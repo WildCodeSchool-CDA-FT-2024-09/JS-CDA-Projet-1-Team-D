@@ -10,7 +10,7 @@ export const ListMatchesMessages = ({
   matchedCats,
 }: ListMatchesMessagesProps) => {
   return (
-    <div className="list-messages-style">
+    <ul className="list-messages-style">
       {matchedCats.map((cat) => (
         <MatchMessage
           key={cat.id}
@@ -18,6 +18,6 @@ export const ListMatchesMessages = ({
           profile_picture={cat.profile_picture}
         />
       ))}
-    </div>
+    </ul>
   );
 };

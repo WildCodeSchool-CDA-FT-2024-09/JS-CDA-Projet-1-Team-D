@@ -15,8 +15,8 @@ export const Matches = () => {
   if (error) return <p>Erreur</p>;
   if (data && data.matchedCats)
     return (
-      <section className="matches-page-container">
+      <>
         <ListMatchesMessages matchedCats={data.matchedCats} />
-      </section>
+      </>
     );
 };
