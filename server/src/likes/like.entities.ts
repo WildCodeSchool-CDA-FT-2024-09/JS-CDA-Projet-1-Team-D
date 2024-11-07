@@ -20,7 +20,7 @@ export class Like extends BaseEntity {
   isMatch: boolean;
 
   @Field({ nullable: true })
-  @Column()
+  @Column({ nullable: true })
   isLike: boolean;
 
   @Field(() => Cat, { nullable: true })
