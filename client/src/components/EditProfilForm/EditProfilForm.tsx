@@ -20,6 +20,7 @@ const EditProfileForm = () => {
   const [profile, setProfile] = useState({
     id: user?.id || "",
     surname: "",
+    profile_picture: "",
     description: "",
     birthday: "",
     sexe: "",
@@ -44,7 +45,7 @@ const EditProfileForm = () => {
     try {
       const { data } = await updateCatProfile({
         variables: {
-          updateCatProfileId: parseInt(profile.id), // Assurez-vous que l'id est un nombre
+          updateCatProfileId: profile.id,
           data: {
             ...profile,
             interests: profile.interests.map((interest) => ({
@@ -80,6 +81,16 @@ const EditProfileForm = () => {
         <Input
           value={profile.surname}
           onChange={(e) => handleInputChange("surname", e.target.value)}
+          fullWidth
+        />
+      </FormControl>
+
+      <FormControl sx={{ mb: 2 }}>
+        <FormLabel>Photo</FormLabel>
+        <Input
+          value={profile.profile_picture}
+          onChange={(e) => handleInputChange("profile_picture", e.target.value)}
+          placeholder="Url de la photo"
           fullWidth
         />
       </FormControl>

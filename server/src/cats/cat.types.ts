@@ -17,6 +17,9 @@ export class UpdateProfileInput implements Partial<Cat> {
   surname?: string;
 
   @Field({ nullable: true })
+  profile_picture?: string;
+
+  @Field({ nullable: true })
   description?: string;
 
   @Field({ nullable: true })
