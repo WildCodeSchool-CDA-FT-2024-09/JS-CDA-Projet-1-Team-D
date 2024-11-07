@@ -7,7 +7,7 @@ import Checkbox from "@mui/joy/Checkbox";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import Textarea from "@mui/joy/Textarea";
-import { InputTime } from "../TimePicker/TimePicker";
+import { InputTime } from "../../components/TimePicker/TimePicker";
 import { useCatCreationMutation } from "../../generated/graphql-types";
 import "./AccountCreationPage.css";
 
