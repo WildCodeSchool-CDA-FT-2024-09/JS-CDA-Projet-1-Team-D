@@ -10,7 +10,7 @@ import "./Likes.css";
 
 export const Likes = () => {
   // TODO  ---- En attente de la feature de connexion -----
-  const catId = 5;
+  const catId = 25;
 
   const [likeView, setLikeView] = useState("likes");
 

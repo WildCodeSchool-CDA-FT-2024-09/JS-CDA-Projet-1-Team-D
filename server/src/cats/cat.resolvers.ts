@@ -81,7 +81,7 @@ export default class CatResolver {
       return [];
     }
 
-    // Récupère les IDs des chats déjà likés par le chat connecté
+    // Récupère les IDs des chats déjà likés/disliké par le chat connecté
     const likedCatIds = connectedCat.likedCats.map((like) => like.cat_id2.id);
 
     // Récupère tous les chats sauf ceux déjà likés et avec isMatch non null
@@ -95,7 +95,8 @@ export default class CatResolver {
       .leftJoinAndSelect("cat.interests", "interest")
       .where("cat.id != :catId", { catId }) // Exclure le chat actuel de la liste
       .andWhere("cat.id NOT IN (:...likedCatIds)", { likedCatIds }) // Exclure les chats déjà likés
-      .andWhere("like.isMatch IS NULL") // Inclure seulement ceux dont isMatch est null (veut dire qu'ils sont deja soit like soit dislike)
+      // .andWhere("like.isMatch IS NULL")
+      // Inclure seulement ceux qui sont pas deja like, pas deja dislike
       .getMany();
 
     return cats;
@@ -165,12 +166,11 @@ export default class CatResolver {
       isMatch: false,
     });
 
-    // Parallèlemeent, on met isLike et isMatch du chat en face à false
+    // Parallèlement, on met isMatch du chat en face à false (on garde son like tel qu'il est)
     const othercatLike = await Like.findOne({
       where: { cat_id1: dislikedCat, cat_id2: connectedCat },
     });
     if (othercatLike) {
-      othercatLike.isLike = false;
       othercatLike.isMatch = false;
       await othercatLike.save();
     }
