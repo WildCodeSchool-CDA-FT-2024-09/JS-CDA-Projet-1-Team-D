@@ -43,8 +43,15 @@
   padding: 0.5em;
 }
 
-.return-link {
-  align-self: start;
+.return-link-co {
+  margin-left: 4.1em;
+  border: 2px solid #f38347;
+  border-radius: 20px;
+  position: absolute;
+  top: 2rem;
+  left: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .time-picker-label {
@@ -111,8 +118,4 @@
     justify-content: space-between;
   }
 
-  .arrow-ctn {
-    margin-left: 1em;
-    align-self: start;
-  }
 }

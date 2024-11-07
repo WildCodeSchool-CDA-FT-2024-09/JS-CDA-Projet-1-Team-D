@@ -214,38 +214,30 @@ function AccountCreationPage() {
 
   return (
     <div className="bg-co-ctn">
+      <Link to={-1 as To} className="return-link-co">
+        <img src="/return-arrow.svg" alt="Retour" className="return-arrow" />
+      </Link>
       <main className={`header-co-ctn ${animationClass}`}>
         <div className={`main-co-ctn ${animationClass}`}>
-          <div>
+          {!showOptionalFields ? (
+            <header className="co-ctn-txt">
+              <h1>Trouves ton matou purr-fait</h1>
+              <p className="co-ctn-p">
+                Plus besoin de parcourir les rues pour trouver ta paire !
+              </p>
+            </header>
+          ) : (
             <div>
-              {!showOptionalFields ? (
-                <header className="co-ctn-txt">
-                  <div className="arrow-ctn">
-                    <Link to={-1 as To} className="return-link">
-                      <img
-                        src="/return-arrow.svg"
-                        alt="Retour"
-                        className="return-arrow"
-                      />
-                    </Link>
-                  </div>
-                  <h1>Trouves ton matou purr-fait</h1>
-                  <p className="co-ctn-p">
-                    Plus besoin de parcourir les rues pour trouver ta paire !
-                  </p>
-                </header>
-              ) : (
-                <div className="return-link">
-                  <img
-                    src="/return-arrow.svg"
-                    alt="Retour"
-                    className="return-arrow"
-                    onClick={handleBacktoInitialForm}
-                  />
-                </div>
-              )}
+              <div>
+                <img
+                  src="/return-arrow.svg"
+                  alt="Retour"
+                  className="return-arrow"
+                  onClick={handleBacktoInitialForm}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           {!showOptionalFields ? (
             <form onSubmit={handleInitialSubmit}>
@@ -316,7 +308,7 @@ function AccountCreationPage() {
                 color="primary"
                 placeholder="URL de ta photo de BG"
                 variant="outlined"
-                name="profile_photo_url"
+                name="urlPhoto"
                 type="text"
                 value={catData.urlPhoto}
                 onChange={handleChange}

@@ -35,7 +35,7 @@ function ConnexionPage() {
         <div className="main-co-ctn">
           <header className="co-ctn-txt">
             <div className="arrow-ctn">
-              <Link to={-1 as To} className="return-link">
+              <Link to={-1 as To} className="return-link-co">
                 <img
                   src="/return-arrow.svg"
                   alt="Retour"
