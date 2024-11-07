@@ -66,10 +66,6 @@ export class Cat extends BaseEntity {
   breed: string;
 
   @Field()
-  @Column({ nullable: true })
-  surname: string;
-
-  @Field()
   @Column({ default: "user" })
   role: string;
 
