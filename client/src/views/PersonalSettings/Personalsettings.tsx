@@ -1,13 +1,11 @@
-import EditIcon from "/edit.svg";
-import SettingsIcon from "/settings.svg";
+import LogoutIcon from "/logout.svg";
 import PrivacyIcon from "/privacy.svg";
 import rightArrow from "/rightArrow.svg";
 import leftArrow from "/leftArrow.svg";
 import { Box, Typography, Drawer, IconButton } from "@mui/joy";
 import { useState } from "react";
-import EditProfileForm from "../../components/EditProfilForm";
-import PrivacyPolicyContent from "../../components/PrivacyPolicyContent";
-import Logout from "../../components/Logout";
+import PrivacyPolicyContent from "../../components/PrivacyPolicyContent/PrivacyPolicyContent";
+import Logout from "../../components/Logout/Logout";
 
 interface MenuItemProps {
   icon: string;
@@ -48,27 +46,19 @@ export const PersonalSettings = () => {
   return (
     <>
       <MenuItem
-        icon={EditIcon}
-        text="Editer mon profil"
-        onClick={() =>
-          handleOpenDrawer({ icon: EditIcon, text: "Editer mon profil" })
-        }
-      />
-      <MenuItem
-        icon={SettingsIcon}
-        text="Paramètre du compte"
-        onClick={() =>
-          handleOpenDrawer({ icon: SettingsIcon, text: "Paramètre du compte" })
-        }
-      />
-      <MenuItem
         icon={PrivacyIcon}
         text="Confidentialité"
         onClick={() =>
           handleOpenDrawer({ icon: PrivacyIcon, text: "Confidentialité" })
         }
       />
-
+      <MenuItem
+        icon={LogoutIcon}
+        text="Se déconnecter"
+        onClick={() =>
+          handleOpenDrawer({ icon: LogoutIcon, text: "Se déconnecter" })
+        }
+      />
       <Drawer
         open={openDrawer}
         onClose={handleCloseDrawer}
@@ -96,10 +86,6 @@ export const PersonalSettings = () => {
         <Box padding="16px">
           {selectedItem?.text === "Confidentialité" && <PrivacyPolicyContent />}
           {selectedItem?.text === "Se déconnecter" && <Logout />}
-          {selectedItem?.text === "Editer mon profil" && <EditProfileForm />}
-          {selectedItem?.text === "Paramètre du compte" && (
-            <Typography>Contenu spécifique pour Paramètre du compte</Typography>
-          )}
         </Box>
       </Drawer>
     </>
