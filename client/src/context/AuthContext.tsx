@@ -10,6 +10,7 @@ interface AuthContextType {
   user: User | null;
   isLoggedIn: boolean;
   login: (email: string, password: string) => void;
+  logout: () => void;
   loading: boolean;
   error: ApolloError | undefined;
 }
@@ -50,8 +51,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const isLoggedIn = !!user;
 
+  const logout = () => {
+    setUser(null);
+  };
+
   return (
-    <AuthContext.Provider value={{ user, isLoggedIn, login, loading, error }}>
+    <AuthContext.Provider
+      value={{ user, isLoggedIn, login, logout, loading, error }}
+    >
       {children}
     </AuthContext.Provider>
   );

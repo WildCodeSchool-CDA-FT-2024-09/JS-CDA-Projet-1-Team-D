@@ -1,9 +1,11 @@
+import LogoutIcon from "/logout.svg";
 import PrivacyIcon from "/privacy.svg";
 import rightArrow from "/rightArrow.svg";
 import leftArrow from "/leftArrow.svg";
 import { Box, Typography, Drawer, IconButton } from "@mui/joy";
 import { useState } from "react";
-import PrivacyPolicyContent from "../../components/PrivacyPolicyContent";
+import PrivacyPolicyContent from "../../components/PrivacyPolicyContent/PrivacyPolicyContent";
+import Logout from "../../components/Logout/Logout";
 
 interface MenuItemProps {
   icon: string;
@@ -50,7 +52,13 @@ export const PersonalSettings = () => {
           handleOpenDrawer({ icon: PrivacyIcon, text: "Confidentialité" })
         }
       />
-
+      <MenuItem
+        icon={LogoutIcon}
+        text="Se déconnecter"
+        onClick={() =>
+          handleOpenDrawer({ icon: LogoutIcon, text: "Se déconnecter" })
+        }
+      />
       <Drawer
         open={openDrawer}
         onClose={handleCloseDrawer}
@@ -77,6 +85,7 @@ export const PersonalSettings = () => {
         </Box>
         <Box padding="16px">
           {selectedItem?.text === "Confidentialité" && <PrivacyPolicyContent />}
+          {selectedItem?.text === "Se déconnecter" && <Logout />}
         </Box>
       </Drawer>
     </>
