@@ -1,0 +1,10 @@
+.match-message-container{
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.notif-message{
+  padding: 0;
+  font-size: 14px;
+}
