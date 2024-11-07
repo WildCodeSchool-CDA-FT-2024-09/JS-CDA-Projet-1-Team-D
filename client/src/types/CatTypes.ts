@@ -22,3 +22,10 @@ export type Cat = {
   surname: string;
   role: string;
 };
+
+export type MatchedCat = {
+  __typename?: "Cat";
+  id: number;
+  name: string;
+  profile_picture: string;
+};

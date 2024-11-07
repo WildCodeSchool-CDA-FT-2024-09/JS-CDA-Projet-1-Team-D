@@ -1,13 +1,13 @@
 import { useMessagesCatsQuery } from "../../generated/graphql-types";
-import Autocomplete from "@mui/joy/Autocomplete";
 import { ListMatchesMessages } from "../../components/ListMatchesMessages/ListMatchesMessages";
+import Autocomplete from "@mui/joy/Autocomplete";
 // import Input from '@mui/joy/Input';
 
 import "./Matches.css";
 
 export const Matches = () => {
   // TODO  ---- En attente de la feature de connexion -----
-  const catId = 19;
+  const catId = 9;
 
   const { data, loading, error } = useMessagesCatsQuery({
     variables: {
@@ -25,7 +25,7 @@ export const Matches = () => {
           sx={{ width: 300 }}
           color="primary"
         />
-        <ListMatchesMessages />
+        <ListMatchesMessages matchedCats={data.matchedCats} />
       </section>
     );
 };
