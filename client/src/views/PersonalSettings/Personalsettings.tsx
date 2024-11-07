@@ -1,11 +1,13 @@
+import LogoutIcon from "/logout.svg";
 import EditIcon from "/edit.svg";
 import PrivacyIcon from "/privacy.svg";
 import rightArrow from "/rightArrow.svg";
 import leftArrow from "/leftArrow.svg";
 import { Box, Typography, Drawer, IconButton } from "@mui/joy";
 import { useState } from "react";
-import EditProfileForm from "../../components/EditProfilForm/EditProfilForm";
 import PrivacyPolicyContent from "../../components/PrivacyPolicyContent/PrivacyPolicyContent";
+import Logout from "../../components/Logout/Logout";
+import EditProfileForm from "../../components/EditProfilForm/EditProfilForm";
 
 interface MenuItemProps {
   icon: string;
@@ -59,7 +61,13 @@ export const PersonalSettings = () => {
           handleOpenDrawer({ icon: PrivacyIcon, text: "Confidentialité" })
         }
       />
-
+      <MenuItem
+        icon={LogoutIcon}
+        text="Se déconnecter"
+        onClick={() =>
+          handleOpenDrawer({ icon: LogoutIcon, text: "Se déconnecter" })
+        }
+      />
       <Drawer
         open={openDrawer}
         onClose={handleCloseDrawer}
@@ -86,6 +94,7 @@ export const PersonalSettings = () => {
         </Box>
         <Box padding="16px">
           {selectedItem?.text === "Confidentialité" && <PrivacyPolicyContent />}
+          {selectedItem?.text === "Se déconnecter" && <Logout />}
           {selectedItem?.text === "Editer mon profil" && <EditProfileForm />}
         </Box>
       </Drawer>
