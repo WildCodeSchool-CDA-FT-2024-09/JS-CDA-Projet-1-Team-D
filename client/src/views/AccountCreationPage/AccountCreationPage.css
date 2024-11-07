@@ -1,0 +1,118 @@
+.cgu-ctn-link {
+  font-family: "verdana";
+  text-decoration: none;
+  margin-left: 0.2em;
+}
+
+.cgu-ctn {
+  display: flex;
+  margin-bottom: 0.6em;
+}
+
+.complete-ctn {
+  display: flex;
+  width: 15em;
+  justify-content: space-between;
+  margin: 0.6em 0;
+}
+
+.optional-form {
+  margin-bottom: 2em;
+}
+
+.ignore-ctn-btn {
+  padding: 0.3em 1em;
+  border: none;
+  background-color: inherit;
+  font-weight: bold;
+  color: var(--joy-palette-text-primary) !important;
+}
+
+.input-time-picker-ctn {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  text-align: center;
+}
+
+.time-picker-ctn input {
+  margin: 0.5em 0;
+  min-width: 3em;
+  border-radius: 0.6em;
+  border: 1px solid #F6A377;
+  padding: 0.5em;
+}
+
+.return-link {
+  align-self: start;
+}
+
+.time-picker-label {
+  margin: 0.5em 0.3em 0.5em 0;
+}
+
+.birthday-ctn label {
+  display: flex;
+  height: 1.8em;
+  align-items: center;
+}
+
+.slide-out-left {
+  animation: slideOutLeft 0.5s forwards;
+}
+
+@keyframes slideOutLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+}
+
+.slide-in-right {
+  animation: slideInRight 0.5s forwards;
+}
+
+@keyframes slideInRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s forwards;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .no-acc-ctn {
+    padding: 0.6em 0;
+    display: flex;
+    justify-content: center;
+  }
+
+  .co-ctn-txt {
+    justify-content: space-between;
+  }
+
+  .arrow-ctn {
+    margin-left: 1em;
+    align-self: start;
+  }
+}
