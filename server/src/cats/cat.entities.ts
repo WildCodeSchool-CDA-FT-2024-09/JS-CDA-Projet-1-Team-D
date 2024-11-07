@@ -4,7 +4,7 @@ import {
   Entity,
   ManyToMany,
   OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Field, ObjectType } from "type-graphql";
 import { Like } from "../likes/like.entities";
@@ -14,23 +14,23 @@ import { Interest } from "../interests/interest.entities";
 @Entity("cat")
 export class Cat extends BaseEntity {
   @Field()
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Field()
-  @Column({ unique: true })
+  @Column({ nullable: false, unique: true })
   email: string;
 
   @Field()
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
   @Field()
-  @Column()
+  @Column({ nullable: true })
   surname: string;
 
   @Field()
-  @Column()
+  @Column({ nullable: false })
   name: string;
 
   @Field()

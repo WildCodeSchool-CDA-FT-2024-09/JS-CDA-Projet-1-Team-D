@@ -1,7 +1,8 @@
 import { Cat } from "../cats/cat.entities";
 import { Query, Resolver, Arg, Int, Mutation } from "type-graphql";
-import { LogginInfosInput } from "./cat.types";
+import { catCreationInput, LogginInfosInput } from "./cat.types";
 import argon2 from "argon2";
+import { validateOrReject, ValidationError } from "class-validator";
 
 @Resolver(Cat)
 export default class CatResolver {
@@ -29,9 +30,10 @@ export default class CatResolver {
   @Mutation(() => Cat)
   async login(@Arg("data") logginInfos: LogginInfosInput) {
     const { email, password } = logginInfos;
+    const emailLowerCase = email.toLowerCase();
 
     const cat = await Cat.findOne({
-      where: { email },
+      where: { email: emailLowerCase },
     });
 
     if (!cat) {
@@ -45,5 +47,50 @@ export default class CatResolver {
     }
 
     return cat;
+  }
+
+  @Mutation(() => Boolean)
+  async catCreation(
+    @Arg("data") signupInfos: catCreationInput
+  ): Promise<boolean> {
+    const { email, password } = signupInfos;
+    const emailLowerCase = email.toLowerCase();
+    try {
+      await validateOrReject(signupInfos);
+    } catch (err) {
+      const errorMessages = (err as ValidationError[]).map((error) => {
+        if (error.constraints) {
+          return Object.values(error.constraints).join(" ");
+        }
+        return "Input invalide";
+      });
+
+      throw new Error(errorMessages.join(" "));
+    }
+    try {
+      const checkEmail = await Cat.findOne({
+        where: { email: emailLowerCase },
+      });
+
+      if (checkEmail) {
+        throw new Error("Email déjà enregistré");
+      }
+
+      const cat = new Cat();
+
+      Object.assign(cat, signupInfos);
+
+      cat.email = emailLowerCase;
+
+      const hashedPassword = await argon2.hash(password);
+      cat.password = hashedPassword;
+
+      await cat.save();
+
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 }
