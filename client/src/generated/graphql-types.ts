@@ -75,10 +75,16 @@ export type LogginInfosInput = {
 export type Mutation = {
   __typename?: "Mutation";
   login: Cat;
+  removeLike: Scalars["Boolean"]["output"];
 };
 
 export type MutationLoginArgs = {
   data: LogginInfosInput;
+};
+
+export type MutationRemoveLikeArgs = {
+  catId1: Scalars["Int"]["input"];
+  catId2: Scalars["Int"]["input"];
 };
 
 export type Query = {
@@ -165,6 +171,20 @@ export type GetCatByIdQuery = {
       name: string;
     }> | null;
   } | null;
+};
+
+export type MessagesCatsQueryVariables = Exact<{
+  catId: Scalars["Int"]["input"];
+}>;
+
+export type MessagesCatsQuery = {
+  __typename?: "Query";
+  matchedCats?: Array<{
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    profile_picture: string;
+  }> | null;
 };
 
 export const LoginDocument = gql`
@@ -464,4 +484,88 @@ export type GetCatByIdSuspenseQueryHookResult = ReturnType<
 export type GetCatByIdQueryResult = Apollo.QueryResult<
   GetCatByIdQuery,
   GetCatByIdQueryVariables
+>;
+export const MessagesCatsDocument = gql`
+  query MessagesCats($catId: Int!) {
+    matchedCats(catId: $catId) {
+      id
+      name
+      profile_picture
+    }
+  }
+`;
+
+/**
+ * __useMessagesCatsQuery__
+ *
+ * To run a query within a React component, call `useMessagesCatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMessagesCatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessagesCatsQuery({
+ *   variables: {
+ *      catId: // value for 'catId'
+ *   },
+ * });
+ */
+export function useMessagesCatsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MessagesCatsQuery,
+    MessagesCatsQueryVariables
+  > &
+    (
+      | { variables: MessagesCatsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MessagesCatsQuery, MessagesCatsQueryVariables>(
+    MessagesCatsDocument,
+    options
+  );
+}
+export function useMessagesCatsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MessagesCatsQuery,
+    MessagesCatsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MessagesCatsQuery, MessagesCatsQueryVariables>(
+    MessagesCatsDocument,
+    options
+  );
+}
+export function useMessagesCatsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        MessagesCatsQuery,
+        MessagesCatsQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<MessagesCatsQuery, MessagesCatsQueryVariables>(
+    MessagesCatsDocument,
+    options
+  );
+}
+export type MessagesCatsQueryHookResult = ReturnType<
+  typeof useMessagesCatsQuery
+>;
+export type MessagesCatsLazyQueryHookResult = ReturnType<
+  typeof useMessagesCatsLazyQuery
+>;
+export type MessagesCatsSuspenseQueryHookResult = ReturnType<
+  typeof useMessagesCatsSuspenseQuery
+>;
+export type MessagesCatsQueryResult = Apollo.QueryResult<
+  MessagesCatsQuery,
+  MessagesCatsQueryVariables
 >;
