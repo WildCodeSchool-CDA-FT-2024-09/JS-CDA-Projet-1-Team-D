@@ -19,6 +19,10 @@ export class Like extends BaseEntity {
   @Column({ nullable: true })
   isMatch: boolean | null;
 
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  isLike: boolean | null;
+
   @Field(() => Cat, { nullable: true })
   @ManyToOne(() => Cat, (cat) => cat.likedCats)
   cat_id1: Cat;

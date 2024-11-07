@@ -54,7 +54,7 @@ export const SwipeCard = ({
         <ul className="swipe-card-interests-list">
           {interests.map((interest, index) => {
             return (
-              <li key={index}>
+              <li key={interest.name}>
                 <Chip
                   startDecorator={`${interestEmojis[index]} ${interest.name}`}
                   sx={{

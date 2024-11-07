@@ -116,17 +116,25 @@ export default class CatResolver {
       return null;
     }
 
-    // Check si le chat liké nous like en retour (match)
-    const reciprocalLike = await Like.findOne({
+    // On prend le like de l'autre chat si il existe
+    const otherCatLike = await Like.findOne({
       where: { cat_id1: likedCat, cat_id2: connectedCat },
     });
 
-    // Créez une nouvelle instance de Like
+    // On crée le like du chat connecté
     const like = Like.create({
       cat_id1: connectedCat,
       cat_id2: likedCat,
-      isMatch: reciprocalLike ? true : null, // Si like reciproque match true, si pas réciproque le laisser à null
+      isLike: true,
+      isMatch: null,
     });
+
+    // Si like reciproque de l'autre chat, match à true
+    if (otherCatLike && otherCatLike.isLike) {
+      like.isMatch = true;
+      otherCatLike.isMatch = true;
+      await otherCatLike.save();
+    }
 
     await like.save();
     return like;
@@ -148,11 +156,24 @@ export default class CatResolver {
     }
 
     // Créez une nouvelle instance de Like
+    // On lui mets isLike à false et
+    // donc isMatch à false aussi
     const like = Like.create({
       cat_id1: connectedCat,
       cat_id2: dislikedCat,
+      isLike: false,
       isMatch: false,
     });
+
+    // Parallèlemeent, on met isLike et isMatch du chat en face à false
+    const othercatLike = await Like.findOne({
+      where: { cat_id1: dislikedCat, cat_id2: connectedCat },
+    });
+    if (othercatLike) {
+      othercatLike.isLike = false;
+      othercatLike.isMatch = false;
+      await othercatLike.save();
+    }
 
     await like.save();
     return like;
