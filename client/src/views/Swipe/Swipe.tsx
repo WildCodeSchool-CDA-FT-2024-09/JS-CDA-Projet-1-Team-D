@@ -20,7 +20,10 @@ import {
 import { useNavigate } from "react-router-dom";
 import Button from "@mui/joy/Button";
 
+// Le nombre de cartes de profils qu'on veut distribuer et  visibles à l'écran
 const stackLength = 5;
+
+// Chat connecté, sera remplacé par l'utilisateur courant dans la pr de Nicolas
 const connectedCatId = 25;
 
 const catGifs = [
@@ -342,9 +345,7 @@ export const Swipe = () => {
                   gap: "15px",
                 }}
               >
-                <h1 style={{ color: "var(--color-primary)" }}>
-                  C'est un match!
-                </h1>
+                <h1 className="swipe-match-popup-h1">C'est un match!</h1>
                 <IconButton
                   size="sm"
                   variant="solid"
@@ -384,12 +385,6 @@ export const Swipe = () => {
                   Fonce voir tes matchs pour voir votre rendez-vous
                 </h3>
                 <img style={{ width: "330px" }} src={randomCatGif} />
-                {/* <Link
-                  style={{ color: "var(--color-primary-light)" }}
-                  to="/matches"
-                >
-                  Page de match
-                </Link> */}
                 <Button
                   onClick={handleMatchClick}
                   style={{ marginTop: "20px", width: "60%" }}

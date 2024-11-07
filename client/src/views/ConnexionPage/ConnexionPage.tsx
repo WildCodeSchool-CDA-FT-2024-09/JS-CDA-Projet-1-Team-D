@@ -34,7 +34,7 @@ function ConnexionPage() {
       <main className="header-co-ctn">
         <div className="main-co-ctn">
           <header className="co-ctn-txt">
-            <h1>Trouves ton matou purr-fait</h1>
+            <h1 className="co-ctn-h1">Trouves ton matou purr-fait</h1>
             <p className="co-ctn-p">
               Connectes-toi et retrouves les minous près de chez toi !
             </p>

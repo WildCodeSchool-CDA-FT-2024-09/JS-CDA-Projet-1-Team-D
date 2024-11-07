@@ -26,10 +26,18 @@
     left: 0;
 }
 
+.swipe-match-popup-h1 {
+    color: var(--color-primary)
+}
+
 @media screen and (max-width: 768px) {
     .swipe-action-buttons {
         justify-content: space-around;
         padding: 25px 0;
+    }
+
+    .swipe-match-popup-h1 {
+        text-align: center;
     }
 }
 

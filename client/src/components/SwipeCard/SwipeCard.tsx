@@ -34,7 +34,11 @@ export const SwipeCard = ({
       }}
     >
       <CardCover>
-        <img src={profile_picture} loading="lazy" alt="" />
+        <img
+          src={profile_picture}
+          loading="lazy"
+          alt={`${name}'s profile picture`}
+        />
       </CardCover>
       <CardCover
         sx={{
