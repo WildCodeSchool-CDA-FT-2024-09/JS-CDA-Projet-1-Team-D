@@ -74,7 +74,12 @@ export type LogginInfosInput = {
 
 export type Mutation = {
   __typename?: "Mutation";
+  catCreation: Scalars["Boolean"]["output"];
   login: Cat;
+};
+
+export type MutationCatCreationArgs = {
+  data: CatCreationInput;
 };
 
 export type MutationLoginArgs = {
@@ -89,6 +94,30 @@ export type Query = {
 
 export type QueryLikedCatsArgs = {
   catId: Scalars["Int"]["input"];
+};
+
+export type CatCreationInput = {
+  available?: InputMaybe<Scalars["String"]["input"]>;
+  birthday?: InputMaybe<Scalars["DateTimeISO"]["input"]>;
+  breed?: InputMaybe<Scalars["String"]["input"]>;
+  city?: InputMaybe<Scalars["String"]["input"]>;
+  description?: InputMaybe<Scalars["String"]["input"]>;
+  email: Scalars["String"]["input"];
+  hair_color?: InputMaybe<Scalars["String"]["input"]>;
+  name: Scalars["String"]["input"];
+  password: Scalars["String"]["input"];
+  profile_picture?: InputMaybe<Scalars["String"]["input"]>;
+  sexe?: InputMaybe<Scalars["String"]["input"]>;
+  surname?: InputMaybe<Scalars["String"]["input"]>;
+};
+
+export type CatCreationMutationVariables = Exact<{
+  data: CatCreationInput;
+}>;
+
+export type CatCreationMutation = {
+  __typename?: "Mutation";
+  catCreation: boolean;
 };
 
 export type LoginMutationVariables = Exact<{
@@ -116,6 +145,54 @@ export type LikedCatsQuery = {
   }> | null;
 };
 
+export const CatCreationDocument = gql`
+  mutation CatCreation($data: catCreationInput!) {
+    catCreation(data: $data)
+  }
+`;
+export type CatCreationMutationFn = Apollo.MutationFunction<
+  CatCreationMutation,
+  CatCreationMutationVariables
+>;
+
+/**
+ * __useCatCreationMutation__
+ *
+ * To run a mutation, you first call `useCatCreationMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCatCreationMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [catCreationMutation, { data, loading, error }] = useCatCreationMutation({
+ *   variables: {
+ *      data: // value for 'data'
+ *   },
+ * });
+ */
+export function useCatCreationMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    CatCreationMutation,
+    CatCreationMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<CatCreationMutation, CatCreationMutationVariables>(
+    CatCreationDocument,
+    options
+  );
+}
+export type CatCreationMutationHookResult = ReturnType<
+  typeof useCatCreationMutation
+>;
+export type CatCreationMutationResult =
+  Apollo.MutationResult<CatCreationMutation>;
+export type CatCreationMutationOptions = Apollo.BaseMutationOptions<
+  CatCreationMutation,
+  CatCreationMutationVariables
+>;
 export const LoginDocument = gql`
   mutation Login($data: LogginInfosInput!) {
     login(data: $data) {
