@@ -1,4 +1,5 @@
 import { Cat } from "../cats/cat.entities";
+import { Like } from "../likes/like.entities";
 import { Query, Resolver, Arg, Int, Mutation } from "type-graphql";
 import { catCreationInput, LogginInfosInput } from "./cat.types";
 import argon2 from "argon2";
@@ -25,6 +26,20 @@ export default class CatResolver {
     }
 
     return cat.likedCats.map((like) => like.cat_id2);
+  }
+
+  @Query(() => [Cat], { nullable: true })
+  async matchedCats(@Arg("catId", () => Int) catId: number): Promise<Cat[]> {
+    const matches = await Like.find({
+      where: { cat_id1: { id: catId }, isMatch: true },
+      relations: ["cat_id2"],
+    });
+
+    if (!matches) {
+      return [];
+    }
+
+    return matches.map((like) => like.cat_id2);
   }
 
   @Mutation(() => Cat)
@@ -92,5 +107,10 @@ export default class CatResolver {
       console.error(err);
       return false;
     }
+  }
+
+  @Query(() => Cat, { nullable: true })
+  async getCatById(@Arg("id", () => Number) id: number) {
+    return await Cat.findOne({ where: { id }, relations: { interests: true } });
   }
 }

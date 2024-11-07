@@ -89,10 +89,20 @@ export type MutationLoginArgs = {
 export type Query = {
   __typename?: "Query";
   fullcats?: Maybe<Array<Cat>>;
+  getCatById?: Maybe<Cat>;
   likedCats?: Maybe<Array<Cat>>;
+  matchedCats?: Maybe<Array<Cat>>;
+};
+
+export type QueryGetCatByIdArgs = {
+  id: Scalars["Float"]["input"];
 };
 
 export type QueryLikedCatsArgs = {
+  catId: Scalars["Int"]["input"];
+};
+
+export type QueryMatchedCatsArgs = {
   catId: Scalars["Int"]["input"];
 };
 
@@ -142,6 +152,61 @@ export type LikedCatsQuery = {
     birthday: Date;
     profile_picture: string;
     surname: string;
+  }> | null;
+};
+
+export type MatchedCatsQueryVariables = Exact<{
+  catId: Scalars["Int"]["input"];
+}>;
+
+export type MatchedCatsQuery = {
+  __typename?: "Query";
+  matchedCats?: Array<{
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    birthday: Date;
+    profile_picture: string;
+    surname: string;
+  }> | null;
+};
+
+export type GetCatByIdQueryVariables = Exact<{
+  getCatByIdId: Scalars["Float"]["input"];
+}>;
+
+export type GetCatByIdQuery = {
+  __typename?: "Query";
+  getCatById?: {
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    surname: string;
+    description: string;
+    birthday: Date;
+    profile_picture: string;
+    available: string;
+    city: string;
+    breed: string;
+    interests?: Array<{
+      __typename?: "Interest";
+      id: number;
+      name: string;
+    }> | null;
+  } | null;
+};
+
+export type MessagesCatsQueryVariables = Exact<{
+  catId: Scalars["Int"]["input"];
+}>;
+
+export type MessagesCatsQuery = {
+  __typename?: "Query";
+  matchedCats?: Array<{
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    profile_picture: string;
   }> | null;
 };
 
@@ -317,4 +382,261 @@ export type LikedCatsSuspenseQueryHookResult = ReturnType<
 export type LikedCatsQueryResult = Apollo.QueryResult<
   LikedCatsQuery,
   LikedCatsQueryVariables
+>;
+export const MatchedCatsDocument = gql`
+  query MatchedCats($catId: Int!) {
+    matchedCats(catId: $catId) {
+      id
+      name
+      birthday
+      profile_picture
+      surname
+    }
+  }
+`;
+
+/**
+ * __useMatchedCatsQuery__
+ *
+ * To run a query within a React component, call `useMatchedCatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMatchedCatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMatchedCatsQuery({
+ *   variables: {
+ *      catId: // value for 'catId'
+ *   },
+ * });
+ */
+export function useMatchedCatsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MatchedCatsQuery,
+    MatchedCatsQueryVariables
+  > &
+    (
+      | { variables: MatchedCatsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MatchedCatsQuery, MatchedCatsQueryVariables>(
+    MatchedCatsDocument,
+    options
+  );
+}
+export function useMatchedCatsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MatchedCatsQuery,
+    MatchedCatsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MatchedCatsQuery, MatchedCatsQueryVariables>(
+    MatchedCatsDocument,
+    options
+  );
+}
+export function useMatchedCatsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        MatchedCatsQuery,
+        MatchedCatsQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<MatchedCatsQuery, MatchedCatsQueryVariables>(
+    MatchedCatsDocument,
+    options
+  );
+}
+export type MatchedCatsQueryHookResult = ReturnType<typeof useMatchedCatsQuery>;
+export type MatchedCatsLazyQueryHookResult = ReturnType<
+  typeof useMatchedCatsLazyQuery
+>;
+export type MatchedCatsSuspenseQueryHookResult = ReturnType<
+  typeof useMatchedCatsSuspenseQuery
+>;
+export type MatchedCatsQueryResult = Apollo.QueryResult<
+  MatchedCatsQuery,
+  MatchedCatsQueryVariables
+>;
+export const GetCatByIdDocument = gql`
+  query GetCatById($getCatByIdId: Float!) {
+    getCatById(id: $getCatByIdId) {
+      id
+      name
+      surname
+      description
+      birthday
+      profile_picture
+      available
+      city
+      breed
+      interests {
+        id
+        name
+      }
+    }
+  }
+`;
+
+/**
+ * __useGetCatByIdQuery__
+ *
+ * To run a query within a React component, call `useGetCatByIdQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCatByIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCatByIdQuery({
+ *   variables: {
+ *      getCatByIdId: // value for 'getCatByIdId'
+ *   },
+ * });
+ */
+export function useGetCatByIdQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetCatByIdQuery,
+    GetCatByIdQueryVariables
+  > &
+    (
+      | { variables: GetCatByIdQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetCatByIdQuery, GetCatByIdQueryVariables>(
+    GetCatByIdDocument,
+    options
+  );
+}
+export function useGetCatByIdLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetCatByIdQuery,
+    GetCatByIdQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetCatByIdQuery, GetCatByIdQueryVariables>(
+    GetCatByIdDocument,
+    options
+  );
+}
+export function useGetCatByIdSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<GetCatByIdQuery, GetCatByIdQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetCatByIdQuery, GetCatByIdQueryVariables>(
+    GetCatByIdDocument,
+    options
+  );
+}
+export type GetCatByIdQueryHookResult = ReturnType<typeof useGetCatByIdQuery>;
+export type GetCatByIdLazyQueryHookResult = ReturnType<
+  typeof useGetCatByIdLazyQuery
+>;
+export type GetCatByIdSuspenseQueryHookResult = ReturnType<
+  typeof useGetCatByIdSuspenseQuery
+>;
+export type GetCatByIdQueryResult = Apollo.QueryResult<
+  GetCatByIdQuery,
+  GetCatByIdQueryVariables
+>;
+export const MessagesCatsDocument = gql`
+  query MessagesCats($catId: Int!) {
+    matchedCats(catId: $catId) {
+      id
+      name
+      profile_picture
+    }
+  }
+`;
+
+/**
+ * __useMessagesCatsQuery__
+ *
+ * To run a query within a React component, call `useMessagesCatsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMessagesCatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMessagesCatsQuery({
+ *   variables: {
+ *      catId: // value for 'catId'
+ *   },
+ * });
+ */
+export function useMessagesCatsQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    MessagesCatsQuery,
+    MessagesCatsQueryVariables
+  > &
+    (
+      | { variables: MessagesCatsQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<MessagesCatsQuery, MessagesCatsQueryVariables>(
+    MessagesCatsDocument,
+    options
+  );
+}
+export function useMessagesCatsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    MessagesCatsQuery,
+    MessagesCatsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<MessagesCatsQuery, MessagesCatsQueryVariables>(
+    MessagesCatsDocument,
+    options
+  );
+}
+export function useMessagesCatsSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        MessagesCatsQuery,
+        MessagesCatsQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<MessagesCatsQuery, MessagesCatsQueryVariables>(
+    MessagesCatsDocument,
+    options
+  );
+}
+export type MessagesCatsQueryHookResult = ReturnType<
+  typeof useMessagesCatsQuery
+>;
+export type MessagesCatsLazyQueryHookResult = ReturnType<
+  typeof useMessagesCatsLazyQuery
+>;
+export type MessagesCatsSuspenseQueryHookResult = ReturnType<
+  typeof useMessagesCatsSuspenseQuery
+>;
+export type MessagesCatsQueryResult = Apollo.QueryResult<
+  MessagesCatsQuery,
+  MessagesCatsQueryVariables
 >;

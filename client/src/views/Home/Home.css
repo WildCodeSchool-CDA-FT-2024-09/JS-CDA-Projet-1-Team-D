@@ -19,7 +19,7 @@
   width: 8em;
   border-radius: 0.35em;
   font-family: "Roboto", sans-serif;
-  color:  var(--joy-palette-text-primary);
+  color: var(--joy-palette-text-primary);
   font-size: 1em;
   font-weight: 500;
   background-color: var(--joy-palette-primary-500) !important;
