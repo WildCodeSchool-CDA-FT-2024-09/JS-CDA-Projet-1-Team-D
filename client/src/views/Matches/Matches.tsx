@@ -1,13 +1,17 @@
+import { Navigate } from "react-router-dom";
 import { useMessagesCatsQuery } from "../../generated/graphql-types";
 import { ListMatchesMessages } from "../../components/ListMatchesMessages/ListMatchesMessages";
-
+import { useAuth } from "../../context/AuthContext";
 export const Matches = () => {
-  // TODO  ---- En attente de la feature de connexion -----
-  const catId = 9;
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   const { data, loading, error } = useMessagesCatsQuery({
     variables: {
-      catId: catId,
+      catId: user.id,
     },
   });
 
