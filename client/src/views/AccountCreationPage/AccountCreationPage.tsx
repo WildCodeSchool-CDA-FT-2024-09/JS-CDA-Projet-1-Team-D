@@ -244,7 +244,7 @@ function AccountCreationPage() {
               <Input
                 className="co-ctn-form-input"
                 color="primary"
-                placeholder="Name"
+                placeholder="Nom"
                 variant="outlined"
                 name="name"
                 type="text"
