@@ -26,7 +26,8 @@ export const SwipeCard = ({
   return (
     <Card
       sx={{
-        height: 460,
+        height: "50vh",
+        maxHeight: 460,
         width: 380,
         borderRadius: "40px",
         boxShadow:
