@@ -45,10 +45,9 @@ export default class CatResolver {
   @Mutation(() => Cat)
   async login(@Arg("data") logginInfos: LogginInfosInput) {
     const { email, password } = logginInfos;
-    const emailLowerCase = email.toLowerCase();
 
     const cat = await Cat.findOne({
-      where: { email: emailLowerCase },
+      where: { email: email.toLowerCase() },
     });
 
     if (!cat) {
@@ -69,7 +68,7 @@ export default class CatResolver {
     @Arg("data") signupInfos: catCreationInput
   ): Promise<boolean> {
     const { email, password } = signupInfos;
-    const emailLowerCase = email.toLowerCase();
+
     try {
       await validateOrReject(signupInfos);
     } catch (err) {
@@ -83,19 +82,12 @@ export default class CatResolver {
       throw new Error(errorMessages.join(" "));
     }
     try {
-      const checkEmail = await Cat.findOne({
-        where: { email: emailLowerCase },
-      });
-
-      if (checkEmail) {
-        throw new Error("Email déjà enregistré");
-      }
-
       const cat = new Cat();
 
+      // Utilisation de la méthode assign pour éviter l'affectation sur la dizaine de fields
       Object.assign(cat, signupInfos);
 
-      cat.email = emailLowerCase;
+      cat.email = email.toLowerCase();
 
       const hashedPassword = await argon2.hash(password);
       cat.password = hashedPassword;
