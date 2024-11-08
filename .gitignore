@@ -4,3 +4,4 @@ server/dist
 db.sqlite
 .sqlite
 .env
+graphql-types.ts
