@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, To, useNavigate } from "react-router-dom";
 import Input from "@mui/joy/Input";
 import Button from "@mui/joy/Button";
 import "./ConnexionPage.css";
@@ -34,6 +34,15 @@ function ConnexionPage() {
       <main className="header-co-ctn">
         <div className="main-co-ctn">
           <header className="co-ctn-txt">
+            <div className="arrow-ctn">
+              <Link to={-1 as To} className="return-link-co">
+                <img
+                  src="/return-arrow.svg"
+                  alt="Retour"
+                  className="return-arrow"
+                />
+              </Link>
+            </div>
             <h1 className="co-ctn-h1">Trouves ton matou purr-fait</h1>
             <p className="co-ctn-p">
               Connectes-toi et retrouves les minous près de chez toi !
@@ -56,7 +65,7 @@ function ConnexionPage() {
               placeholder="Mot de passe"
               variant="outlined"
               name="password"
-              type="text"
+              type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -65,6 +74,11 @@ function ConnexionPage() {
               Me connecter &rarr;
             </Button>
           </form>
+          <div className="no-acc-ctn">
+            <Link className="no-acc-ctn-link" to="/signup">
+              Je n'ai pas de compte
+            </Link>
+          </div>
         </div>
       </main>
     </div>
