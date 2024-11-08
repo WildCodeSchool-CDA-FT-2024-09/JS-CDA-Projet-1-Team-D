@@ -77,6 +77,7 @@ export type Mutation = {
   __typename?: "Mutation";
   catCreation: Scalars["Boolean"]["output"];
   login: Cat;
+  removeLike: Scalars["Boolean"]["output"];
   sendDislike: Like;
   sendLike: Like;
 };
@@ -87,6 +88,11 @@ export type MutationCatCreationArgs = {
 
 export type MutationLoginArgs = {
   data: LogginInfosInput;
+};
+
+export type MutationRemoveLikeArgs = {
+  catId1: Scalars["Int"]["input"];
+  catId2: Scalars["Int"]["input"];
 };
 
 export type MutationSendDislikeArgs = {
@@ -157,6 +163,16 @@ export type LoginMutation = {
   login: { __typename?: "Cat"; id: number };
 };
 
+export type RemoveLikeMutationVariables = Exact<{
+  catId2: Scalars["Int"]["input"];
+  catId1: Scalars["Int"]["input"];
+}>;
+
+export type RemoveLikeMutation = {
+  __typename?: "Mutation";
+  removeLike: boolean;
+};
+
 export type LikedCatsQueryVariables = Exact<{
   catId: Scalars["Int"]["input"];
 }>;
@@ -171,14 +187,6 @@ export type LikedCatsQuery = {
     profile_picture: string;
     surname: string;
   }> | null;
-};
-
-export type MatchedCatsQueryVariables = Exact<{
-  catId: Scalars["Int"]["input"];
-}>;
-
-export type MatchedCatsQuery = {
-  __typename?: "Query";
   matchedCats?: Array<{
     __typename?: "Cat";
     id: number;
@@ -226,6 +234,21 @@ export type MessagesCatsQuery = {
     name: string;
     profile_picture: string;
   }> | null;
+};
+
+export type GetForHeaderQueryVariables = Exact<{
+  getCatByIdId: Scalars["Float"]["input"];
+}>;
+
+export type GetForHeaderQuery = {
+  __typename?: "Query";
+  getCatById?: {
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    surname: string;
+    profile_picture: string;
+  } | null;
 };
 
 export type SwipeListQueryVariables = Exact<{
@@ -375,9 +398,65 @@ export type LoginMutationOptions = Apollo.BaseMutationOptions<
   LoginMutation,
   LoginMutationVariables
 >;
+export const RemoveLikeDocument = gql`
+  mutation RemoveLike($catId2: Int!, $catId1: Int!) {
+    removeLike(catId2: $catId2, catId1: $catId1)
+  }
+`;
+export type RemoveLikeMutationFn = Apollo.MutationFunction<
+  RemoveLikeMutation,
+  RemoveLikeMutationVariables
+>;
+
+/**
+ * __useRemoveLikeMutation__
+ *
+ * To run a mutation, you first call `useRemoveLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useRemoveLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [removeLikeMutation, { data, loading, error }] = useRemoveLikeMutation({
+ *   variables: {
+ *      catId2: // value for 'catId2'
+ *      catId1: // value for 'catId1'
+ *   },
+ * });
+ */
+export function useRemoveLikeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    RemoveLikeMutation,
+    RemoveLikeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<RemoveLikeMutation, RemoveLikeMutationVariables>(
+    RemoveLikeDocument,
+    options
+  );
+}
+export type RemoveLikeMutationHookResult = ReturnType<
+  typeof useRemoveLikeMutation
+>;
+export type RemoveLikeMutationResult =
+  Apollo.MutationResult<RemoveLikeMutation>;
+export type RemoveLikeMutationOptions = Apollo.BaseMutationOptions<
+  RemoveLikeMutation,
+  RemoveLikeMutationVariables
+>;
 export const LikedCatsDocument = gql`
   query LikedCats($catId: Int!) {
     likedCats(catId: $catId) {
+      id
+      name
+      birthday
+      profile_picture
+      surname
+    }
+    matchedCats(catId: $catId) {
       id
       name
       birthday
@@ -452,90 +531,6 @@ export type LikedCatsSuspenseQueryHookResult = ReturnType<
 export type LikedCatsQueryResult = Apollo.QueryResult<
   LikedCatsQuery,
   LikedCatsQueryVariables
->;
-export const MatchedCatsDocument = gql`
-  query MatchedCats($catId: Int!) {
-    matchedCats(catId: $catId) {
-      id
-      name
-      birthday
-      profile_picture
-      surname
-    }
-  }
-`;
-
-/**
- * __useMatchedCatsQuery__
- *
- * To run a query within a React component, call `useMatchedCatsQuery` and pass it any options that fit your needs.
- * When your component renders, `useMatchedCatsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMatchedCatsQuery({
- *   variables: {
- *      catId: // value for 'catId'
- *   },
- * });
- */
-export function useMatchedCatsQuery(
-  baseOptions: Apollo.QueryHookOptions<
-    MatchedCatsQuery,
-    MatchedCatsQueryVariables
-  > &
-    (
-      | { variables: MatchedCatsQueryVariables; skip?: boolean }
-      | { skip: boolean }
-    )
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<MatchedCatsQuery, MatchedCatsQueryVariables>(
-    MatchedCatsDocument,
-    options
-  );
-}
-export function useMatchedCatsLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    MatchedCatsQuery,
-    MatchedCatsQueryVariables
-  >
-) {
-  const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<MatchedCatsQuery, MatchedCatsQueryVariables>(
-    MatchedCatsDocument,
-    options
-  );
-}
-export function useMatchedCatsSuspenseQuery(
-  baseOptions?:
-    | Apollo.SkipToken
-    | Apollo.SuspenseQueryHookOptions<
-        MatchedCatsQuery,
-        MatchedCatsQueryVariables
-      >
-) {
-  const options =
-    baseOptions === Apollo.skipToken
-      ? baseOptions
-      : { ...defaultOptions, ...baseOptions };
-  return Apollo.useSuspenseQuery<MatchedCatsQuery, MatchedCatsQueryVariables>(
-    MatchedCatsDocument,
-    options
-  );
-}
-export type MatchedCatsQueryHookResult = ReturnType<typeof useMatchedCatsQuery>;
-export type MatchedCatsLazyQueryHookResult = ReturnType<
-  typeof useMatchedCatsLazyQuery
->;
-export type MatchedCatsSuspenseQueryHookResult = ReturnType<
-  typeof useMatchedCatsSuspenseQuery
->;
-export type MatchedCatsQueryResult = Apollo.QueryResult<
-  MatchedCatsQuery,
-  MatchedCatsQueryVariables
 >;
 export const GetCatByIdDocument = gql`
   query GetCatById($getCatByIdId: Float!) {
@@ -709,6 +704,91 @@ export type MessagesCatsSuspenseQueryHookResult = ReturnType<
 export type MessagesCatsQueryResult = Apollo.QueryResult<
   MessagesCatsQuery,
   MessagesCatsQueryVariables
+>;
+export const GetForHeaderDocument = gql`
+  query GetForHeader($getCatByIdId: Float!) {
+    getCatById(id: $getCatByIdId) {
+      id
+      name
+      surname
+      profile_picture
+    }
+  }
+`;
+
+/**
+ * __useGetForHeaderQuery__
+ *
+ * To run a query within a React component, call `useGetForHeaderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetForHeaderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetForHeaderQuery({
+ *   variables: {
+ *      getCatByIdId: // value for 'getCatByIdId'
+ *   },
+ * });
+ */
+export function useGetForHeaderQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetForHeaderQuery,
+    GetForHeaderQueryVariables
+  > &
+    (
+      | { variables: GetForHeaderQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetForHeaderQuery, GetForHeaderQueryVariables>(
+    GetForHeaderDocument,
+    options
+  );
+}
+export function useGetForHeaderLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetForHeaderQuery,
+    GetForHeaderQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetForHeaderQuery, GetForHeaderQueryVariables>(
+    GetForHeaderDocument,
+    options
+  );
+}
+export function useGetForHeaderSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetForHeaderQuery,
+        GetForHeaderQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetForHeaderQuery, GetForHeaderQueryVariables>(
+    GetForHeaderDocument,
+    options
+  );
+}
+export type GetForHeaderQueryHookResult = ReturnType<
+  typeof useGetForHeaderQuery
+>;
+export type GetForHeaderLazyQueryHookResult = ReturnType<
+  typeof useGetForHeaderLazyQuery
+>;
+export type GetForHeaderSuspenseQueryHookResult = ReturnType<
+  typeof useGetForHeaderSuspenseQuery
+>;
+export type GetForHeaderQueryResult = Apollo.QueryResult<
+  GetForHeaderQuery,
+  GetForHeaderQueryVariables
 >;
 export const SwipeListDocument = gql`
   query SwipeList($catId: Int!) {

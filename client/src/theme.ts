@@ -20,9 +20,26 @@ export const theme = extendTheme({
           // Active
           700: "#BC6232",
         },
+        warning: {
+          // Blanc
+          50: "#FEFDF9",
+          // Fond beige
+          100: "#FBF7E5",
+          // Orange clair
+          300: "#F7A990",
+          // Orange primaire
+          500: "#E65A0F",
+          // Hover
+          600: "#E65A0F",
+          // Active
+          700: "#BC6232",
+        },
         text: {
           primary: "#414141",
           secondary: "#0B0500",
+        },
+        background: {
+          surface: "rgba(254, 253, 249, 0.85)",
         },
       },
     },

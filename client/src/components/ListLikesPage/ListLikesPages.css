@@ -1,0 +1,30 @@
+.likes-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,
+      minmax(150px, 1fr));
+  gap: 12px;
+  place-items: center;
+  padding-left: 10px;
+}
+
+@media screen and (min-width: 320px) {
+  .likes-cards {
+    grid-template-columns: repeat(auto-fit,
+        minmax(155px, 1fr));
+    gap: 8px 0px;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .likes-cards {
+    grid-template-columns: repeat(auto-fit,
+        minmax(170px, 1fr));
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .likes-cards {
+    grid-template-columns: repeat(auto-fit,
+        minmax(180px, 1fr));
+  }
+}

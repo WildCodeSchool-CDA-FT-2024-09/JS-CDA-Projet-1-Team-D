@@ -15,15 +15,13 @@ import {
   useSendLikeMutation,
   useSwipeListQuery,
 } from "../../generated/graphql-types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 import useIsMobile from "../../utils/useIsMobile";
 import { MatchPopup } from "./MatchPopup";
 
 // Le nombre de cartes de profils qu'on veut distribuer et  visibles à l'écran
 const stackLength = 5;
-
-// Chat connecté, sera remplacé par l'utilisateur courant dans la pr de Nicolas
-const connectedCatId = 25;
 
 const catGifs = [
   "https://media.tenor.com/HUYxMVXRE9EAAAAj/love.gif",
@@ -35,6 +33,12 @@ const catGifs = [
 ];
 
 export const Swipe = () => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
   // Cursor pour savoir où on en est dans la liste entière des chats
   const [catsListCursor, setCatsListCursor] = useState(stackLength);
 
@@ -64,7 +68,7 @@ export const Swipe = () => {
 
   const { data, loading, error, refetch } = useSwipeListQuery({
     variables: {
-      catId: connectedCatId,
+      catId: user.id,
     },
     fetchPolicy: "cache-and-network",
   });
@@ -167,7 +171,7 @@ export const Swipe = () => {
     try {
       const { data } = await sendLikeMutation({
         variables: {
-          catId1: connectedCatId,
+          catId1: user.id,
           catId2: catToLikeId,
         },
       });
@@ -190,7 +194,7 @@ export const Swipe = () => {
     try {
       await sendDislikeMutation({
         variables: {
-          catId1: connectedCatId,
+          catId1: user.id,
           catId2: catToDislikeId,
         },
       });

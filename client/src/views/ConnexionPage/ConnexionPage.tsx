@@ -13,7 +13,7 @@ function ConnexionPage() {
 
   useEffect(() => {
     if (user) {
-      navigate(`/profile/${user.id}`);
+      navigate(`/swipe`);
     }
   }, [user, navigate]);
 
