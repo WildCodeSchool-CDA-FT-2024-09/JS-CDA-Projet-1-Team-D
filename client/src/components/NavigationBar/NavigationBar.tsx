@@ -16,7 +16,7 @@ export default function ManualNavbar() {
   const location = useLocation();
 
   const activeTab = {
-    "/": 0,
+    "/swipe": 0,
     "/matches": 1,
     "/likes": 2,
     "/settings": 3,
@@ -48,7 +48,7 @@ export default function ManualNavbar() {
             },
         }}
       >
-        <Tab component={Link} to="/" disableIndicator>
+        <Tab component={Link} to="/swipe" disableIndicator>
           <HomeRoundedIcon sx={iconStyle} />
         </Tab>
         <Tab component={Link} to="/matches" disableIndicator>

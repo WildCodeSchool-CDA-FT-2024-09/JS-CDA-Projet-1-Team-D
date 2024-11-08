@@ -1,12 +1,17 @@
 import { useState } from "react";
+import { Navigate } from "react-router-dom";
 import { ListLikesPages } from "../../components/ListLikesPage/ListLikesPage";
+import { useAuth } from "../../context/AuthContext";
 import Select from "@mui/joy/Select";
 import Option from "@mui/joy/Option";
 import "./Likes.css";
 
 export const Likes = () => {
-  // TODO  ---- En attente de la feature de connexion -----
-  const catId = 25;
+  const { user } = useAuth();
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
 
   const [likeView, setLikeView] = useState("likes");
   const [catsCount, setCatsCount] = useState(0);
@@ -34,7 +39,7 @@ export const Likes = () => {
         </Select>
       </section>
       <ListLikesPages
-        catId={catId}
+        catId={user.id}
         likeView={likeView}
         changeCount={handleCatsCountChange}
       />

@@ -25,7 +25,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: "/",
+        path: "/swipe",
         element: <Swipe />,
       },
       {
