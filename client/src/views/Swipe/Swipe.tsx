@@ -111,11 +111,8 @@ export const Swipe = () => {
 
   const isMobile = useIsMobile();
 
-  const mobileThrowDistance = 500;
-  const tabletThrowDistance = 1000;
-
   const getThrowDistance = (neg: -1 | 1) => {
-    return isMobile ? neg * mobileThrowDistance : neg * tabletThrowDistance;
+    return neg * window.innerWidth + neg * 10;
   };
 
   // Tout ici est relatif à Springs, et donc aux animations des cartes
@@ -348,7 +345,6 @@ export const Swipe = () => {
             className="swipe-right-icon"
             style={{
               position: "absolute",
-              top: "40%",
               fontSize: "200px",
               zIndex: 1,
             }}
@@ -372,7 +368,6 @@ export const Swipe = () => {
             className="swipe-left-icon"
             style={{
               position: "absolute",
-              top: "40%",
               fontSize: "200px",
               zIndex: 1,
             }}

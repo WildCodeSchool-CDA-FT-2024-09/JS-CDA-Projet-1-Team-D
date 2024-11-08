@@ -28,6 +28,11 @@
 }
 
 .swipe-match-popup-h1 {
+    margin-top: 0;
+}
+
+
+.swipe-match-popup-h1 {
     color: var(--color-primary)
 }
 

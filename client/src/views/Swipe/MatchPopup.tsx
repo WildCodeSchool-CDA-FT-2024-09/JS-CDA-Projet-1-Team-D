@@ -17,19 +17,7 @@ const Content = ({
   handleMatchClick,
   mobile,
 }: MatchPopupProps) => (
-  <Sheet
-    variant="outlined"
-    sx={{
-      maxWidth: 500,
-      p: 3,
-      boxShadow: "lg",
-      display: "flex",
-      flexDirection: "column",
-      borderRadius: "30px",
-      backgroundColor: "var(--color-white)",
-      height: mobile ? "100%" : "initial",
-    }}
-  >
+  <>
     <header
       style={{
         display: "flex",
@@ -65,7 +53,7 @@ const Content = ({
       <h3
         style={{
           textAlign: "left",
-          marginBottom: "10px",
+          marginBottom: mobile ? 0 : "10px",
           color: "var(--color-grey)",
         }}
       >
@@ -82,7 +70,7 @@ const Content = ({
         Y aller!
       </Button>
     </section>
-  </Sheet>
+  </>
 );
 
 export const MatchPopup = ({
@@ -103,11 +91,18 @@ export const MatchPopup = ({
         bottom: 0,
         left: 0,
         right: 0,
-        padding: 0,
         height: "100vh",
+        padding: mobile ? "0 20px" : "0",
       }}
     >
-      <Content {...{ open, mobile, setOpen, handleMatchClick, gif, catName }} />
+      <Content
+        open={open}
+        mobile={mobile}
+        setOpen={setOpen}
+        handleMatchClick={handleMatchClick}
+        gif={gif}
+        catName={catName}
+      />
     </Card>
   ) : (
     <Modal
@@ -122,7 +117,27 @@ export const MatchPopup = ({
         flexDirection: "column",
       }}
     >
-      <Content {...{ open, mobile, setOpen, handleMatchClick, gif, catName }} />
+      <Sheet
+        variant="outlined"
+        sx={{
+          maxWidth: 500,
+          p: 3,
+          boxShadow: "lg",
+          display: "flex",
+          flexDirection: "column",
+          borderRadius: "30px",
+          backgroundColor: "var(--color-white)",
+        }}
+      >
+        <Content
+          open={open}
+          mobile={mobile}
+          setOpen={setOpen}
+          handleMatchClick={handleMatchClick}
+          gif={gif}
+          catName={catName}
+        />
+      </Sheet>
     </Modal>
   );
 };
