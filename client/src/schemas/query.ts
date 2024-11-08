@@ -48,3 +48,14 @@ export const GET_MESSAGES_CATS = gql`
     }
   }
 `;
+
+export const GET_CAT_FOR_HEADER = gql`
+  query GetForHeader($getCatByIdId: Float!) {
+    getCatById(id: $getCatByIdId) {
+      id
+      name
+      surname
+      profile_picture
+    }
+  }
+`;

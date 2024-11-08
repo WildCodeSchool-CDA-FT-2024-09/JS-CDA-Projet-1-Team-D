@@ -207,6 +207,21 @@ export type MessagesCatsQuery = {
   }> | null;
 };
 
+export type GetForHeaderQueryVariables = Exact<{
+  getCatByIdId: Scalars["Float"]["input"];
+}>;
+
+export type GetForHeaderQuery = {
+  __typename?: "Query";
+  getCatById?: {
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    surname: string;
+    profile_picture: string;
+  } | null;
+};
+
 export type SwipeListQueryVariables = Exact<{
   catId: Scalars["Int"]["input"];
 }>;
@@ -612,6 +627,91 @@ export type MessagesCatsSuspenseQueryHookResult = ReturnType<
 export type MessagesCatsQueryResult = Apollo.QueryResult<
   MessagesCatsQuery,
   MessagesCatsQueryVariables
+>;
+export const GetForHeaderDocument = gql`
+  query GetForHeader($getCatByIdId: Float!) {
+    getCatById(id: $getCatByIdId) {
+      id
+      name
+      surname
+      profile_picture
+    }
+  }
+`;
+
+/**
+ * __useGetForHeaderQuery__
+ *
+ * To run a query within a React component, call `useGetForHeaderQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetForHeaderQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetForHeaderQuery({
+ *   variables: {
+ *      getCatByIdId: // value for 'getCatByIdId'
+ *   },
+ * });
+ */
+export function useGetForHeaderQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    GetForHeaderQuery,
+    GetForHeaderQueryVariables
+  > &
+    (
+      | { variables: GetForHeaderQueryVariables; skip?: boolean }
+      | { skip: boolean }
+    )
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<GetForHeaderQuery, GetForHeaderQueryVariables>(
+    GetForHeaderDocument,
+    options
+  );
+}
+export function useGetForHeaderLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    GetForHeaderQuery,
+    GetForHeaderQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<GetForHeaderQuery, GetForHeaderQueryVariables>(
+    GetForHeaderDocument,
+    options
+  );
+}
+export function useGetForHeaderSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<
+        GetForHeaderQuery,
+        GetForHeaderQueryVariables
+      >
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<GetForHeaderQuery, GetForHeaderQueryVariables>(
+    GetForHeaderDocument,
+    options
+  );
+}
+export type GetForHeaderQueryHookResult = ReturnType<
+  typeof useGetForHeaderQuery
+>;
+export type GetForHeaderLazyQueryHookResult = ReturnType<
+  typeof useGetForHeaderLazyQuery
+>;
+export type GetForHeaderSuspenseQueryHookResult = ReturnType<
+  typeof useGetForHeaderSuspenseQuery
+>;
+export type GetForHeaderQueryResult = Apollo.QueryResult<
+  GetForHeaderQuery,
+  GetForHeaderQueryVariables
 >;
 export const SwipeListDocument = gql`
   query SwipeList($catId: Int!) {
