@@ -5,7 +5,7 @@
 }
 
 .swipe-content {
-    margin-top: 7dvh;
+    margin-top: 8dvh;
     width: 100vw;
     display: flex;
     justify-content: center;
@@ -22,9 +22,15 @@
     display: flex;
     padding: 25px 30px;
     justify-content: space-evenly;
-    top: 78%;
     left: 0;
+    bottom: 64px;
+    z-index: 100
 }
+
+.swipe-match-popup-h1 {
+    margin-top: 0;
+}
+
 
 .swipe-match-popup-h1 {
     color: var(--color-primary)
@@ -38,6 +44,10 @@
 
     .swipe-match-popup-h1 {
         text-align: center;
+    }
+
+    .swipe-content {
+        margin-top: 2dvh;
     }
 }
 
