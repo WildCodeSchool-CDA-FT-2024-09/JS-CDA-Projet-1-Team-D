@@ -11,12 +11,15 @@
 }
 
 .header-co-ctn {
+  display: flex;
+  flex-direction: column;
   width: 100dvw;
-  height: 100dvh;
+  height: 95dvh;
   display: flex;
   justify-content: start;
-  align-items: center;
   padding-left: 5em;
+  justify-content: center;
+  margin-top: 2em;
 }
 
 .main-co-ctn {
@@ -31,10 +34,12 @@
   width: 16.5em;
   text-align: left;
   padding: 1em 0;
+  text-align: left;
+  align-self: start;
 }
 
 h1 {
-  margin: 0;
+  margin: 0.8em 0 0 0;
   font-family: "Londrina Solid", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -50,8 +55,11 @@ h1 {
 }
 
 .co-ctn-txt {
+  min-height: 21em;
   width: 275px;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
 }
 
 .co-ctn-btn {
@@ -66,11 +74,16 @@ h1 {
 
 .co-ctn-error {
   color: red;
-  min-height: 2em;
+  min-height: 2.5em;
   text-align: left;
   align-content: center;
   padding: 0;
   margin-bottom: 0.5em;
+}
+
+form {
+  margin-bottom: 0.6em;
+  width: 15em;
 }
 
 @media (max-width: 768px) {
@@ -93,14 +106,15 @@ h1 {
     padding-bottom: 7rem;
   }
 
-  .co-ctn-btn {
-    width: 17em;
+  .co-ctn-txt {
+    display: flex;
+    justify-content: end;
   }
-
+  
   .co-ctn-p {
     width: 85%;
-    display: inline-block;
     text-align: center;
+    align-self: center;
   }
 
   .co-ctn-h1 {
