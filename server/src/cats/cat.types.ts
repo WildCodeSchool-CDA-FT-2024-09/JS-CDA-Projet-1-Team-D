@@ -14,32 +14,32 @@ export class LogginInfosInput implements Partial<Cat> {
 @InputType()
 export class UpdateProfileInput implements Partial<Cat> {
   @Field({ nullable: true })
-  surname?: string;
+  surname: string;
 
   @Field({ nullable: true })
-  profile_picture?: string;
+  profile_picture: string;
 
   @Field({ nullable: true })
-  description?: string;
+  description: string;
 
   @Field({ nullable: true })
-  birthday?: Date;
+  birthday: Date;
 
   @Field({ nullable: true })
-  sexe?: string;
+  sexe: string;
 
   @Field({ nullable: true })
-  hair_color?: string;
+  hair_color: string;
 
   @Field({ nullable: true })
-  city?: string;
+  city: string;
 
   @Field({ nullable: true })
-  available?: string;
+  available: string;
 
   @Field({ nullable: true })
-  breed?: string;
+  breed: string;
 
   @Field(() => [String], { nullable: true })
-  interests?: Interest[];
+  interests: Interest[];
 }

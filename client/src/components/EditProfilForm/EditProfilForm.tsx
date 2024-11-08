@@ -18,7 +18,7 @@ import { useAuth } from "../../context/AuthContext";
 const EditProfileForm = () => {
   const { user } = useAuth();
   const [profile, setProfile] = useState({
-    id: user?.id || "",
+    id: user?.id ?? 0,
     surname: "",
     profile_picture: "",
     description: "",
@@ -31,8 +31,11 @@ const EditProfileForm = () => {
     interests: [] as string[],
   });
 
-  const handleInputChange = (field: string, value: string) => {
-    setProfile((prev) => ({ ...prev, [field]: value }));
+  const handleInputChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    setProfile((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleInterestsChange = (value: string[]) => {
@@ -79,8 +82,9 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Surnom</FormLabel>
         <Input
+          name="surname"
           value={profile.surname}
-          onChange={(e) => handleInputChange("surname", e.target.value)}
+          onChange={handleInputChange}
           fullWidth
         />
       </FormControl>
@@ -88,8 +92,9 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Photo</FormLabel>
         <Input
+          name="profile_picture"
           value={profile.profile_picture}
-          onChange={(e) => handleInputChange("profile_picture", e.target.value)}
+          onChange={handleInputChange}
           placeholder="Url de la photo"
           fullWidth
         />
@@ -98,10 +103,9 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Description</FormLabel>
         <Textarea
+          name="description"
           value={profile.description}
-          onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
-            handleInputChange("description", e.target.value)
-          }
+          onChange={handleInputChange}
           minRows={3}
         />
       </FormControl>
@@ -109,9 +113,10 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Date de naissance</FormLabel>
         <Input
+          name="birthday"
           type="date"
           value={profile.birthday}
-          onChange={(e) => handleInputChange("birthday", e.target.value)}
+          onChange={handleInputChange}
           fullWidth
         />
       </FormControl>
@@ -120,7 +125,9 @@ const EditProfileForm = () => {
         <FormLabel>Sexe</FormLabel>
         <Select
           value={profile.sexe}
-          onChange={(e, value) => handleInputChange("sexe", value || "")}
+          onChange={(e, value) =>
+            setProfile((prev) => ({ ...prev, sexe: value || "" }))
+          }
         >
           <Option value="male">Mâle</Option>
           <Option value="female">Femelle</Option>
@@ -131,8 +138,9 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Couleur du poil</FormLabel>
         <Input
+          name="hair_color"
           value={profile.hair_color}
-          onChange={(e) => handleInputChange("hair_color", e.target.value)}
+          onChange={handleInputChange}
           fullWidth
         />
       </FormControl>
@@ -140,8 +148,9 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Ville</FormLabel>
         <Input
+          name="city"
           value={profile.city}
-          onChange={(e) => handleInputChange("city", e.target.value)}
+          onChange={handleInputChange}
           placeholder="Où ch'habite"
           fullWidth
         />
@@ -150,9 +159,10 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Heure de disponibilité</FormLabel>
         <Input
+          name="available"
           type="time"
           value={profile.available}
-          onChange={(e) => handleInputChange("available", e.target.value)}
+          onChange={handleInputChange}
           fullWidth
         />
       </FormControl>
@@ -160,8 +170,9 @@ const EditProfileForm = () => {
       <FormControl sx={{ mb: 2 }}>
         <FormLabel>Espèce</FormLabel>
         <Input
+          name="breed"
           value={profile.breed}
-          onChange={(e) => handleInputChange("breed", e.target.value)}
+          onChange={handleInputChange}
           fullWidth
         />
       </FormControl>
@@ -172,6 +183,7 @@ const EditProfileForm = () => {
           multiple
           value={profile.interests}
           onChange={(e, value) => handleInterestsChange(value)}
+          sx={{ mb: 4 }}
         >
           <Option value="Sieste">Sieste</Option>
           <Option value="Manger">Manger</Option>
