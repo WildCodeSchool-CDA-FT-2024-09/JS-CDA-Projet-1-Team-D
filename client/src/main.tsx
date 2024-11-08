@@ -16,6 +16,7 @@ import "./style/index.css";
 import { Layout } from "./components/Layout/Layout";
 import ConnexionPage from "./views/ConnexionPage/ConnexionPage";
 import { AuthProvider } from "./context/AuthContext";
+import AccountCreationPage from "./views/AccountCreationPage/AccountCreationPage";
 import Profile from "./views/Profile/Profile";
 
 const router = createBrowserRouter([
@@ -45,6 +46,11 @@ const router = createBrowserRouter([
         element: <PersonalSettings />,
       },
     ],
+  },
+  {
+    path: "/signup",
+    element: <AccountCreationPage />,
+    errorElement: <Error />,
   },
   {
     path: "/login",

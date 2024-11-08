@@ -1,8 +1,9 @@
 import { Cat } from "../cats/cat.entities";
 import { Like } from "../likes/like.entities";
 import { Query, Resolver, Arg, Int, Mutation } from "type-graphql";
-import { LogginInfosInput } from "./cat.types";
+import { catCreationInput, LogginInfosInput } from "./cat.types";
 import argon2 from "argon2";
+import { validateOrReject, ValidationError } from "class-validator";
 
 @Resolver(Cat)
 export default class CatResolver {
@@ -46,7 +47,7 @@ export default class CatResolver {
     const { email, password } = logginInfos;
 
     const cat = await Cat.findOne({
-      where: { email },
+      where: { email: email.toLowerCase() },
     });
 
     if (!cat) {
@@ -60,6 +61,44 @@ export default class CatResolver {
     }
 
     return cat;
+  }
+
+  @Mutation(() => Boolean)
+  async catCreation(
+    @Arg("data") signupInfos: catCreationInput
+  ): Promise<boolean> {
+    const { email, password } = signupInfos;
+
+    try {
+      await validateOrReject(signupInfos);
+    } catch (err) {
+      const errorMessages = (err as ValidationError[]).map((error) => {
+        if (error.constraints) {
+          return Object.values(error.constraints).join(" ");
+        }
+        return "Input invalide";
+      });
+
+      throw new Error(errorMessages.join(" "));
+    }
+    try {
+      const cat = new Cat();
+
+      // Utilisation de la méthode assign pour éviter l'affectation sur la dizaine de fields
+      Object.assign(cat, signupInfos);
+
+      cat.email = email.toLowerCase();
+
+      const hashedPassword = await argon2.hash(password);
+      cat.password = hashedPassword;
+
+      await cat.save();
+
+      return true;
+    } catch (err) {
+      console.error(err);
+      return false;
+    }
   }
 
   @Query(() => Cat, { nullable: true })
