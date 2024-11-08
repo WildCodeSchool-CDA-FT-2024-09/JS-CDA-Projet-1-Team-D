@@ -57,7 +57,16 @@ const Content = ({
           color: "var(--color-grey)",
         }}
       >
-        Bravo! <span style={{ color: "var(--color-primary)" }}>{catName}</span>{" "}
+        Bravo!
+        <span
+          style={{
+            color: "var(--color-primary)",
+            marginRight: "0.3rem",
+            marginLeft: "0.3rem",
+          }}
+        >
+          {catName}
+        </span>
         t'aime en retour!
         <br />
         Fonce voir tes matchs pour voir votre rendez-vous
