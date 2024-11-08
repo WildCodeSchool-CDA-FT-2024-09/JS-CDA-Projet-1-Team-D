@@ -24,6 +24,10 @@ export const ListLikesPages = ({
   const [catsListing, setCatsListing] = useState<LikedCat[]>([]);
 
   useEffect(() => {
+    refetch();
+  }, [refetch]);
+
+  useEffect(() => {
     if (likeView === "likes" && data?.likedCats) {
       setCatsListing(data.likedCats);
     } else if (likeView === "matches" && data?.matchedCats) {

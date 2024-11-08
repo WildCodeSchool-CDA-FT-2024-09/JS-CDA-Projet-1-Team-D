@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useMessagesCatsQuery } from "../../generated/graphql-types";
 import { ListMatchesMessages } from "../../components/ListMatchesMessages/ListMatchesMessages";
@@ -9,11 +10,15 @@ export const Matches = () => {
     return <Navigate to="/login" replace />;
   }
 
-  const { data, loading, error } = useMessagesCatsQuery({
+  const { data, loading, error, refetch } = useMessagesCatsQuery({
     variables: {
       catId: user.id,
     },
   });
+
+  useEffect(() => {
+    refetch();
+  }, [refetch]);
 
   if (loading) return <h1>Loading ...</h1>;
   if (error) return <p>Erreur</p>;
