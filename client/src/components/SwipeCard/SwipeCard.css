@@ -1,0 +1,5 @@
+.swipe-card-interests-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}

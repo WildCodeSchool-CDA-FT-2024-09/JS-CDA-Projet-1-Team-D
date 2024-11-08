@@ -66,4 +66,116 @@ export default class CatResolver {
   async getCatById(@Arg("id", () => Number) id: number) {
     return await Cat.findOne({ where: { id }, relations: { interests: true } });
   }
+
+  // Liste des chats à Swiper
+  @Query(() => [Cat], { nullable: true })
+  async swipeList(@Arg("catId", () => Int) catId: number): Promise<Cat[]> {
+    // Récupère le chat connecté avec ses likes
+    const connectedCat = await Cat.findOne({
+      where: { id: catId },
+      relations: ["likedCats", "likedCats.cat_id2"],
+    });
+
+    if (!connectedCat) {
+      console.error("Le chat connecté n'existe pas.");
+      return [];
+    }
+
+    // Récupère les IDs des chats déjà likés/disliké par le chat connecté
+    const likedCatIds = connectedCat.likedCats.map((like) => like.cat_id2.id);
+
+    // Récupère tous les chats sauf ceux déjà likés et avec isMatch non null
+    const cats = await Cat.createQueryBuilder("cat")
+      .leftJoinAndSelect(
+        "cat.likedBy",
+        "like",
+        "like.cat_id2 = cat.id AND like.cat_id1 = :catId",
+        { catId }
+      )
+      .leftJoinAndSelect("cat.interests", "interest")
+      .where("cat.id != :catId", { catId }) // Exclure le chat actuel de la liste
+      .andWhere("cat.id NOT IN (:...likedCatIds)", { likedCatIds }) // Exclure les chats déjà likés
+      // .andWhere("like.isMatch IS NULL")
+      // Inclure seulement ceux qui sont pas deja like, pas deja dislike
+      .getMany();
+
+    return cats;
+  }
+
+  // Liker un chat
+  @Mutation(() => Like)
+  async sendLike(
+    @Arg("catId1", () => Int) catId1: number,
+    @Arg("catId2", () => Int) catId2: number
+  ): Promise<Like | null> {
+    const connectedCat = await Cat.findOne({ where: { id: catId1 } });
+    const likedCat = await Cat.findOne({ where: { id: catId2 } });
+
+    // On vérifie que les deux chats existent
+    if (!connectedCat || !likedCat) {
+      console.error("Mutation like: L'un des chats n'existe pas");
+      return null;
+    }
+
+    // On prend le like de l'autre chat si il existe
+    const otherCatLike = await Like.findOne({
+      where: { cat_id1: likedCat, cat_id2: connectedCat },
+    });
+
+    // On crée le like du chat connecté
+    const like = Like.create({
+      cat_id1: connectedCat,
+      cat_id2: likedCat,
+      isLike: true,
+      isMatch: null,
+    });
+
+    // Si like reciproque de l'autre chat, match à true
+    if (otherCatLike && otherCatLike.isLike) {
+      like.isMatch = true;
+      otherCatLike.isMatch = true;
+      await otherCatLike.save();
+    }
+
+    await like.save();
+    return like;
+  }
+
+  // Disliker un chat
+  @Mutation(() => Like)
+  async sendDislike(
+    @Arg("catId1", () => Int) catId1: number,
+    @Arg("catId2", () => Int) catId2: number
+  ): Promise<Like | null> {
+    const connectedCat = await Cat.findOne({ where: { id: catId1 } });
+    const dislikedCat = await Cat.findOne({ where: { id: catId2 } });
+
+    // On vérifie que les deux chats existent
+    if (!connectedCat || !dislikedCat) {
+      console.error("Mutation like: L'un des chats n'existe pas");
+      return null;
+    }
+
+    // Créez une nouvelle instance de Like
+    // On lui mets isLike à false et
+    // donc isMatch à false aussi
+    const like = Like.create({
+      cat_id1: connectedCat,
+      cat_id2: dislikedCat,
+      isLike: false,
+      isMatch: false,
+    });
+
+    // Parallèlement, on met isMatch du chat en face à false (on garde son like tel qu'il est)
+    const othercatLike = await Like.findOne({
+      where: { cat_id1: dislikedCat, cat_id2: connectedCat },
+    });
+    if (othercatLike) {
+      othercatLike.isMatch = false;
+      await othercatLike.save();
+    }
+
+    await like.save();
+    return like;
+  }
 }

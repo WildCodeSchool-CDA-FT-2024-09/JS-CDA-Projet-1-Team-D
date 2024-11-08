@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { CssVarsProvider } from "@mui/joy/styles";
 import { ApolloProvider } from "@apollo/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Home } from "./views/Home/Home";
+import { Swipe } from "./views/Swipe/Swipe";
 import { NoPage } from "./views/404/NoPage";
 import { Matches } from "./views/Matches/Matches";
 import { Likes } from "./views/Likes/Likes";
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <Swipe />,
       },
       {
         path: "/matches",
