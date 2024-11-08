@@ -7,7 +7,7 @@
   background-size: auto, cover;
   background-position: 50% 40%, center;
   font-family: "Oxanium", sans-serif;
-  justify-content: center; 
+  justify-content: center;
 }
 
 .header-co-ctn {
@@ -92,8 +92,9 @@ form {
   }
 
   .header-co-ctn {
-    backdrop-filter: blur(5px); 
-    justify-content: end;
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: flex-end;
     padding-left: 0;
     z-index: 2;
   }
@@ -116,7 +117,7 @@ form {
     align-self: center;
   }
 
-  h1 {
+  .co-ctn-h1 {
     display: none;
   }
 }

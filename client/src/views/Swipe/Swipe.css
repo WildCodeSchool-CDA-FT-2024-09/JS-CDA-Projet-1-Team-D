@@ -1,0 +1,57 @@
+.swipe-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.swipe-content {
+    margin-top: 7dvh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+.swipe-title {
+    font-weight: 300;
+    padding: var(--padding-medium);
+}
+
+.swipe-action-buttons {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    padding: 25px 30px;
+    justify-content: space-evenly;
+    top: 78%;
+    left: 0;
+}
+
+.swipe-match-popup-h1 {
+    color: var(--color-primary)
+}
+
+@media screen and (max-width: 768px) {
+    .swipe-action-buttons {
+        justify-content: space-around;
+        padding: 25px 0;
+    }
+
+    .swipe-match-popup-h1 {
+        text-align: center;
+    }
+}
+
+.swipe-interests-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 3px;
+}
+
+.first-swipe-card {
+    z-index: 2;
+    transform: rotate(3deg) translate(3px);
+}
+
+.swipe-card {
+    position: absolute;
+}
