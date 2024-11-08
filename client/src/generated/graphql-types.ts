@@ -61,10 +61,11 @@ export type Interest = {
 
 export type Like = {
   __typename?: "Like";
-  cat_id1?: Maybe<Array<Cat>>;
-  cat_id2?: Maybe<Array<Cat>>;
+  cat_id1?: Maybe<Cat>;
+  cat_id2?: Maybe<Cat>;
   id: Scalars["Float"]["output"];
-  isMatch: Scalars["Boolean"]["output"];
+  isLike?: Maybe<Scalars["Boolean"]["output"]>;
+  isMatch?: Maybe<Scalars["Boolean"]["output"]>;
 };
 
 export type LogginInfosInput = {
@@ -76,6 +77,8 @@ export type Mutation = {
   __typename?: "Mutation";
   catCreation: Scalars["Boolean"]["output"];
   login: Cat;
+  sendDislike: Like;
+  sendLike: Like;
 };
 
 export type MutationCatCreationArgs = {
@@ -86,12 +89,23 @@ export type MutationLoginArgs = {
   data: LogginInfosInput;
 };
 
+export type MutationSendDislikeArgs = {
+  catId1: Scalars["Int"]["input"];
+  catId2: Scalars["Int"]["input"];
+};
+
+export type MutationSendLikeArgs = {
+  catId1: Scalars["Int"]["input"];
+  catId2: Scalars["Int"]["input"];
+};
+
 export type Query = {
   __typename?: "Query";
   fullcats?: Maybe<Array<Cat>>;
   getCatById?: Maybe<Cat>;
   likedCats?: Maybe<Array<Cat>>;
   matchedCats?: Maybe<Array<Cat>>;
+  swipeList?: Maybe<Array<Cat>>;
 };
 
 export type QueryGetCatByIdArgs = {
@@ -103,6 +117,10 @@ export type QueryLikedCatsArgs = {
 };
 
 export type QueryMatchedCatsArgs = {
+  catId: Scalars["Int"]["input"];
+};
+
+export type QuerySwipeListArgs = {
   catId: Scalars["Int"]["input"];
 };
 
@@ -208,6 +226,58 @@ export type MessagesCatsQuery = {
     name: string;
     profile_picture: string;
   }> | null;
+};
+
+export type SwipeListQueryVariables = Exact<{
+  catId: Scalars["Int"]["input"];
+}>;
+
+export type SwipeListQuery = {
+  __typename?: "Query";
+  swipeList?: Array<{
+    __typename?: "Cat";
+    id: number;
+    name: string;
+    birthday: Date;
+    profile_picture: string;
+    surname: string;
+    interests?: Array<{
+      __typename?: "Interest";
+      id: number;
+      name: string;
+    }> | null;
+  }> | null;
+};
+
+export type SendLikeMutationVariables = Exact<{
+  catId1: Scalars["Int"]["input"];
+  catId2: Scalars["Int"]["input"];
+}>;
+
+export type SendLikeMutation = {
+  __typename?: "Mutation";
+  sendLike: {
+    __typename?: "Like";
+    id: number;
+    isMatch?: boolean | null;
+    cat_id1?: { __typename?: "Cat"; id: number; name: string } | null;
+    cat_id2?: { __typename?: "Cat"; id: number; name: string } | null;
+  };
+};
+
+export type SendDislikeMutationVariables = Exact<{
+  catId1: Scalars["Int"]["input"];
+  catId2: Scalars["Int"]["input"];
+}>;
+
+export type SendDislikeMutation = {
+  __typename?: "Mutation";
+  sendDislike: {
+    __typename?: "Like";
+    id: number;
+    cat_id1?: { __typename?: "Cat"; id: number; name: string } | null;
+    cat_id2?: { __typename?: "Cat"; id: number; name: string } | null;
+  };
 };
 
 export const CatCreationDocument = gql`
@@ -639,4 +709,202 @@ export type MessagesCatsSuspenseQueryHookResult = ReturnType<
 export type MessagesCatsQueryResult = Apollo.QueryResult<
   MessagesCatsQuery,
   MessagesCatsQueryVariables
+>;
+export const SwipeListDocument = gql`
+  query SwipeList($catId: Int!) {
+    swipeList(catId: $catId) {
+      id
+      name
+      birthday
+      profile_picture
+      surname
+      interests {
+        id
+        name
+      }
+    }
+  }
+`;
+
+/**
+ * __useSwipeListQuery__
+ *
+ * To run a query within a React component, call `useSwipeListQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSwipeListQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSwipeListQuery({
+ *   variables: {
+ *      catId: // value for 'catId'
+ *   },
+ * });
+ */
+export function useSwipeListQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    SwipeListQuery,
+    SwipeListQueryVariables
+  > &
+    ({ variables: SwipeListQueryVariables; skip?: boolean } | { skip: boolean })
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<SwipeListQuery, SwipeListQueryVariables>(
+    SwipeListDocument,
+    options
+  );
+}
+export function useSwipeListLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SwipeListQuery,
+    SwipeListQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<SwipeListQuery, SwipeListQueryVariables>(
+    SwipeListDocument,
+    options
+  );
+}
+export function useSwipeListSuspenseQuery(
+  baseOptions?:
+    | Apollo.SkipToken
+    | Apollo.SuspenseQueryHookOptions<SwipeListQuery, SwipeListQueryVariables>
+) {
+  const options =
+    baseOptions === Apollo.skipToken
+      ? baseOptions
+      : { ...defaultOptions, ...baseOptions };
+  return Apollo.useSuspenseQuery<SwipeListQuery, SwipeListQueryVariables>(
+    SwipeListDocument,
+    options
+  );
+}
+export type SwipeListQueryHookResult = ReturnType<typeof useSwipeListQuery>;
+export type SwipeListLazyQueryHookResult = ReturnType<
+  typeof useSwipeListLazyQuery
+>;
+export type SwipeListSuspenseQueryHookResult = ReturnType<
+  typeof useSwipeListSuspenseQuery
+>;
+export type SwipeListQueryResult = Apollo.QueryResult<
+  SwipeListQuery,
+  SwipeListQueryVariables
+>;
+export const SendLikeDocument = gql`
+  mutation SendLike($catId1: Int!, $catId2: Int!) {
+    sendLike(catId1: $catId1, catId2: $catId2) {
+      id
+      isMatch
+      cat_id1 {
+        id
+        name
+      }
+      cat_id2 {
+        id
+        name
+      }
+    }
+  }
+`;
+export type SendLikeMutationFn = Apollo.MutationFunction<
+  SendLikeMutation,
+  SendLikeMutationVariables
+>;
+
+/**
+ * __useSendLikeMutation__
+ *
+ * To run a mutation, you first call `useSendLikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendLikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendLikeMutation, { data, loading, error }] = useSendLikeMutation({
+ *   variables: {
+ *      catId1: // value for 'catId1'
+ *      catId2: // value for 'catId2'
+ *   },
+ * });
+ */
+export function useSendLikeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SendLikeMutation,
+    SendLikeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SendLikeMutation, SendLikeMutationVariables>(
+    SendLikeDocument,
+    options
+  );
+}
+export type SendLikeMutationHookResult = ReturnType<typeof useSendLikeMutation>;
+export type SendLikeMutationResult = Apollo.MutationResult<SendLikeMutation>;
+export type SendLikeMutationOptions = Apollo.BaseMutationOptions<
+  SendLikeMutation,
+  SendLikeMutationVariables
+>;
+export const SendDislikeDocument = gql`
+  mutation SendDislike($catId1: Int!, $catId2: Int!) {
+    sendDislike(catId1: $catId1, catId2: $catId2) {
+      id
+      cat_id1 {
+        id
+        name
+      }
+      cat_id2 {
+        id
+        name
+      }
+    }
+  }
+`;
+export type SendDislikeMutationFn = Apollo.MutationFunction<
+  SendDislikeMutation,
+  SendDislikeMutationVariables
+>;
+
+/**
+ * __useSendDislikeMutation__
+ *
+ * To run a mutation, you first call `useSendDislikeMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSendDislikeMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [sendDislikeMutation, { data, loading, error }] = useSendDislikeMutation({
+ *   variables: {
+ *      catId1: // value for 'catId1'
+ *      catId2: // value for 'catId2'
+ *   },
+ * });
+ */
+export function useSendDislikeMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    SendDislikeMutation,
+    SendDislikeMutationVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<SendDislikeMutation, SendDislikeMutationVariables>(
+    SendDislikeDocument,
+    options
+  );
+}
+export type SendDislikeMutationHookResult = ReturnType<
+  typeof useSendDislikeMutation
+>;
+export type SendDislikeMutationResult =
+  Apollo.MutationResult<SendDislikeMutation>;
+export type SendDislikeMutationOptions = Apollo.BaseMutationOptions<
+  SendDislikeMutation,
+  SendDislikeMutationVariables
 >;
