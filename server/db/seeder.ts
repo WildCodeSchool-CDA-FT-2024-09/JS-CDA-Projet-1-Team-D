@@ -77,7 +77,8 @@ import meetingPlaces from "../data/meeting_place.json";
         like.id = likeEl.id;
         like.cat_id1 = cat1;
         like.cat_id2 = cat2;
-        like.isMatch = likeEl.match;
+        like.isLike = likeEl.isLike;
+        like.isMatch = likeEl.isMatch;
 
         return await like.save();
       })
