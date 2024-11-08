@@ -15,15 +15,19 @@ export class Like extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Field()
-  @Column({ default: false })
+  @Field({ nullable: true })
+  @Column({ nullable: true })
   isMatch: boolean;
 
-  @Field(() => [Cat], { nullable: true })
+  @Field({ nullable: true })
+  @Column({ nullable: true })
+  isLike: boolean;
+
+  @Field(() => Cat, { nullable: true })
   @ManyToOne(() => Cat, (cat) => cat.likedCats)
   cat_id1: Cat;
 
-  @Field(() => [Cat], { nullable: true })
+  @Field(() => Cat, { nullable: true })
   @ManyToOne(() => Cat, (cat) => cat.likedBy)
   cat_id2: Cat;
 }
