@@ -2,8 +2,6 @@ import React from "react";
 import Favorite from "@mui/icons-material/Favorite";
 import Close from "@mui/icons-material/Close";
 import IconButton from "@mui/joy/IconButton";
-import Sheet from "@mui/joy/Sheet";
-import Modal from "@mui/joy/Modal";
 import "./Swipe.css";
 import { SwipeCard } from "../../components/SwipeCard/SwipeCard";
 import { calculateAge } from "../../utils/calculateAge";
@@ -19,7 +17,8 @@ import {
 } from "../../generated/graphql-types";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import Button from "@mui/joy/Button";
+import useIsMobile from "../../utils/useIsMobile";
+import { MatchPopup } from "./MatchPopup";
 
 // Le nombre de cartes de profils qu'on veut distribuer et  visibles à l'écran
 const stackLength = 5;
@@ -114,15 +113,21 @@ export const Swipe = () => {
     setCurrentCardIndex(0);
   };
 
+  const isMobile = useIsMobile();
+
+  const getThrowDistance = (neg: -1 | 1) => {
+    return neg * window.innerWidth + neg * 10;
+  };
+
   // Tout ici est relatif à Springs, et donc aux animations des cartes
   // et des icones like et dislike
 
   const from = () => ({ x: 0, rot: 0, scale: 1.5, y: -1000 });
   const to = (i: number) => ({
     x: 0,
-    y: i * -4,
+    y: isMobile ? 0 : i * -4,
     scale: 1,
-    rot: -10 + Math.random() * 20,
+    rot: isMobile ? 0 : -10 + Math.random() * 20,
     delay: i * 100,
   });
 
@@ -206,7 +211,7 @@ export const Swipe = () => {
     springApi.start((i) => {
       if (i === currentCardIndex) {
         // setCurrentCardIndex(currentCardIndex + 1);
-        return { x: 1000, y: 0 };
+        return { x: getThrowDistance(1), y: 0 };
       }
       return {};
     });
@@ -220,7 +225,7 @@ export const Swipe = () => {
     springApi.start((i) => {
       if (i === currentCardIndex) {
         // setCurrentCardIndex(currentCardIndex + 1);
-        return { x: -1000, y: 0 };
+        return { x: getThrowDistance(-1), y: 0 };
       }
       return {};
     });
@@ -248,7 +253,7 @@ export const Swipe = () => {
         if (!down) likeCat(index);
         // On envoie la carte courante voler à droite bien loin
         // Comme ça on la voit plus
-        return { x: down ? mx : 1000, y: down ? my : 0 };
+        return { x: down ? mx : getThrowDistance(1), y: down ? my : 0 };
       }
 
       // Si la carte (à l'évenement drag, glisser) se situe
@@ -259,7 +264,7 @@ export const Swipe = () => {
 
         if (!down) dislikeCat(index);
 
-        return { x: down ? mx : -1000, y: down ? my : 0 };
+        return { x: down ? mx : getThrowDistance(-1), y: down ? my : 0 };
       }
 
       // Si la carte se trouve au centre entre les
@@ -317,87 +322,14 @@ export const Swipe = () => {
     return (
       <section className="swipe-container">
         {open && (
-          <Modal
-            aria-labelledby="modal-title"
-            aria-describedby="modal-desc"
+          <MatchPopup
             open={open}
-            onClose={() => setOpen(false)}
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <Sheet
-              variant="outlined"
-              sx={{
-                maxWidth: 500,
-                p: 3,
-                boxShadow: "lg",
-                display: "flex",
-                flexDirection: "column",
-                borderRadius: "30px",
-                backgroundColor: "var(--color-white)",
-              }}
-            >
-              <header
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: "15px",
-                }}
-              >
-                <h1 className="swipe-match-popup-h1">C'est un match!</h1>
-                <IconButton
-                  size="sm"
-                  variant="solid"
-                  onClick={() => setOpen(false)}
-                  sx={{
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "100%",
-                    backgroundColor: "var(--color-red)",
-                    color: "var(--color-white)",
-                  }}
-                >
-                  <Close sx={{ fontSize: 65, fontWeight: "bold" }} />
-                </IconButton>
-              </header>
-              <section
-                style={{
-                  marginTop: "10%",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <h3
-                  style={{
-                    textAlign: "left",
-                    marginBottom: "10px",
-                    color: "var(--color-grey)",
-                  }}
-                >
-                  Bravo!{" "}
-                  <span style={{ color: "var(--color-primary)" }}>
-                    {currentCat.name}
-                  </span>{" "}
-                  t'aime en retour!
-                  <br />
-                  Fonce voir tes matchs pour voir votre rendez-vous
-                </h3>
-                <img style={{ width: "330px" }} src={randomCatGif} />
-                <Button
-                  onClick={handleMatchClick}
-                  style={{ marginTop: "20px", width: "60%" }}
-                >
-                  Y aller!
-                </Button>
-              </section>
-            </Sheet>
-          </Modal>
+            setOpen={setOpen}
+            catName={currentCat.name}
+            gif={randomCatGif}
+            handleMatchClick={handleMatchClick}
+            mobile={isMobile}
+          />
         )}
 
         <h2 className="swipe-title">Swipe le matou de tes rêves 😻</h2>
@@ -417,7 +349,6 @@ export const Swipe = () => {
             className="swipe-right-icon"
             style={{
               position: "absolute",
-              top: "40%",
               fontSize: "200px",
               zIndex: 1,
             }}
@@ -441,7 +372,6 @@ export const Swipe = () => {
             className="swipe-left-icon"
             style={{
               position: "absolute",
-              top: "40%",
               fontSize: "200px",
               zIndex: 1,
             }}
@@ -482,26 +412,28 @@ export const Swipe = () => {
               variant="solid"
               onClick={handleDislikeClick}
               sx={{
-                width: "80px",
-                height: "80px",
+                width: isMobile ? "68px" : "80px",
+                height: isMobile ? "68px" : "80px",
                 borderRadius: "100%",
                 backgroundColor: "var(--color-red)",
               }}
             >
-              <Close sx={{ fontSize: 65, fontWeight: "bold" }} />
+              <Close
+                sx={{ fontSize: isMobile ? 50 : 65, fontWeight: "bold" }}
+              />
             </IconButton>
             <IconButton
               size="lg"
               variant="solid"
               onClick={handleLikeClick}
               sx={{
-                width: "80px",
-                height: "80px",
+                width: isMobile ? "68px" : "80px",
+                height: isMobile ? "68px" : "80px",
                 borderRadius: "100%",
                 backgroundColor: "var(--color-secondary)",
               }}
             >
-              <Favorite sx={{ fontSize: 50 }} />
+              <Favorite sx={{ fontSize: isMobile ? 40 : 50 }} />
             </IconButton>
           </section>
         </section>
