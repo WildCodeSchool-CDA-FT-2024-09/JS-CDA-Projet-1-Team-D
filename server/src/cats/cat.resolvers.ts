@@ -2,6 +2,7 @@ import { Cat } from "../cats/cat.entities";
 import { Like } from "../likes/like.entities";
 import { Query, Resolver, Arg, Int, Mutation } from "type-graphql";
 import { catCreationInput, LogginInfosInput } from "./cat.types";
+import { LogginInfosInput, UpdateProfileInput } from "./cat.types";
 import argon2 from "argon2";
 import { validateOrReject, ValidationError } from "class-validator";
 
@@ -216,5 +217,18 @@ export default class CatResolver {
 
     await like.save();
     return like;
+  }
+
+  @Mutation(() => Cat)
+  async updateCatProfile(
+    @Arg("id", () => Int) id: number,
+    @Arg("data") data: UpdateProfileInput
+  ): Promise<Cat> {
+    const cat = await Cat.findOneBy({ id });
+    if (!cat) throw new Error("Profil non trouvé");
+
+    Object.assign(cat, data);
+    await cat.save();
+    return cat;
   }
 }
